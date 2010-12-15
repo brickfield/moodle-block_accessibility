@@ -1,0 +1,5 @@
+[Script]
+Name = JISC Techdis Toolbar
+Domains = *
+ScriptURL = http://access.ecs.soton.ac.uk/StudyBar/channels/toolbar-stable/JTToolbar.user.js
+version = 1
