@@ -15,7 +15,7 @@ $spellURI = $CFG->wwwroot.'/blocks/accessibility/toolbar/server/spell/spellcheck
 $dictURI = "http://en.wiktionary.org/w/api.php?";
 $ttsURI = $CFG->wwwroot.'/blocks/accessibility/toolbar/server/TTS/chunkCoordinator.php?';
 //$updateURI = "http://access.ecs.soton.ac.uk/StudyBar/update.php";
-ini_set('user_agent', 'hello');
+ini_set('user_agent', 'hello'); // Wikimedia API rejects requests with no UA.
 switch($_GET['rt']){
 
 	case "spell":

@@ -2,8 +2,7 @@ M.block_accessibility = {
     init: function(Y) {
         // Create Bookmarklet-style link using code from ATbar site
         // http://access.ecs.soton.ac.uk/StudyBar/versions
-        var launchbutton = Y.Node.create('<input type="button" value="'+M.util.get_string('launchtoolbar', 'block_accessibility')+'" />');
-        Y.one('#block_accessibility_placeholder').replace(launchbutton);
+        var launchbutton = Y.one('#block_accessibility_launchtoolbar');
         launchbutton.on('click', function() {
             d = document;
             lf = d.createElement('script');

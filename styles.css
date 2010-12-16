@@ -1,0 +1,120 @@
+body.jsdisabled #block_accessibility_launchtoolbar {
+    display: none;
+}
+
+#block_accessibility_textresize,  #block_accessibility_changecolour {
+    margin-left: auto;
+    margin-right: auto;
+    width: 151px;
+}
+
+.block_accessibility .outer {
+    width: 32px;
+    height: 32px;
+    border: 1px solid black;
+    color: black;
+    list-style: none;
+    display: table;
+    float: left;
+    cursor: pointer;
+    text-align: center;
+    overflow: hidden;
+    position: relative;
+}
+
+.block_accessibility .outer *, {
+    background-color: #fcfcfc !important;
+    color: #000 !important;
+}
+
+/* Verticaly centering text achieved using Vertical Center Solution From
+http://www.jakpsatweb.cz/css/css-vertical-center-solution.html
+Still needs some work in IE 6/7 */
+
+.block_accessibility .outer[id] {
+    display: table;
+    position: static;
+    list-style: none;
+}
+
+.block_accessibility .middle {
+    position: absolute;
+}
+
+.block_accessibility .middle[class] {
+    display: table-cell;
+    vertical-align: middle;
+    position: static;
+}
+
+.block_accessibility .inner {
+    position: relative;
+    top: 25%;
+    text-align:center;
+    margin: 0;
+    padding: 0;
+}
+
+#block_accessibility_textresize .outer *:hover {
+    background-color: #9cf !important;
+    text-decoration:none;
+}
+
+#block_accessibility_textresize .inner {
+    background-color: inherit !important;
+
+}
+
+
+#block_accessibility_textresize .outer.disabled {
+    color: grey;
+    cursor: pointer;
+}
+
+#block_accessibility_textresize .outer.disabled:hover {
+    background-color: #fcfcfc !important;
+}
+
+
+#block_accessibility_dec {
+    font-size: 12px;
+}
+
+.block_accessibility_textresize .outer {
+    font-size: 16px;
+}
+
+#block_accessibility_inc {
+    font-size: 20px;
+
+}
+
+.block_accessibility .right {
+	margin-left: 5px;
+}
+
+.block_accessibility .row {
+    margin-top: 5px;
+}
+
+#block_accessibility_changecolour .outer:hover {
+    font-weight: bold;
+}
+
+.block_accessibility .outer:hover {
+    text-decoration:none;
+}
+
+#block_accessibility_colour2 * {
+    background-color: #FFFFCC !important;
+}
+
+#block_accessibility_colour3 * {
+    background-color: #99CCFF !important;
+}
+
+#block_accessibility_colour4 * {
+    background-color: #000000 !important;
+    color: #ffff00 !important;
+}
+
