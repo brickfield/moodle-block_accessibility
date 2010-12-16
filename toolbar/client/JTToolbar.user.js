@@ -41,7 +41,7 @@ var relChannel = "toolbar-stable";
 var settings = {
 				stylesheetURL: "presentation/style.css",
 				baseURL: "http://access.ecs.soton.ac.uk/seb/StudyBar/",
-				clientRoot: "http://access.ecs.soton.ac.uk/ToolBar/",
+				clientRoot: M.cfg.wwwroot+"/blocks/accessibility/toolbar/client",
 				ttsSplitChunkSize: 700,
 				invoked: false
 				};
@@ -121,7 +121,7 @@ window.loadStudyBar = function(){
 		// Add logo to studybar.
 		jQuery("<a id=\"sbarlogo\"><img src=\"http://access.ecs.soton.ac.uk/ToolBar/channels/ATBar/images/atbar.png\" align=\"left\" border=\"0\" title=\"About\" style=\"margin-top:10px; float:left !important;\" /></a>").appendTo('#sbar');
 		
-		jQuery("<img src='" + settings.clientRoot + "stat.php?channel=" + relChannel + "&version=" + versionString + "' />").appendTo("#sbar");		
+		//jQuery("<img src='" + settings.clientRoot + "stat.php?channel=" + relChannel + "&version=" + versionString + "' />").appendTo("#sbar");
 		
 		// Add items to the toolbar.
 		populateBar();
@@ -134,11 +134,11 @@ window.loadStudyBar = function(){
 		jQuery("#sbarlogo").bind("click", function(e){ 
 			jQuery.facebox( sysDialog.aboutBox + "<div style=\"font-size:10px\">SpellCheck Client v" + jQuery.sb_spellVersion + ", fbox v" + jQuery.sb_faceboxVersion + "</div>" );
 			
-			if((typeof StudyBarNoSandbox) == 'undefined') {
-				setTimeout(function(){ checkUpdate(); }, 500);
-			} else {
-				jQuery('#SBversionLatest').html("<img src=\"" + settings.baseURL + "presentation/images/tick-circle-frame.png\" align=\"left\" style=\"margin-right:5px\" /> You are running the latest version.<br />");
-			}
+//			if((typeof StudyBarNoSandbox) == 'undefined') {
+//				setTimeout(function(){ checkUpdate(); }, 500);
+//			} else {
+//				jQuery('#SBversionLatest').html("<img src=\"" + settings.baseURL + "presentation/images/tick-circle-frame.png\" align=\"left\" style=\"margin-right:5px\" /> You are running the latest version.<br />");
+//			}
 		});
 		
 		if ( isIE6() ) { // IE6
@@ -214,27 +214,27 @@ window.attachJS = function(url, id){
 }
 
 
-window.checkUpdate = function(){
-	if(XHRMethod == "GM-XHR"){
-		GM_xmlhttpRequest({ method: "GET",
-				url: settings.clientRoot + "update.php?b=" + identifyBrowser() + "&ch=" + relChannel, 
-				onload: updatecheckResult
-			});	
-	
-	} else {
-		var ua = navigator.userAgent.toLowerCase();
-		if(identifyBrowser() == 'Safari' || identifyBrowser() == 'IE' || ua.indexOf( "safari" ) != -1 || ua.indexOf( "chrome" ) == -1) {	
-		
-			jQuery.getJSON(settings.baseURL + 'xmlhttp/remote.php?rt=update&b=' + identifyBrowser() + '&ch=' + relChannel + '&callback=?', function(data) {
-    			updatecheckResult(data);
-			});
-
-		} else {
-			jQuery('#SBversionLatest').html("<img src=\"" + settings.baseURL + "presentation/images/tick-circle-frame.png\" align=\"left\" style=\"margin-right:5px\" /> You are running the latest version.<br /> This browser will auto-update ATbar.");
-		}
-	}
-
-}
+//window.checkUpdate = function(){
+//	if(XHRMethod == "GM-XHR"){
+//		GM_xmlhttpRequest({ method: "GET",
+//				url: settings.clientRoot + "update.php?b=" + identifyBrowser() + "&ch=" + relChannel,
+//				onload: updatecheckResult
+//			});
+//
+//	} else {
+//		var ua = navigator.userAgent.toLowerCase();
+//		if(identifyBrowser() == 'Safari' || identifyBrowser() == 'IE' || ua.indexOf( "safari" ) != -1 || ua.indexOf( "chrome" ) == -1) {
+//
+//			jQuery.getJSON(settings.baseURL + 'xmlhttp/remote.php?rt=update&b=' + identifyBrowser() + '&ch=' + relChannel + '&callback=?', function(data) {
+//    			updatecheckResult(data);
+//			});
+//
+//		} else {
+//			jQuery('#SBversionLatest').html("<img src=\"" + settings.baseURL + "presentation/images/tick-circle-frame.png\" align=\"left\" style=\"margin-right:5px\" /> You are running the latest version.<br /> This browser will auto-update ATbar.");
+//		}
+//	}
+//
+//}
 
 window.fixTheWeb = function(){
 
@@ -1147,7 +1147,7 @@ window.ttsOptions = function(){
 		mbEventListener('sbStartTTS', 'click', function(e){ startTTS() } );
 		mbEventListener('sbStartTTSSelection', 'click', function(e){ selectedTTS() });
 		
-		if(jQuery("#sb-swfo").length == 0 && (typeof StudyBarNoSandbox) != 'undefined') attachJS( settings.clientRoot + 'channels/' + relChannel + '/swfobject.js', 'sb-swfo' );
+		if(jQuery("#sb-swfo").length == 0 && (typeof StudyBarNoSandbox) != 'undefined') attachJS( settings.clientRoot + '/swfobject.js', 'sb-swfo' );
 		// This works, but stops TTS for selected text...
 		//jQuery("#sbStartTTS").focus();
 	}
@@ -1554,9 +1554,9 @@ function isLoaded(){
 
 window.loadJQExtensions = function(){
 	// Load jQuery extensions in order.
-	attachJS( settings.clientRoot + 'channels/' + relChannel + '/jquery.tipsy.js', 'sb-tipsy' );
-	attachJS( settings.clientRoot + 'channels/' + relChannel + '/jquery.spell.js', 'sb-spell' );
-	attachJS( settings.clientRoot + 'channels/' + relChannel + '/jquery.facebox.js', 'sb-facebox' );
+	attachJS( settings.clientRoot + '/jquery.tipsy.js', 'sb-tipsy' );
+	attachJS( settings.clientRoot + '/jquery.spell.js', 'sb-spell' );
+	attachJS( settings.clientRoot + '/jquery.facebox.js', 'sb-facebox' );
 }
 
 // Start the loading process. We need jQuery to be loaded before we can do anything else, so check to see if its loaded. If its not, wait another 100ms and try again. Otherwise, load jQuery extensions and then studybar itself.
@@ -1610,7 +1610,7 @@ if (window == window.top) {
 			// Attach jQuery, our custom button class and the greasemonkey compatibility functions.
 			attachJS( 'http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js', 'sb-jquery' );
 			// Our button class.
-			attachJS( settings.clientRoot + 'channels/' + relChannel + '/button.class.js', 'sb-buttons' );
+			attachJS( settings.clientRoot + '/button.class.js', 'sb-buttons' );
 			
 			startProcess();
 		} else {
