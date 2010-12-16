@@ -40,7 +40,7 @@ var relChannel = "toolbar-stable";
 
 var settings = {
 				stylesheetURL: "presentation/style.css",
-				baseURL: "http://access.ecs.soton.ac.uk/seb/StudyBar/",
+				baseURL: M.cfg.wwwroot+"/blocks/accessibility/toolbar/server/",
 				clientRoot: M.cfg.wwwroot+"/blocks/accessibility/toolbar/client",
 				ttsSplitChunkSize: 700,
 				invoked: false
@@ -76,7 +76,7 @@ var toolbarItems = {
 		CSS: { id: 'changecss', ico: 'palette.png', act: 'changeColours(0)', tip: 'Change Styles', clickEnabled: true, 
 				dialogs: { 
 					colourDialog: "<h2>Change colour settings</h2> <div class=\"sbarDialogButton\"> <a id=\"sbColourChange\" href=\"#s-b-c\"> <img src=\"" + settings.baseURL + "presentation/images/dialog/arrow.png\" /> Change Toolbar colour</a></div> <div class=\"sbarDialogButton\"><a id=\"sbChangeSiteColours\" href=\"#s-b-c\"> <img src=\"" + settings.baseURL + "presentation/images/dialog/arrow.png\" /> Change text and link colours</a></div> <div class=\"sbarDialogButton\"><a id=\"sbAttachCSSStyle\" href=\"#s-b-c\"> <img src=\"" + settings.baseURL + "presentation/images/dialog/arrow.png\" /> Change page style</a></div>",
-					sbColourDialog: "<h2>Change ATbar colour</h2> <label for=\"sbbackgroundcolour\">Background Colour: </label><input type=\"text\" name=\"sbbackgroundcolour\" id=\"sbbackgroundcolour\"> <a id=\"sbSetColour\" href=\"#s-b-c\"><img src=\"" + settings.baseURL + "/presentation/images/accept.png \" /> Set</a> <br /> <div id=\"cp-container\"><a class=\"sb-cp-box\" href=\"#s-b-c\" onclick=\"document.getElementById('sbbackgroundcolour').value = 'black';\">Black</a> <a class=\"sb-cp-box\" href=\"#s-b-c\" onclick=\"document.getElementById('sbbackgroundcolour').value = 'white';\">White</a> <a class=\"sb-cp-box\" href=\"#s-b-c\" onclick=\"document.getElementById('sbbackgroundcolour').value = 'grey';\">Grey</a></div> <br /> <div class=\"sbarDialogButton\"><a id=\"sbRandomColour\" href=\"#s-b-c\"> <img src=\"" + settings.baseURL + "presentation/images/dialog/arrow.png\" /> Random</a></div> <div class=\"sbarDialogButton\"> <a id=\"sbColourReset\" href=\"#s-b-c\"> <img src=\"" + settings.baseURL + "presentation/images/dialog/arrow.png\" /> Reset to Default</a></div>",
+					sbColourDialog: "<h2>Change ATbar colour</h2> <label for=\"sbbackgroundcolour\">Background Colour: </label><input type=\"text\" name=\"sbbackgroundcolour\" id=\"sbbackgroundcolour\"> <a id=\"sbSetColour\" href=\"#s-b-c\"><img src=\"" + settings.baseURL + "presentation/images/accept.png \" /> Set</a> <br /> <div id=\"cp-container\"><a class=\"sb-cp-box\" href=\"#s-b-c\" onclick=\"document.getElementById('sbbackgroundcolour').value = 'black';\">Black</a> <a class=\"sb-cp-box\" href=\"#s-b-c\" onclick=\"document.getElementById('sbbackgroundcolour').value = 'white';\">White</a> <a class=\"sb-cp-box\" href=\"#s-b-c\" onclick=\"document.getElementById('sbbackgroundcolour').value = 'grey';\">Grey</a></div> <br /> <div class=\"sbarDialogButton\"><a id=\"sbRandomColour\" href=\"#s-b-c\"> <img src=\"" + settings.baseURL + "presentation/images/dialog/arrow.png\" /> Random</a></div> <div class=\"sbarDialogButton\"> <a id=\"sbColourReset\" href=\"#s-b-c\"> <img src=\"" + settings.baseURL + "presentation/images/dialog/arrow.png\" /> Reset to Default</a></div>",
 					sbSiteColours: "<h2>Change text and link colours</h2> <label for=\"sbtextcolour\" style=\"display:block\">Text Colour: </label><select id=\"sbtextcolour\" name=\"sbtextcolour\"><option value=\"original\">--Original--</option><option value=\"B80028\">Red</option><option value=\"194E84\">Blue</option><option value=\"60BB22\">Green</option><option value=\"FDB813\">Yellow</option><option value=\"F17022\">Orange</option><option value=\"000000\">Black</option><option value=\"A8B1B8\">Grey</option><option value=\"FFFFFF\">White</option></select><br /><label for=\"sblinkcolour\" style=\"display:block\">Link Colour: </label><select id =\"sblinkcolour\"><option value=\"original\">--Original--</option><option value=\"B80028\">Red</option><option value=\"194E84\">Blue</option><option value=\"60BB22\">Green</option><option value=\"FDB813\">Yellow</option><option value=\"F17022\">Orange</option><option value=\"000000\">Black</option><option value=\"A8B1B8\">Grey</option><option value=\"FFFFFF\">White</option></select> <div class=\"sbarDialogButton\"><a id=\"applyPageColours\" href=\"#s-b-c\"> <img src=\"" + settings.baseURL + "presentation/images/dialog/arrow.png\" /> Apply</a></div>",
 					sbAttachCSS: "<h2>Change page style</h2><div class=\"sbarDialogButton\"><a id=\"sbApplyCSS-wb\" href=\"#s-b-c\"> <img src=\"" + settings.baseURL + "presentation/images/dialog/arrow.png\" /> Black on White</a></div> <div class=\"sbarDialogButton\" href=\"#s-b-c\"><a id=\"sbApplyCSS-wbw\"> <img src=\"" + settings.baseURL + "presentation/images/dialog/arrow.png\" /> White on Black</a></div> <div class=\"sbarDialogButton\"><a id=\"sbApplyCSS-yb\" href=\"#s-b-c\"> <img src=\"" + settings.baseURL + "presentation/images/dialog/arrow.png\" /> Yellow on Black</a></div> <div class=\"sbarDialogButton\"><a id=\"sbApplyCSS-by\" href=\"#s-b-c\"> <img src=\"" + settings.baseURL + "presentation/images/dialog/arrow.png\" /> Black on Yellow</a></div> <div class=\"sbarDialogButton\"><a id=\"sbApplyCSS-gw\" href=\"#s-b-c\"> <img src=\"" + settings.baseURL + "presentation/images/dialog/arrow.png\" /> White on Grey</a></div>"
 				} 
@@ -1231,7 +1231,7 @@ window.scanForReferenceMaterial = function(type){
 				var authorSelect = emptySelect.replace("{{data}}", matchOptions);
 				authorSelect = authorSelect.replace("{{id}}", "sbAuthorSelect");
 				
-				authorSelect += " <a id=\"sbAuthorSelectAccept\" href=\"#s-b-c\"><img src=\"" + settings.baseURL + "/presentation/images/accept.png\" /></a>";
+				authorSelect += " <a id=\"sbAuthorSelectAccept\" href=\"#s-b-c\"><img src=\"" + settings.baseURL + "presentation/images/accept.png\" /></a>";
 				
 				outputHTML = outputHTML.replace('{{author}}', authorSelect);
 			}
@@ -1255,7 +1255,7 @@ window.scanForReferenceMaterial = function(type){
 		var titleSelect = emptySelect.replace("{{data}}", matchOptions);
 		titleSelect = titleSelect.replace("{{id}}", "sbTitleSelect");
 		
-		titleSelect += " <a id=\"sbTitleSelectAccept\" href=\"#s-b-c\"><img src=\"" + settings.baseURL + "/presentation/images/accept.png\" /></a>";
+		titleSelect += " <a id=\"sbTitleSelectAccept\" href=\"#s-b-c\"><img src=\"" + settings.baseURL + "presentation/images/accept.png\" /></a>";
 		
 		outputHTML = outputHTML.replace("{{ptitle}}", titleSelect);
 	}
@@ -1282,7 +1282,7 @@ window.scanForReferenceMaterial = function(type){
 			var dateSelect = emptySelect.replace("{{data}}", matchOptions);
 			dateSelect = dateSelect.replace("{{id}}", "sbDateSelect");
 			
-			dateSelect += " <a id=\"sbDateSelectAccept\" href=\"#s-b-c\"><img src=\"" + settings.baseURL + "/presentation/images/accept.png\" /></a>";
+			dateSelect += " <a id=\"sbDateSelectAccept\" href=\"#s-b-c\"><img src=\"" + settings.baseURL + "presentation/images/accept.png\" /></a>";
 			
 			outputHTML = outputHTML.replace('{{date}}', dateSelect);
 		}
