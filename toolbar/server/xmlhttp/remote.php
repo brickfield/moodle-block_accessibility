@@ -10,18 +10,19 @@
  *
  */
 error_reporting(0);
-$spellURI = "http://access.ecs.soton.ac.uk/seb/StudyBar/spell/spellcheck.php?";
+require_once('../../../../../config.php');
+$spellURI = $CFG->wwwroot.'/spell/spellcheck.php?';
 $dictURI = "http://en.wiktionary.org/w/api.php?";
-$ttsURI = "http://access.ecs.soton.ac.uk/seb/StudyBar/TTS/chunkCoordinator.php?";
-$updateURI = "http://access.ecs.soton.ac.uk/StudyBar/update.php";
-
+$ttsURI = $CFG->wwwroot.'/TTS/chunkCoordinator.php?';
+//$updateURI = "http://access.ecs.soton.ac.uk/StudyBar/update.php";
+ini_set('user_agent', 'hello');
 switch($_GET['rt']){
 
 	case "spell":
 		$vars = $_GET;
 		
 		unset($vars['rt'], $vars['id']);
-		$remData = file_get_contents( $spellURI . http_build_query($vars) );
+		$remData = file_get_contents( $spellURI . http_build_query($vars, null, '&') );
 		$ro['data'] = $remData;
 		echo "var CSresponseObject = " . json_encode($ro) . ";";	
 	break;
@@ -29,7 +30,7 @@ switch($_GET['rt']){
 	case "dict":
 		$vars = $_GET;
 		unset($vars['rt'], $vars['id']);
-		$remData = file_get_contents( $dictURI . http_build_query($vars) );
+		$remData = file_get_contents( $dictURI . http_build_query($vars, null, '&') );
 		$ro['data'] = $remData;
 		echo "var CSresponseObject = " . json_encode($ro) . ";";
 	break;
@@ -59,15 +60,15 @@ switch($_GET['rt']){
 
 	break;
 	
-	case "update":
-		if(!$_GET['ch']) $_GET['ch'] = "beta";
-		$remData = file_get_contents( $updateURI . "?b=" . $_GET['b'] . "&ch=" . $_GET['ch'] );
-		if(@$_GET['callback']) {
-			echo $_GET['callback'] . "(" . $remData . ")";
-		} else {
-			echo $remData;
-		}
-	break;
+//	case "update":
+//		if(!$_GET['ch']) $_GET['ch'] = "beta";
+//		$remData = file_get_contents( $updateURI . "?b=" . $_GET['b'] . "&ch=" . $_GET['ch'] );
+//		if(@$_GET['callback']) {
+//			echo $_GET['callback'] . "(" . $remData . ")";
+//		} else {
+//			echo $remData;
+//		}
+//	break;
 	
 	default:
 		$ro['data'] = "test dataset " . rand(0, 999);		
