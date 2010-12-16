@@ -10,6 +10,7 @@
  *
  */
 error_reporting(E_ERROR | E_WARNING);
+require_once('../../../../../config.php');
 require("classes/speech.class.php");
 
 if(@$_POST['page'] && @$_POST['data']){	

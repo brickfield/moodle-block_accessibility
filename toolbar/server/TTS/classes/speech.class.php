@@ -49,6 +49,14 @@ class speech {
 	 * @return void
 	 */
 	public function __construct($rawData, $uri){
+                // Set URLs to moodle server
+                global $CFG;
+                $this->scratch_path = $CFG->dirroot."/blocks/accessibility/toolbar/server/TTS/cache/";
+                $this->output_path = $CFG->dirroot."/blocks/accessibility/toolbar/server/TTS/cache/";
+                $this->script_path = $CFG->dirroot."/blocks/accessibility/toolbar/server/TTS/";
+                $this->output_uri = $CFG->wwwroot."/blocks/accessibility/toolbar/server/TTS/cache/";
+
+
 		$this->uri = $uri;
 	
 		$loadAvg = sys_getloadavg();
@@ -403,7 +411,7 @@ class speech {
 	public function execute(){
 		if($this->encodingState > -1){
 			$this->writePlaylist();
-			shell_exec("nice -n 19 /var/scripts/SB_generateAudio.sh {$this->scratch_path}{$this->uniqueID}.txt {$this->uniqueID} awb > /dev/null &");
+			shell_exec("nice -n 19 {$this->script_path}SB_generateAudio.sh {$this->scratch_path}{$this->uniqueID}.txt {$this->uniqueID} awb > /dev/null &");
 			if($this->debug == 1) file_put_contents($this->script_path . "debug/" . $this->uniqueID . ".txt", "execute:> Running generateAudio on dataset: {$this->clean}\n\n", FILE_APPEND);
 			
 			//file_put_contents($this->scratch_path . "chunks/clean-" . rand(0, 99) . ".txt", $this->returnClean() );
