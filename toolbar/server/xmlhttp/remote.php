@@ -11,9 +11,9 @@
  */
 error_reporting(0);
 require_once('../../../../../config.php');
-$spellURI = $CFG->wwwroot.'/spell/spellcheck.php?';
+$spellURI = $CFG->wwwroot.'/blocks/accessibility/toolbar/server/spell/spellcheck.php?';
 $dictURI = "http://en.wiktionary.org/w/api.php?";
-$ttsURI = $CFG->wwwroot.'/TTS/chunkCoordinator.php?';
+$ttsURI = $CFG->wwwroot.'/blocks/accessibility/toolbar/server/TTS/chunkCoordinator.php?';
 //$updateURI = "http://access.ecs.soton.ac.uk/StudyBar/update.php";
 ini_set('user_agent', 'hello');
 switch($_GET['rt']){
