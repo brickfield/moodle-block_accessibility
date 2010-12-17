@@ -57,6 +57,7 @@ class block_accessibility extends block_base {
         global $CFG;
         global $USER;
         global $FULLME;
+        global $DB;
         if ($this->content !== null) {
             return $this->content;
         }
@@ -150,8 +151,22 @@ class block_accessibility extends block_base {
         }
         $content .= html_writer::tag('div', $message, array('id' => 'block_accessibility_message', 'class' => 'clearfix'));
 
+        $options = $DB->get_record('accessibility', array('userid' => $USER->id));
+        $checkbox_attributes = array('type' => 'checkbox', 'value' => 1, 'id' => 'atbar_auto', 'name' => 'atbar_auto', 'class' => 'atbar_control');
+        if ($options && $options->autoload_atbar) {
+            $checkbox_attributes['checked'] = 'checked';
+            $jsdata = array(
+                'autoload_atbar' => true
+            );
+        } else {
+            $jsdata = array(
+                'autoload_atbar' => false
+            );
+        }
         // ATbar launch button (if javascript is enabled);
-        $content .= html_writer::empty_tag('input', array('type' => 'button', 'value' => get_string('launchtoolbar', 'block_accessibility'), 'id' => 'block_accessibility_launchtoolbar'));
+        $content .= html_writer::empty_tag('input', array('type' => 'button', 'value' => get_string('launchtoolbar', 'block_accessibility'), 'id' => 'block_accessibility_launchtoolbar', 'class' => 'atbar_control'));
+        $content .= html_writer::empty_tag('input', $checkbox_attributes);
+        $content .= html_writer::tag('label', get_string('autolaunch', 'block_accessibility'), array('for' => 'atbar_auto', 'class' => 'atbar_control'));
 
         $this->content->footer = '';
         $this->content->text = $content;
@@ -162,6 +177,17 @@ class block_accessibility extends block_base {
             'requires'  =>  array('base', 'node', 'stylesheet')
         );
 
+        
+        if ($options && $options->autoload_atbar) {
+            $jsdata = array(
+                'autoload_atbar' => true
+            );
+        } else {
+            $jsdata = array(
+                'autoload_atbar' => false
+            );
+        }
+
         $this->page->requires->string_for_js('saved', 'block_accessibility');
         $this->page->requires->string_for_js('jsnosave', 'block_accessibility');
         $this->page->requires->string_for_js('reset', 'block_accessibility');
@@ -171,7 +197,7 @@ class block_accessibility extends block_base {
         $this->page->requires->string_for_js('jsnocolour', 'block_accessibility');
         $this->page->requires->string_for_js('jsnosizereset', 'block_accessibility');
         $this->page->requires->string_for_js('launchtoolbar', 'block_accessibility');
-        $this->page->requires->js_init_call('M.block_accessibility.init', null, false, $jsmodule);
+        $this->page->requires->js_init_call('M.block_accessibility.init', $jsdata, false, $jsmodule);
 
         return $this->content;
     }

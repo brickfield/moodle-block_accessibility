@@ -37,6 +37,8 @@ require_once($CFG->dirroot.'/blocks/accessibility/lib.php');
 $op = required_param('op', PARAM_TEXT);
 $size = optional_param('size', false, PARAM_BOOL);
 $scheme = optional_param('scheme', false, PARAM_BOOL);
+$atbar = optional_param('atbar', false, PARAM_BOOL);
+
 
 if(!accessibility_is_ajax()) {
     $redirect = required_param('redirect', PARAM_TEXT);
@@ -53,6 +55,9 @@ switch($op) {
             }
             if ($scheme && isset($USER->colourscheme)) {
                 $setting->colourscheme = $USER->colourscheme;
+            }
+            if ($atbar) {
+                $setting->autoload_atbar = 1;
             }
             $DB->update_record('accessibility', $setting);
         } else {
@@ -87,8 +92,11 @@ switch($op) {
             } else if (!empty($USER->colourscheme)) {
                 $setting->colourscheme = $USER->colourscheme;
             }
+            if ($atbar) {
+                $setting->autoload_atbar = 0;
+            }
 
-            if (empty($setting->fontsize) && empty($setting->colourscheme)) {
+            if (empty($setting->fontsize) && empty($setting->colourscheme) && empty($setting->atbar)) {
                 $DB->delete_records('accessibility', array('userid' => $USER->id));
             } else {
                 $DB->update_record('accessibility', $setting);

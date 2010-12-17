@@ -8,7 +8,7 @@ M.block_accessibility = {
 
     colour4: '',
 
-    init: function(Y) {
+    init: function(Y, autoload_atbar) {
         this.Y = Y;
         sheetnode = Y.one('link[href='+M.cfg.wwwroot+'/blocks/accessibility/userstyles.php]');
         this.stylesheet = Y.StyleSheet(sheetnode);
@@ -50,6 +50,29 @@ M.block_accessibility = {
             }
         });
 
+        Y.one('#block_accessibility_changecolour').on('click', function(e) {
+            while (e.target.get('id') != "block_accessibility_changecolour") { // If we're still inside the changecolour div
+                if(e.target.hasClass('outer')) { // Check the clicks from an element we're after
+                    if (!e.target.hasClass('disabled')) {
+                        // If it is, and the button's not disabled, pass it's id to the changesize function
+                        M.block_accessibility.changecolour(e.target);
+                    }
+                    break;
+                } else {
+                    // Otherwise, look at the node's parent to see if we're after that one.
+                    e.target = e.target.get('parentNode');
+                }
+            }
+        });
+
+        Y.one('#atbar_auto').on('click', function(e) {
+            if (e.target.get('checked')) {
+                M.block_accessibility.atbar_autoload('on');
+            } else {
+                M.block_accessibility.atbar_autoload('off');
+            }
+        });
+
         // Remove href attributes from anchors
         Y.all('.block_accessibility .outer').each(function(node){
             node.removeAttribute('href');
@@ -71,6 +94,21 @@ M.block_accessibility = {
             jf.id = 'ToolBar';
             d.getElementsByTagName('head')[0].appendChild(jf);
         });
+
+        if (autoload_atbar) {
+            d = document;
+            lf = d.createElement('script');
+            lf.type = 'text/javascript';
+            lf.id = 'ToolbarStarter';
+            lf.text = 'var StudyBarNoSandbox = true';
+            d.getElementsByTagName('head')[0].appendChild(lf);
+            jf = d.createElement('script');
+            jf.src = M.cfg.wwwroot+'/blocks/accessibility/toolbar/client/JTToolbar.user.js';
+            jf.type = 'text/javascript';
+            jf.id = 'ToolBar';
+            d.getElementsByTagName('head')[0].appendChild(jf);
+        }
+        
     },
 
 
@@ -376,5 +414,41 @@ M.block_accessibility = {
                 }
             }
         });
+    },
+
+    atbar_autoload: function(op) {
+        if (op == 'on') {
+            this.Y.io(M.cfg.wwwroot+'/blocks/accessibility/database.php', {
+                data: 'op=save&atbar=true',
+                method: 'get',
+                on: {
+                    success: function(id, o) {
+                        M.block_accessibility.show_message(M.util.get_string('saved', 'block_accessibility'));
+                        setTimeout("M.block_accessibility.show_message('')", 5000);
+                    },
+                    failure: function(id, o) {
+                        if (o.status != '404') {
+                            alert(M.util.get_string('jsnosave', 'block_accessibility')+': '+o.status+' '+o.statusText);
+                        }
+                    }
+               }
+            });
+        } else if (op == 'off') {
+            this.Y.io(M.cfg.wwwroot+'/blocks/accessibility/database.php', {
+                data: 'op=reset&atbar=true',
+                method: 'get',
+                on: {
+                    success: function(id, o) {
+                        M.block_accessibility.show_message(M.util.get_string('reset', 'block_accessibility'));
+                        setTimeout("M.block_accessibility.show_message('')", 5000);
+                    },
+                    failure: function(id, o) {
+                        if (o.status != '404') {
+                            alert(M.util.get_string('jsnoreset', 'block_accessibility')+': '+o.status+' '+o.statusText);
+                        }
+                    }
+               }
+            });
+        }
     }
 }

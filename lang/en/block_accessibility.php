@@ -24,6 +24,7 @@
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later (4)
  */
 
+$string['autolaunch'] = '(always?)';
 $string['blockname'] = 'Accessibility';
 $string['char'] = 'A';
 $string['dectext'] = 'Decrease Text Size';
@@ -35,6 +36,7 @@ $string['jsnosave'] = 'Error saving settings';
 $string['jsnosize'] = 'Error changing size';
 $string['jsnosizereset'] = 'Error resetting text size';
 $string['launchtoolbar'] = 'Launch ATbar';
+$string['nosavedsetting'] = 'No saved setting';
 $string['pluginname'] = 'Accessibility';
 $string['pluginnameplural'] = 'Accessibility Blocks';
 $string['resettext'] = 'Reset Text Size (Clears Saved Setting)';
