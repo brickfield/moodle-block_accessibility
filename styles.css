@@ -22,7 +22,7 @@ body.jsdisabled #block_accessibility_launchtoolbar {
     position: relative;
 }
 
-.block_accessibility .outer *, {
+.block_accessibility .outer * {
     background-color: #fcfcfc !important;
     color: #000 !important;
 }
@@ -106,15 +106,19 @@ Still needs some work in IE 6/7 */
 }
 
 #block_accessibility_colour2 * {
-    background-color: #FFFFCC !important;
+    background-color: #ffc !important;
 }
 
 #block_accessibility_colour3 * {
-    background-color: #99CCFF !important;
+    background-color: #9cf !important;
 }
 
 #block_accessibility_colour4 * {
-    background-color: #000000 !important;
-    color: #ffff00 !important;
+    background-color: #000 !important;
+    color: #ff0 !important;
+}
+
+a.accessibility_colour4 {
+    color: #f00 !important;
 }
 

@@ -64,24 +64,24 @@ if (!empty($fontsize) || !empty($colourscheme)) {
     if (!empty($colourscheme)) {
         switch ($colourscheme) {
             case 2:
-                echo '* {background-color: #FFFFCC !important;};
+                echo '* {background-color: #ffc !important;};
                     forumpost .topic {background-image: none !important;}
                     * {background-image: none !important;}';
                 break;
 
             case 3:
-                echo '* {background-color: #99CCFF !important;}
+                echo '* {background-color: #9cf !important;}
                     forumpost .topic {background-image: none !important;}
                     * {background-image: none !important;}';
                 break;
 
             case 4:
                 echo '* {color: #ffff00 !important;}
-                    * {background-color: #000000 !important;}
+                    * {background-color: #000 !important;}
                     * {background-image: none !important;}
-                    #content a, .tabrow0 span {color: #ff0000 !important;}
+                    #content a, .tabrow0 span {color: #ff0 !important;}
                     .tabrow0 span:hover {text-decoration: underline;}
-                    #textresize .outer,  #colourchange .outer {border-color:#fff !important;}';
+                    .block_accessibility .outer {border-color:#fff !important;}';
                 break;
 
         }

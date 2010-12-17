@@ -39,13 +39,15 @@ require_once($CFG->dirroot.'/blocks/accessibility/lib.php');
 $scheme = required_param('scheme', PARAM_INT);
 if (!accessibility_is_ajax()) {
     $redirect = required_param('redirect', PARAM_TEXT);
+    $redirecturl = new moodle_url($redirect);
 }
-$redirecturl = new moodle_url($redirect);
 
 switch($scheme) {
 	case 1:
         unset($USER->colourscheme);
-        $redirecturl = new moodle_url('/blocks/accessibility/database.php', array('op' => 'reset', 'scheme' => true, 'userid' => $USER->id, 'redirect' => $redirect));
+        if (!accessibility_is_ajax()) {
+            $redirecturl = new moodle_url('/blocks/accessibility/database.php', array('op' => 'reset', 'scheme' => true, 'userid' => $USER->id, 'redirect' => $redirect));
+        }
         break;
 
     case 2:

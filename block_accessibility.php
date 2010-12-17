@@ -159,9 +159,17 @@ class block_accessibility extends block_base {
         $jsmodule = array(
             'name'  =>  'block_accessibility',
             'fullpath'  =>  '/blocks/accessibility/module.js',
-            'requires'  =>  array('base', 'node')
+            'requires'  =>  array('base', 'node', 'stylesheet')
         );
 
+        $this->page->requires->string_for_js('saved', 'block_accessibility');
+        $this->page->requires->string_for_js('jsnosave', 'block_accessibility');
+        $this->page->requires->string_for_js('reset', 'block_accessibility');
+        $this->page->requires->string_for_js('jsnosizereset', 'block_accessibility');
+        $this->page->requires->string_for_js('jsnocolourreset', 'block_accessibility');
+        $this->page->requires->string_for_js('jsnosize', 'block_accessibility');
+        $this->page->requires->string_for_js('jsnocolour', 'block_accessibility');
+        $this->page->requires->string_for_js('jsnosizereset', 'block_accessibility');
         $this->page->requires->string_for_js('launchtoolbar', 'block_accessibility');
         $this->page->requires->js_init_call('M.block_accessibility.init', null, false, $jsmodule);
 

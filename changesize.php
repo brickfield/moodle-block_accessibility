@@ -43,8 +43,8 @@ $op = required_param('op', PARAM_TEXT);
 
 if (!accessibility_is_ajax()) {
     $redirect = required_param('redirect', PARAM_TEXT);
+    $redirecturl = new moodle_url($redirect);
 }
-$redirecturl = new moodle_url($redirect);
 
 if(!isset($USER->fontsize)) {
     // If the user hasn't already changed the size, we need to find a default so we know where we're increasing/decreasing from

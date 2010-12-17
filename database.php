@@ -40,8 +40,8 @@ $scheme = optional_param('scheme', false, PARAM_BOOL);
 
 if(!accessibility_is_ajax()) {
     $redirect = required_param('redirect', PARAM_TEXT);
+    $redirecturl = new moodle_url($redirect);
 }
-$redirecturl = new moodle_url($redirect);
 
 switch($op) {
     case 'save':
