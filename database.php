@@ -69,6 +69,9 @@ switch($op) {
             if ($scheme && isset($USER->colourscheme)) {
                 $setting->colourscheme = $USER->colourscheme;
             }
+            if ($atbar) {
+                $setting->autoload_atbar = 1;
+            }
             $setting->userid = $USER->id;
             $DB->insert_record('accessibility', $setting);
         }
