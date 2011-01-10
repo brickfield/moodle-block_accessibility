@@ -91,9 +91,7 @@ M.block_accessibility = {
         // Create Bookmarklet-style link using code from ATbar site
         // http://access.ecs.soton.ac.uk/StudyBar/versions
         var launchbutton = Y.one('#block_accessibility_launchtoolbar');
-        launchbutton.on('click', function() {
-            Y.one('#block_accessibility_textresize').setStyle('display', 'none');
-            Y.one('#block_accessibility_changecolour').setStyle('display', 'none');
+        launchbutton.on('click', function() {            
             d = document;
             lf = d.createElement('script');
             lf.type = 'text/javascript';
@@ -105,12 +103,13 @@ M.block_accessibility = {
             jf.type = 'text/javascript';
             jf.id = 'ToolBar';
             d.getElementsByTagName('head')[0].appendChild(jf);
+            // Hide block buttons until ATbar is closed
+            Y.one('#block_accessibility_textresize').setStyle('display', 'none');
+            Y.one('#block_accessibility_changecolour').setStyle('display', 'none');
             M.block_accessibility.watch_atbar_for_close();
         });
 
-        if (autoload_atbar) {
-            Y.one('#block_accessibility_textresize').setStyle('display', 'none');
-            Y.one('#block_accessibility_changecolour').setStyle('display', 'none');
+        if (autoload_atbar) {            
             d = document;
             lf = d.createElement('script');
             lf.type = 'text/javascript';
@@ -122,7 +121,10 @@ M.block_accessibility = {
             jf.type = 'text/javascript';
             jf.id = 'ToolBar';
             d.getElementsByTagName('head')[0].appendChild(jf);
-            setTimeout("M.block_accessibility.watch_atbar_for_close()", 1000);
+            // Hide block buttons until ATbar is closed
+            Y.one('#block_accessibility_textresize').setStyle('display', 'none');
+            Y.one('#block_accessibility_changecolour').setStyle('display', 'none');
+            setTimeout("M.block_accessibility.watch_atbar_for_close();", 1000); // Wait 1 second to give the bar a chance to load
         }
         
     },
