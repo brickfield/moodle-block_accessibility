@@ -20,6 +20,7 @@ body.jsdisabled #block_accessibility_launchtoolbar {
     text-align: center;
     overflow: hidden;
     position: relative;
+    font-size: 16px !important;
 }
 
 .block_accessibility .outer * {
@@ -77,15 +78,11 @@ Still needs some work in IE 6/7 */
 
 
 #block_accessibility_dec {
-    font-size: 12px;
-}
-
-.block_accessibility_textresize .outer {
-    font-size: 16px;
+    font-size: 12px !important;
 }
 
 #block_accessibility_inc {
-    font-size: 20px;
+    font-size: 20px !important;
 
 }
 

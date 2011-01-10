@@ -33,17 +33,20 @@ require_once('../../config.php');
 require_once($CFG->dirroot.'/blocks/accessibility/lib.php');
 
 header('Cache-Control: no-cache');
-if(!isset($USER->defaultfontsize)) {
-
-    $USER->defaultfontsize = accessibility_getsize(100);
-
-}
-
 $op = required_param('op', PARAM_TEXT);
+$cur = optional_param('cur', 0, PARAM_INT);
 
 if (!accessibility_is_ajax()) {
     $redirect = required_param('redirect', PARAM_TEXT);
     $redirecturl = new moodle_url($redirect);
+}
+
+if (!isset($USER->defaultfontsize)) {
+    if ($cur) {
+        $USER->defaultfontsize = $cur;
+    } else {
+        $USER->defaultfontsize = 100;
+    }
 }
 
 if(!isset($USER->fontsize)) {
@@ -51,9 +54,9 @@ if(!isset($USER->fontsize)) {
     if($userstyle = $DB->get_record('accessibility', array('userid' => $USER->id))) {
         // First, check the database to see if they've got a setting saved
         $current = $userstyle->fontsize;
-    } else {
-        // If not, use the default size from the theme.
-        $current = $USER->defaultfontsize;
+    } else if ($cur) {
+        // If not, use the current size from the page (if js in available).
+        $current = $cur;
     }
 } else {
     $current = $USER->fontsize;

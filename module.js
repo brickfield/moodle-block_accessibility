@@ -2,6 +2,8 @@ M.block_accessibility = {
 
     stylesheet: '',
 
+    defaultsize: 100,
+
     colour2: '',
 
     colour3: '',
@@ -18,6 +20,12 @@ M.block_accessibility = {
         this.colour3.disable();
         this.colour4 = Y.StyleSheet('*{background-color: #000 !important;background-image:none !important;color: #ff0 !important;}a{color: #f00 !important;}.block_accessibility .outer{border-color: white;}');
         this.colour4.disable();
+        var defaultsize = Y.one('body').getStyle('fontSize');
+        if (defaultsize.substr(-2) == 'px') {
+            this.defaultsize = defaultsize.substr(0, defaultsize.length-2);
+        } else if (defaultsize.subtring(-1) == '%') {
+            this.defaultsize = defaultsize.substr(0, defaultsize.length-1);
+        }
 
         // Attach the click handler
         Y.one('#block_accessibility_textresize').on('click', function(e) {
@@ -243,18 +251,20 @@ M.block_accessibility = {
      */
     changesize: function(button) {
         Y = this.Y;
+
         switch (button.get('id')) {
             case "block_accessibility_inc":
                 Y.io(M.cfg.wwwroot+'/blocks/accessibility/changesize.php', {
-                    data: 'op=inc',
+                    data: 'op=inc&cur='+this.defaultsize,
                     method: 'get',
                     on: {
                         success: function(id, o) {
+
                             // If we get a successful response from the server,
                             // Parse the JSON string
                             style = Y.JSON.parse(o.responseText);
                             // Set the new fontsize
-                            Y.one('body').setStyle('fontSize', style.fontsize+'%');
+                            Y.one('#page').setStyle('fontSize', style.fontsize+'%');
                             // disable the per-user stylesheet so our style isn't overridden
                             if (M.block_accessibility.stylesheet !== undefined) {
                                 M.block_accessibility.stylesheet.unset('body');
@@ -280,7 +290,7 @@ M.block_accessibility = {
                 break;
             case "block_accessibility_dec":
                 Y.io(M.cfg.wwwroot+'/blocks/accessibility/changesize.php', {
-                    data: 'op=dec',
+                    data: 'op=dec&cur='+this.defaultsize,
                     method: 'get',
                     on: {
                         success: function(id, o) {
@@ -288,7 +298,7 @@ M.block_accessibility = {
                             // Parse the JSON string
                             style = Y.JSON.parse(o.responseText);
                             // Set the new fontsize
-                            Y.one('body').setStyle('fontSize', style.fontsize+'%');
+                            Y.one('#page').setStyle('fontSize', style.fontsize+'%');
                             // disable the per-user stylesheet so our style isn't overridden
                             if (M.block_accessibility.stylesheet !== undefined) {
                                 M.block_accessibility.stylesheet.unset('body');
@@ -314,7 +324,7 @@ M.block_accessibility = {
                 break;
             case "block_accessibility_reset":
                 Y.io(M.cfg.wwwroot+'/blocks/accessibility/changesize.php', {
-                    data: 'op=reset',
+                    data: 'op=reset&cur='+this.defaultsize,
                     method: 'get',
                     on: {
                         success: function(id, o) {
@@ -322,7 +332,7 @@ M.block_accessibility = {
                             // Parse the JSON string
                             style = Y.JSON.parse(o.responseText);
                             // Set the new fontsize
-                            Y.one('body').setStyle('fontSize', style.fontsize+'%');
+                            Y.one('#page').setStyle('fontSize', style.fontsize+'%');
                             // disable the per-user stylesheet so our style isn't overridden
                             if (M.block_accessibility.stylesheet !== undefined) {
                                 M.block_accessibility.stylesheet.unset('body');
