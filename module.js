@@ -10,6 +10,8 @@ M.block_accessibility = {
 
     colour4: '',
 
+    watch: null,
+
     init: function(Y, autoload_atbar) {
         this.Y = Y;
         sheetnode = Y.one('link[href='+M.cfg.wwwroot+'/blocks/accessibility/userstyles.php]');
@@ -90,6 +92,8 @@ M.block_accessibility = {
         // http://access.ecs.soton.ac.uk/StudyBar/versions
         var launchbutton = Y.one('#block_accessibility_launchtoolbar');
         launchbutton.on('click', function() {
+            Y.one('#block_accessibility_textresize').setStyle('display', 'none');
+            Y.one('#block_accessibility_changecolour').setStyle('display', 'none');
             d = document;
             lf = d.createElement('script');
             lf.type = 'text/javascript';
@@ -101,9 +105,12 @@ M.block_accessibility = {
             jf.type = 'text/javascript';
             jf.id = 'ToolBar';
             d.getElementsByTagName('head')[0].appendChild(jf);
+            M.block_accessibility.watch_atbar_for_close();
         });
 
         if (autoload_atbar) {
+            Y.one('#block_accessibility_textresize').setStyle('display', 'none');
+            Y.one('#block_accessibility_changecolour').setStyle('display', 'none');
             d = document;
             lf = d.createElement('script');
             lf.type = 'text/javascript';
@@ -115,6 +122,7 @@ M.block_accessibility = {
             jf.type = 'text/javascript';
             jf.id = 'ToolBar';
             d.getElementsByTagName('head')[0].appendChild(jf);
+            setTimeout("M.block_accessibility.watch_atbar_for_close()", 1000);
         }
         
     },
@@ -460,5 +468,16 @@ M.block_accessibility = {
                }
             });
         }
+    },
+
+    watch_atbar_for_close: function() {
+        Y = this.Y;
+        this.watch = setInterval(function() {
+            if (!Y.one('#sbar')) {
+                Y.one('#block_accessibility_textresize').setStyle('display', 'block');
+                Y.one('#block_accessibility_changecolour').setStyle('display', 'block');
+                clearInterval(M.block_accessibility.watch);
+            }
+        }, 1000);
     }
 }
