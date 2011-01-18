@@ -6,5 +6,5 @@ ATbar provides text-to-speech features, which require additional configuration. 
 
 To install, place all files in /blocks/accessibility and visit /admin/index.php in your browser.
 
-This block was written by Mark Johnson <mark.johson@tauntons.ac.uk> and is Copyright Taunton's College, Southampton.
+This block was written by Mark Johnson <mark.johnson@tauntons.ac.uk> and is Copyright Taunton's College, Southampton.
 Released Under the GNU General Public Licence http://www.gnu.org/licenses/gpl-2.0.html
