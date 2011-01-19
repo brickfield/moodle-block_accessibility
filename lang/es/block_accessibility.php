@@ -24,6 +24,7 @@
 
 $string['blockname'] = 'Accesibilidad';
 $string['char'] = 'A';
+$string['clearedoldcache'] = 'Cleared {$a} old files from the cache';
 $string['dectext'] = 'Disminuir Texto';
 $string['inctext'] = 'Aumentar Texto';
 $string['invalidop'] = 'Esta operación será invalidada';

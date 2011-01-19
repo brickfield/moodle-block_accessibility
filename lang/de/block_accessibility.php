@@ -24,6 +24,7 @@
 
 $string['blockname'] = 'Barrierefreiheit';
 $string['char'] = 'A';
+$string['clearedoldcache'] = 'Cleared {$a} old files from the cache';
 $string['dectext'] = 'Textgröße verkleinern';
 $string['inctext'] = 'Textgröße erhöhen';
 $string['invalidop'] = 'Die angegebene Operation war ungültig!';

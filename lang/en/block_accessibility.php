@@ -26,6 +26,7 @@
 
 $string['autolaunch'] = '(always?)';
 $string['blockname'] = 'Accessibility';
+$string['clearedoldcache'] = 'Cleared {$a} old files from the cache';
 $string['char'] = 'A';
 $string['dectext'] = 'Decrease Text Size';
 $string['inctext'] = 'Increase Text Size';
