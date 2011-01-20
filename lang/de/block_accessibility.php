@@ -22,9 +22,10 @@
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later (3)
  */
 
+$string['autolaunch'] = '(immer?)';
 $string['blockname'] = 'Barrierefreiheit';
 $string['char'] = 'A';
-$string['clearedoldcache'] = 'Cleared {$a} old files from the cache';
+$string['clearedoldcache'] = '{$a} alte Dateien aus dem Cache gelöscht';
 $string['dectext'] = 'Textgröße verkleinern';
 $string['inctext'] = 'Textgröße erhöhen';
 $string['invalidop'] = 'Die angegebene Operation war ungültig!';
@@ -33,7 +34,7 @@ $string['jsnocolourreset'] = 'Fehler beim Zurücksetzen des Farbschemas';
 $string['jsnosave'] = 'Fehler beim Speichern der Einstellungen';
 $string['jsnosize'] = 'Fehler beim Ändern der Größe';
 $string['jsnosizereset'] = 'Fehler beim Zurücksetzen der Textgröße';
-$string['launchtoolbar'] = 'Launch ATbar';
+$string['launchtoolbar'] = 'ATbar starten';
 $string['pluginname'] = 'Barrierefreiheit';
 $string['pluginnameplural'] = 'Barrierefreiheit';
 $string['resettext'] = 'Textgröße zurücksetzen (Löscht gespeicherte Einstellung';

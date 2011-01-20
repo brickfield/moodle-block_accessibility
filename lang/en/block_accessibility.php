@@ -37,7 +37,6 @@ $string['jsnosave'] = 'Error saving settings';
 $string['jsnosize'] = 'Error changing size';
 $string['jsnosizereset'] = 'Error resetting text size';
 $string['launchtoolbar'] = 'Launch ATbar';
-$string['nosavedsetting'] = 'No saved setting';
 $string['pluginname'] = 'Accessibility';
 $string['pluginnameplural'] = 'Accessibility Blocks';
 $string['resettext'] = 'Reset Text Size (Clears Saved Setting)';

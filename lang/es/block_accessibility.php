@@ -22,9 +22,10 @@
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later (3)
  */
 
+$string['autolaunch'] = '(¿siempre?)';
 $string['blockname'] = 'Accesibilidad';
 $string['char'] = 'A';
-$string['clearedoldcache'] = 'Cleared {$a} old files from the cache';
+$string['clearedoldcache'] = 'Eliminados de la caché {$a} archivos antiguos';
 $string['dectext'] = 'Disminuir Texto';
 $string['inctext'] = 'Aumentar Texto';
 $string['invalidop'] = 'Esta operación será invalidada';
@@ -33,7 +34,7 @@ $string['jsnocolourreset'] = 'Se ha producido un error reiniciano el esquema de 
 $string['jsnosave'] = 'Se ha producido un error cambiando la configuración';
 $string['jsnosize'] = 'Se ha producido un error cambiando el tamaño';
 $string['jsnosizereset'] = 'Se ha producido un error reiniciando el tamaño del texto';
-$string['launchtoolbar'] = 'Launch ATbar';
+$string['launchtoolbar'] = 'Lanzar ATbar';
 $string['pluginname'] = 'Accesibilidad';
 $string['pluginnameplural'] = 'Accesibilidad';
 $string['resettext'] = 'Recuperar tamaño de la fuente (Se pierde la configuración guardada)';
