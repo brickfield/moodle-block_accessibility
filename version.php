@@ -1,6 +1,6 @@
 <?php
 
-$plugin->version = 2010011900;
+$plugin->version = 2011012500;
 $plugin->cron = 3600;
 
 ?>
