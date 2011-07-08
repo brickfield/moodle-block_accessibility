@@ -18,7 +18,9 @@
 
 function xmldb_block_accessibility_upgrade($oldversion=0) {
 
-    global $CFG, $THEME, $db;
+    global $CFG, $THEME, $DB;
+
+    $dbman = $DB->get_manager();
 
     $result = true;
 
