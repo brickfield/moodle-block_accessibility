@@ -30,48 +30,24 @@ M.block_accessibility = {
         }
 
         // Attach the click handler
-        Y.one('#block_accessibility_textresize').on('click', function(e) {
-            while (e.target.get('id') != "block_accessibility_textresize") { // If we're still inside the textresize div
-                if(e.target.hasClass('outer')) { // Check the clicks from an element we're after
-                    if (!e.target.hasClass('disabled')) {
-                        // If it is, and the button's not disabled, pass it's id to the changesize function
-                        M.block_accessibility.changesize(e.target);
-                    }
-                    break;
-                } else {
-                    // Otherwise, look at the node's parent to see if we're after that one.
-                    e.target = e.target.get('parentNode')
-                }
+        Y.all('#block_accessibility_textresize a').on('click', function(e) {
+            if (!e.target.hasClass('disabled')) {
+                // If it is, and the button's not disabled, pass it's id to the changesize function
+                M.block_accessibility.changesize(e.target);
             }
         });
 
-        Y.one('#block_accessibility_changecolour').on('click', function(e) {
-            while (e.target.get('id') != "block_accessibility_changecolour") { // If we're still inside the changecolour div
-                if(e.target.hasClass('outer')) { // Check the clicks from an element we're after
-                    if (!e.target.hasClass('disabled')) {
-                        // If it is, and the button's not disabled, pass it's id to the changesize function
-                        M.block_accessibility.changecolour(e.target);
-                    }
-                    break;
-                } else {
-                    // Otherwise, look at the node's parent to see if we're after that one.
-                    e.target = e.target.get('parentNode');
-                }
+        Y.all('#block_accessibility_changecolour a').on('click', function(e) {
+            if (!e.target.hasClass('disabled')) {
+                // If it is, and the button's not disabled, pass it's id to the changesize function
+                M.block_accessibility.changecolour(e.target);
             }
         });
 
-        Y.one('#block_accessibility_changecolour').on('click', function(e) {
-            while (e.target.get('id') != "block_accessibility_changecolour") { // If we're still inside the changecolour div
-                if(e.target.hasClass('outer')) { // Check the clicks from an element we're after
-                    if (!e.target.hasClass('disabled')) {
-                        // If it is, and the button's not disabled, pass it's id to the changesize function
-                        M.block_accessibility.changecolour(e.target);
-                    }
-                    break;
-                } else {
-                    // Otherwise, look at the node's parent to see if we're after that one.
-                    e.target = e.target.get('parentNode');
-                }
+        Y.all('#block_accessibility_changecolour a').on('click', function(e) {
+            if (!e.target.hasClass('disabled')) {
+                // If it is, and the button's not disabled, pass it's id to the changesize function
+                M.block_accessibility.changecolour(e.target);
             }
         });
 
@@ -84,7 +60,7 @@ M.block_accessibility = {
         });
 
         // Remove href attributes from anchors
-        Y.all('.block_accessibility .outer').each(function(node){
+        Y.all('.block_accessibility a').each(function(node){
             node.removeAttribute('href');
         });
 
@@ -231,14 +207,14 @@ M.block_accessibility = {
                 button.removeClass('disabled');
             }
             if (button.get('id') == 'block_accessibility_save') {
-                button.get('firstElementChild').get('firstElementChild').set('src', M.cfg.wwwroot+'/blocks/accessibility/pix/document-save.png');
+                button.get('firstElementChild').set('src', M.cfg.wwwroot+'/blocks/accessibility/pix/document-save.png');
             }
         } else if (op == 'off') {
             if(!button.hasClass('disabled')) {
                 button.addClass('disabled');
             }
             if (button.get('id') == 'block_accessibility_save') {
-                button.get('firstElementChild').get('firstElementChild').set('src', M.cfg.wwwroot+'/blocks/accessibility/pix/document-save-grey.png');
+                button.get('firstElementChild').set('src', M.cfg.wwwroot+'/blocks/accessibility/pix/document-save-grey.png');
             }
         }
     },
