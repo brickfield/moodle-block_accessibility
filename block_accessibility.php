@@ -65,31 +65,69 @@ class block_accessibility extends block_base {
         $cssurl = '/blocks/accessibility/userstyles.php';
         $this->page->requires->css($cssurl);
 
-        $size_url = new moodle_url('/blocks/accessibility/changesize.php', array('redirect' => $FULLME));
-        $colour_url = new moodle_url('/blocks/accessibility/changecolour.php', array('redirect' => $FULLME));
-        $db_url = new moodle_url('/blocks/accessibility/database.php', array('op' => 'save', 'size' => true, 'scheme' => true, 'redirect' => $FULLME));
+        $params = array('redirect' => $FULLME);
+        $size_url = new moodle_url('/blocks/accessibility/changesize.php', $params);
+        $colour_url = new moodle_url('/blocks/accessibility/changecolour.php', $params);
+        $params['op'] = 'save';
+        $params['size'] = true;
+        $params['scheme'] = true;
+        $db_url = new moodle_url('/blocks/accessibility/database.php', $params);
 
-        $inc_attrs = array('title' => get_string('inctext', 'block_accessibility'), 'id' => "block_accessibility_inc", 'class' => 'outer right', 'href' => $size_url->out(false, array('op' => 'inc')));
-        $dec_attrs = array('title' => get_string('dectext', 'block_accessibility'), 'id' => "block_accessibility_dec", 'class' => 'outer', 'href' => $size_url->out(false, array('op' => 'dec')));
-        $save_attrs = array('title' => get_string('save', 'block_accessibility'), 'id' => "block_accessibility_save");
+        $inc_attrs = array(
+            'title' => get_string('inctext', 'block_accessibility'),
+            'id' => "block_accessibility_inc",
+            'href' => $size_url->out(false, array('op' => 'inc'))
+        );
+        $dec_attrs = array(
+            'title' => get_string('dectext', 'block_accessibility'),
+            'id' => "block_accessibility_dec",
+            'href' => $size_url->out(false, array('op' => 'dec'))
+        );
+        $save_attrs = array(
+            'title' => get_string('save', 'block_accessibility'),
+            'id' => "block_accessibility_save"
+        );
+
         if (isset($USER->fontsize)) {
             if (accessibility_getsize($USER->fontsize) == 10) {
-                $dec_attrs['class'] = 'outer disabled';
+                $dec_attrs['class'] = 'disabled';
                 unset($dec_attrs['href']);
             }
             if (accessibility_getsize($USER->fontsize) == 26) {
-                $inc_attrs['class'] = 'outer disabled';
+                $inc_attrs['class'] = 'disabled';
                 unset($inc_attrs['href']);
             }
         }
         if (isset($USER->username) && (isset($USER->fontsize) || isset($USER->colourscheme))) {
-            $save_attrs['class'] = 'outer right';
             $save_attrs['href'] = $db_url->out(false);
             $saveicon_url = new moodle_url('/blocks/accessibility/pix/document-save.png');
         } else {
-            $save_attrs['class'] = 'outer disabled right';
+            $save_attrs['class'] = 'disabled';
             $saveicon_url = new moodle_url('/blocks/accessibility/pix/document-save-grey.png');
         }
+
+        $reset_attrs = array(
+            'id' => 'block_accessibility_reset',
+            'title' => get_string('resettext', 'block_accessibility'),
+            'href' => $size_url->out(FALSE, array('op' => 'reset'))
+        );
+
+        $c1_attrs = array(
+            'id' => 'block_accessibility_colour1',
+            'href' => $colour_url->out(false, array('scheme' => 1))
+        );
+        $c2_attrs = array(
+            'id' => 'block_accessibility_colour2',
+            'href' => $colour_url->out(false, array('scheme' => 2))
+        );
+        $c3_attrs = array(
+            'id' => 'block_accessibility_colour3',
+            'href' => $colour_url->out(false, array('scheme' => 3))
+        );
+        $c4_attrs = array(
+            'id' => 'block_accessibility_colour4',
+            'href' => $colour_url->out(false, array('scheme' => 4))
+        );
 
         $content = '';
 
@@ -101,7 +139,7 @@ class block_accessibility extends block_base {
             $content .= html_writer::end_tag('li');
 
             $content .= html_writer::start_tag('li', array('class' => 'access-button'));
-                $content .= html_writer::tag('a', get_string('char', 'block_accessibility'), array('id' => 'block_accessibility_reset', 'class' => 'outer right', 'title' => get_string('resettext', 'block_accessibility'), 'href' => $size_url->out(FALSE, array('op' => 'reset'))));
+                $content .= html_writer::tag('a', get_string('char', 'block_accessibility'), $reset_attrs);
             $content .= html_writer::end_tag('li');
 
             $content .= html_writer::start_tag('li', array('class' => 'access-button'));
@@ -110,7 +148,7 @@ class block_accessibility extends block_base {
 
             $content .= html_writer::start_tag('li', array('class' => 'access-button'));
                 $content .= html_writer::start_tag('a', $save_attrs);
-                    $content .= html_writer::empty_tag('img', array('class' => 'inner', 'src' => $saveicon_url->out(false)));
+                    $content .= html_writer::empty_tag('img', array('src' => $saveicon_url->out(false)));
                 $content .= html_writer::end_tag('a');
             $content .= html_writer::end_tag('li');
 
@@ -120,19 +158,19 @@ class block_accessibility extends block_base {
         $content .= html_writer::start_tag('ul', array('id' => 'block_accessibility_changecolour'));
 
         $content .= html_writer::start_tag('li', array('class' => 'access-button'));
-            $content .= html_writer::tag('a', get_string('char', 'block_accessibility'), array('id' => 'block_accessibility_colour1', 'class' => 'outer row', 'href' => $colour_url->out(false, array('scheme' => 1))));
+            $content .= html_writer::tag('a', get_string('char', 'block_accessibility'), $c1_attrs);
         $content .= html_writer::end_tag('li');
 
         $content .= html_writer::start_tag('li', array('class' => 'access-button'));
-            $content .= html_writer::tag('a', get_string('char', 'block_accessibility'), array('id' => 'block_accessibility_colour2', 'class' => 'outer row right', 'href' => $colour_url->out(false, array('scheme' => 2))));
+            $content .= html_writer::tag('a', get_string('char', 'block_accessibility'), $c2_attrs);
         $content .= html_writer::end_tag('li');
 
         $content .= html_writer::start_tag('li', array('class' => 'access-button'));
-            $content .= html_writer::tag('a', get_string('char', 'block_accessibility'), array('id' => 'block_accessibility_colour3', 'class' => 'outer row right', 'href' => $colour_url->out(false, array('scheme' => 3))));
+            $content .= html_writer::tag('a', get_string('char', 'block_accessibility'), $c3_attrs);
         $content .= html_writer::end_tag('li');
 
         $content .= html_writer::start_tag('li', array('class' => 'access-button'));
-            $content .= html_writer::tag('a', get_string('char', 'block_accessibility'), array('id' => 'block_accessibility_colour4', 'class' => 'outer row right', 'href' => $colour_url->out(false, array('scheme' => 4))));
+            $content .= html_writer::tag('a', get_string('char', 'block_accessibility'), $c4_attrs);
         $content .= html_writer::end_tag('li');
 
         $content .= html_writer::end_tag('ul');
@@ -146,9 +184,22 @@ class block_accessibility extends block_base {
         $content .= html_writer::tag('div', $message, array('id' => 'block_accessibility_message', 'class' => 'clearfix'));
 
         $options = $DB->get_record('accessibility', array('userid' => $USER->id));
-        $checkbox_attributes = array('type' => 'checkbox', 'value' => 1, 'id' => 'atbar_auto', 'name' => 'atbar_auto', 'class' => 'atbar_control');
+
+        $checkbox_attrs = array(
+            'type' => 'checkbox',
+            'value' => 1,
+            'id' => 'atbar_auto',
+            'name' => 'atbar_auto',
+            'class' => 'atbar_control'
+        );
+
+        $label_attrs = array(
+            'for' => 'atbar_auto',
+            'class' => 'atbar_control'
+        );
+
         if ($options && $options->autoload_atbar) {
-            $checkbox_attributes['checked'] = 'checked';
+            $checkbox_attrs['checked'] = 'checked';
             $jsdata = array(
                 'autoload_atbar' => true
             );
@@ -158,9 +209,16 @@ class block_accessibility extends block_base {
             );
         }
         // ATbar launch button (if javascript is enabled);
-        $content .= html_writer::empty_tag('input', array('type' => 'button', 'value' => get_string('launchtoolbar', 'block_accessibility'), 'id' => 'block_accessibility_launchtoolbar', 'class' => 'atbar_control'));
-        $content .= html_writer::empty_tag('input', $checkbox_attributes);
-        $content .= html_writer::tag('label', get_string('autolaunch', 'block_accessibility'), array('for' => 'atbar_auto', 'class' => 'atbar_control'));
+        $launch_attrs = array(
+            'type' => 'button',
+            'value' => get_string('launchtoolbar', 'block_accessibility'),
+            'id' => 'block_accessibility_launchtoolbar',
+            'class' => 'atbar_control'
+        );
+
+        $content .= html_writer::empty_tag('input', $launch_attrs);
+        $content .= html_writer::empty_tag('input', $checkbox_attrs);
+        $content .= html_writer::tag('label', get_string('autolaunch', 'block_accessibility'), $label_attrs);
 
         $this->content->footer = '';
         $this->content->text = $content;
