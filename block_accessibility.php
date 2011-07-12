@@ -91,57 +91,51 @@ class block_accessibility extends block_base {
             $saveicon_url = new moodle_url('/blocks/accessibility/pix/document-save-grey.png');
         }
 
-
-
         $content = '';
 
-        // Text resize and save buttons
-        $content .= html_writer::start_tag('div', array('id' => 'block_accessibility_textresize'));
-            $content .= html_writer::start_tag('a', $dec_attrs);
-                $content .= html_writer::start_tag('div', array('class' => 'middle'));
-                    $content .= html_writer::tag('p', get_string('char', 'block_accessibility').'-', array('class' => 'inner'));
-                $content .= html_writer::end_tag('div');
-            $content .= html_writer::end_tag('a');
-            $content .= html_writer::start_tag('a', array('id' => 'block_accessibility_reset', 'class' => 'outer right', 'title' => get_string('resettext', 'block_accessibility'), 'href' => $size_url->out(FALSE, array('op' => 'reset'))));
-                $content .= html_writer::start_tag('div', array('class' => 'middle'));
-                    $content .= html_writer::tag('p', get_string('char', 'block_accessibility'), array('class' => 'inner'));
-                $content .= html_writer::end_tag('div');
-            $content .= html_writer::end_tag('a');
-            $content .= html_writer::start_tag('a', $inc_attrs);
-                $content .= html_writer::start_tag('div', array('class' => 'middle'));
-                    $content .= html_writer::tag('p', get_string('char', 'block_accessibility').'+', array('class' => 'inner'));
-                $content .= html_writer::end_tag('div');
-            $content .= html_writer::end_tag('a');
-            $content .= html_writer::start_tag('a', $save_attrs);
-                $content .= html_writer::start_tag('div', array('class' => 'middle'));
+      $content .= html_writer::start_tag('div', array('id' => 'accessibility_controls', 'class' => 'content'));
+        $content .= html_writer::start_tag('ul', array('id' => 'block_accessibility_textresize', 'class' => 'button_row'));
+
+            $content .= html_writer::start_tag('li', array('class' => 'access-button'));
+                $content .= html_writer::tag('a', get_string('char', 'block_accessibility').'-', $dec_attrs);
+            $content .= html_writer::end_tag('li');
+
+            $content .= html_writer::start_tag('li', array('class' => 'access-button'));
+                $content .= html_writer::tag('a', get_string('char', 'block_accessibility'), array('id' => 'block_accessibility_reset', 'class' => 'outer right', 'title' => get_string('resettext', 'block_accessibility'), 'href' => $size_url->out(FALSE, array('op' => 'reset'))));
+            $content .= html_writer::end_tag('li');
+
+            $content .= html_writer::start_tag('li', array('class' => 'access-button'));
+                $content .= html_writer::tag('a', get_string('char', 'block_accessibility').'+', $inc_attrs);
+            $content .= html_writer::end_tag('li');
+
+            $content .= html_writer::start_tag('li', array('class' => 'access-button'));
+                $content .= html_writer::start_tag('a', $save_attrs);
                     $content .= html_writer::empty_tag('img', array('class' => 'inner', 'src' => $saveicon_url->out(false)));
-                $content .= html_writer::end_tag('div');
-            $content .= html_writer::end_tag('a');
-        $content .= html_writer::end_tag('div');
-        
+                $content .= html_writer::end_tag('a');
+            $content .= html_writer::end_tag('li');
+
+        $content .= html_writer::end_tag('ul');
+
         // Colour change buttons
-        $content .= html_writer::start_tag('div', array('id' => 'block_accessibility_changecolour'));
-            $content .= html_writer::start_tag('a', array('id' => 'block_accessibility_colour1', 'class' => 'outer row', 'href' => $colour_url->out(false, array('scheme' => 1))));
-                $content .= html_writer::start_tag('div', array('class' => 'middle'));
-                    $content .= html_writer::tag('p', get_string('char', 'block_accessibility'), array('class' => 'inner'));
-                $content .= html_writer::end_tag('div');
-            $content .= html_writer::end_tag('a');
-            $content .= html_writer::start_tag('a', array('id' => 'block_accessibility_colour2', 'class' => 'outer row right', 'href' => $colour_url->out(false, array('scheme' => 2))));
-                $content .= html_writer::start_tag('div', array('class' => 'middle'));
-                    $content .= html_writer::tag('p', get_string('char', 'block_accessibility'), array('class' => 'inner'));
-                $content .= html_writer::end_tag('div');
-            $content .= html_writer::end_tag('a');
-            $content .= html_writer::start_tag('a', array('id' => 'block_accessibility_colour3', 'class' => 'outer row right', 'href' => $colour_url->out(false, array('scheme' => 3))));
-                $content .= html_writer::start_tag('div', array('class' => 'middle'));
-                    $content .= html_writer::tag('p', get_string('char', 'block_accessibility'), array('class' => 'inner'));
-                $content .= html_writer::end_tag('div');
-            $content .= html_writer::end_tag('a');
-            $content .= html_writer::start_tag('a', array('id' => 'block_accessibility_colour4', 'class' => 'outer row right', 'href' => $colour_url->out(false, array('scheme' => 4))));
-                $content .= html_writer::start_tag('div', array('class' => 'middle'));
-                    $content .= html_writer::tag('p', get_string('char', 'block_accessibility'), array('class' => 'inner'));
-                $content .= html_writer::end_tag('div');
-            $content .= html_writer::end_tag('a');
-        $content .= html_writer::end_tag('div');
+        $content .= html_writer::start_tag('ul', array('id' => 'block_accessibility_changecolour'));
+
+        $content .= html_writer::start_tag('li', array('class' => 'access-button'));
+            $content .= html_writer::tag('a', get_string('char', 'block_accessibility'), array('id' => 'block_accessibility_colour1', 'class' => 'outer row', 'href' => $colour_url->out(false, array('scheme' => 1))));
+        $content .= html_writer::end_tag('li');
+
+        $content .= html_writer::start_tag('li', array('class' => 'access-button'));
+            $content .= html_writer::tag('a', get_string('char', 'block_accessibility'), array('id' => 'block_accessibility_colour2', 'class' => 'outer row right', 'href' => $colour_url->out(false, array('scheme' => 2))));
+        $content .= html_writer::end_tag('li');
+
+        $content .= html_writer::start_tag('li', array('class' => 'access-button'));
+            $content .= html_writer::tag('a', get_string('char', 'block_accessibility'), array('id' => 'block_accessibility_colour3', 'class' => 'outer row right', 'href' => $colour_url->out(false, array('scheme' => 3))));
+        $content .= html_writer::end_tag('li');
+
+        $content .= html_writer::start_tag('li', array('class' => 'access-button'));
+            $content .= html_writer::tag('a', get_string('char', 'block_accessibility'), array('id' => 'block_accessibility_colour4', 'class' => 'outer row right', 'href' => $colour_url->out(false, array('scheme' => 4))));
+        $content .= html_writer::end_tag('li');
+
+        $content .= html_writer::end_tag('ul');
 
         if (isset($USER->accessabilitymsg)) {
             $message = $USER->accessabilitymsg;
@@ -177,7 +171,7 @@ class block_accessibility extends block_base {
             'requires'  =>  array('base', 'node', 'stylesheet')
         );
 
-        
+
         if ($options && $options->autoload_atbar) {
             $jsdata = array(
                 'autoload_atbar' => true
