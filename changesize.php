@@ -54,9 +54,9 @@ if(!isset($USER->fontsize)) {
     if($userstyle = $DB->get_record('accessibility', array('userid' => $USER->id))) {
         // First, check the database to see if they've got a setting saved
         $current = $userstyle->fontsize;
-    } else if ($cur) {
+    } else {
         // If not, use the current size from the page (if js in available).
-        $current = $cur;
+        $current = $USER->defaultfontsize;
     }
 } else {
     $current = $USER->fontsize;
