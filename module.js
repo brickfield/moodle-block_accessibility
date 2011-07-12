@@ -60,51 +60,48 @@ M.block_accessibility = {
         });
 
         // Remove href attributes from anchors
-        Y.all('.block_accessibility a').each(function(node){
+        Y.all('#accessibility_controls a').each(function(node){
             node.removeAttribute('href');
         });
 
         // Create Bookmarklet-style link using code from ATbar site
         // http://access.ecs.soton.ac.uk/StudyBar/versions
         var launchbutton = Y.one('#block_accessibility_launchtoolbar');
-        launchbutton.on('click', function() {            
-            d = document;
-            lf = d.createElement('script');
-            lf.type = 'text/javascript';
-            lf.id = 'ToolbarStarter';
-            lf.text = 'var StudyBarNoSandbox = true';
-            d.getElementsByTagName('head')[0].appendChild(lf);
-            jf = d.createElement('script');
-            jf.src = M.cfg.wwwroot+'/blocks/accessibility/toolbar/client/JTToolbar.user.js';
-            jf.type = 'text/javascript';
-            jf.id = 'ToolBar';
-            d.getElementsByTagName('head')[0].appendChild(jf);
+        launchbutton.on('click', function() {
+            M.block_accessibility.load_atbar();
             // Hide block buttons until ATbar is closed
             Y.one('#block_accessibility_textresize').setStyle('display', 'none');
             Y.one('#block_accessibility_changecolour').setStyle('display', 'none');
             M.block_accessibility.watch_atbar_for_close();
         });
 
-        if (autoload_atbar) {            
-            d = document;
-            lf = d.createElement('script');
-            lf.type = 'text/javascript';
-            lf.id = 'ToolbarStarter';
-            lf.text = 'var StudyBarNoSandbox = true';
-            d.getElementsByTagName('head')[0].appendChild(lf);
-            jf = d.createElement('script');
-            jf.src = M.cfg.wwwroot+'/blocks/accessibility/toolbar/client/JTToolbar.user.js';
-            jf.type = 'text/javascript';
-            jf.id = 'ToolBar';
-            d.getElementsByTagName('head')[0].appendChild(jf);
+        if (autoload_atbar) {
+            M.block_accessibility.load_atbar();
             // Hide block buttons until ATbar is closed
             Y.one('#block_accessibility_textresize').setStyle('display', 'none');
             Y.one('#block_accessibility_changecolour').setStyle('display', 'none');
             setTimeout("M.block_accessibility.watch_atbar_for_close();", 1000); // Wait 1 second to give the bar a chance to load
         }
-        
+
     },
 
+
+    /**
+     *  Code from ATbar bookmarklet to load bar into page 
+     */
+    load_atbar: function() {
+        d = document;
+        lf = d.createElement('script');
+        lf.type = 'text/javascript';
+        lf.id = 'ToolbarStarter';
+        lf.text = 'var StudyBarNoSandbox = true';
+        d.getElementsByTagName('head')[0].appendChild(lf);
+        jf = d.createElement('script');
+        jf.src = M.cfg.wwwroot+'/blocks/accessibility/toolbar/client/JTToolbar.user.js';
+        jf.type = 'text/javascript';
+        jf.id = 'ToolBar';
+        d.getElementsByTagName('head')[0].appendChild(jf);
+    },
 
     /**
      * Displays the specified message in the block's footer
