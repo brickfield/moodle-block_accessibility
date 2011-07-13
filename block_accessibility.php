@@ -100,10 +100,8 @@ class block_accessibility extends block_base {
         }
         if (isset($USER->username) && (isset($USER->fontsize) || isset($USER->colourscheme))) {
             $save_attrs['href'] = $db_url->out(false);
-            $saveicon_url = new moodle_url('/blocks/accessibility/pix/document-save.png');
         } else {
             $save_attrs['class'] = 'disabled';
-            $saveicon_url = new moodle_url('/blocks/accessibility/pix/document-save-grey.png');
         }
 
         $reset_attrs = array(
@@ -147,9 +145,7 @@ class block_accessibility extends block_base {
             $content .= html_writer::end_tag('li');
 
             $content .= html_writer::start_tag('li', array('class' => 'access-button'));
-                $content .= html_writer::start_tag('a', $save_attrs);
-                    $content .= html_writer::empty_tag('img', array('src' => $saveicon_url->out(false)));
-                $content .= html_writer::end_tag('a');
+                $content .= html_writer::tag('a', '&nbsp', $save_attrs);
             $content .= html_writer::end_tag('li');
 
         $content .= html_writer::end_tag('ul');
