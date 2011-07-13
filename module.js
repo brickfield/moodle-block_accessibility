@@ -12,7 +12,10 @@ M.block_accessibility = {
 
     watch: null,
 
+    debug: true,
+
     init: function(Y, autoload_atbar) {
+        this.log('Accessibility block Debug mode active');
         this.Y = Y;
         sheetnode = Y.one('link[href='+M.cfg.wwwroot+'/blocks/accessibility/userstyles.php]');
         this.stylesheet = Y.StyleSheet(sheetnode);
@@ -22,6 +25,7 @@ M.block_accessibility = {
         this.colour3.disable();
         this.colour4 = Y.StyleSheet('*{background-color: #000 !important;background-image:none !important;color: #ff0 !important;}a{color: #f00 !important;}.block_accessibility .outer{border-color: white;}');
         this.colour4.disable();
+        this.log('Initial size: '+Y.one('body').getStyle('fontSize'));
         var defaultsize = Y.one('body').getStyle('fontSize');
         if (defaultsize.substr(-2) == 'px') {
             this.defaultsize = defaultsize.substr(0, defaultsize.length-2);
@@ -87,9 +91,10 @@ M.block_accessibility = {
 
 
     /**
-     *  Code from ATbar bookmarklet to load bar into page 
+     *  Code from ATbar bookmarklet to load bar into page
      */
     load_atbar: function() {
+        this.log('Launching ATbar');
         d = document;
         lf = d.createElement('script');
         lf.type = 'text/javascript';
@@ -109,6 +114,7 @@ M.block_accessibility = {
      * @param {String} msg the message to display
      */
     show_message: function(msg) {
+        this.log('Message set to '+msg);
         this.Y.one('#block_accessibility_message').setContent(msg);
     },
 
@@ -201,17 +207,13 @@ M.block_accessibility = {
         var button = this.Y.one('#block_accessibility_'+id);
         if (op == 'on') {
             if (button.hasClass('disabled')) {
+                this.log('Enabling '+button);
                 button.removeClass('disabled');
-            }
-            if (button.get('id') == 'block_accessibility_save') {
-                button.get('firstElementChild').set('src', M.cfg.wwwroot+'/blocks/accessibility/pix/document-save.png');
             }
         } else if (op == 'off') {
             if(!button.hasClass('disabled')) {
+                this.log('Disabling '+button);
                 button.addClass('disabled');
-            }
-            if (button.get('id') == 'block_accessibility_save') {
-                button.get('firstElementChild').set('src', M.cfg.wwwroot+'/blocks/accessibility/pix/document-save-grey.png');
             }
         }
     },
@@ -237,20 +239,21 @@ M.block_accessibility = {
 
         switch (button.get('id')) {
             case "block_accessibility_inc":
+                this.log('Increasing size from '+this.defaultsize);
                 Y.io(M.cfg.wwwroot+'/blocks/accessibility/changesize.php', {
                     data: 'op=inc&cur='+this.defaultsize,
                     method: 'get',
                     on: {
                         success: function(id, o) {
-
                             // If we get a successful response from the server,
                             // Parse the JSON string
                             style = Y.JSON.parse(o.responseText);
                             // Set the new fontsize
+                            M.block_accessibility.log('Increasing size to '+style.fontsize);
                             Y.one('#page').setStyle('fontSize', style.fontsize+'%');
                             // disable the per-user stylesheet so our style isn't overridden
                             if (M.block_accessibility.stylesheet !== undefined) {
-                                M.block_accessibility.stylesheet.unset('body');
+                                M.block_accessibility.stylesheet.unset('#page');
                             }
                             // Disable/enable buttons as necessary
                             if(style.fontsize == style.defaultsize) {
@@ -272,6 +275,7 @@ M.block_accessibility = {
                 });
                 break;
             case "block_accessibility_dec":
+                this.log('Decreasing size from '+this.defaultsize);
                 Y.io(M.cfg.wwwroot+'/blocks/accessibility/changesize.php', {
                     data: 'op=dec&cur='+this.defaultsize,
                     method: 'get',
@@ -281,10 +285,11 @@ M.block_accessibility = {
                             // Parse the JSON string
                             style = Y.JSON.parse(o.responseText);
                             // Set the new fontsize
+                            M.block_accessibility.log('Decreasing size to '+style.fontsize);
                             Y.one('#page').setStyle('fontSize', style.fontsize+'%');
                             // disable the per-user stylesheet so our style isn't overridden
                             if (M.block_accessibility.stylesheet !== undefined) {
-                                M.block_accessibility.stylesheet.unset('body');
+                                M.block_accessibility.stylesheet.unset('#page');
                             }
                             // Disable/enable buttons as necessary
                             if(style.fontsize == style.defaultsize) {
@@ -306,6 +311,7 @@ M.block_accessibility = {
                 });
                 break;
             case "block_accessibility_reset":
+                this.log('Resetting size from '+this.defaultsize);
                 Y.io(M.cfg.wwwroot+'/blocks/accessibility/changesize.php', {
                     data: 'op=reset&cur='+this.defaultsize,
                     method: 'get',
@@ -315,10 +321,11 @@ M.block_accessibility = {
                             // Parse the JSON string
                             style = Y.JSON.parse(o.responseText);
                             // Set the new fontsize
+                            M.block_accessibility.log('Resetting size to '+style.fontsize);
                             Y.one('#page').setStyle('fontSize', style.fontsize+'%');
                             // disable the per-user stylesheet so our style isn't overridden
                             if (M.block_accessibility.stylesheet !== undefined) {
-                                M.block_accessibility.stylesheet.unset('body');
+                                M.block_accessibility.stylesheet.unset('#page');
                             }
                             // Disable/enable buttons as necessary
                             M.block_accessibility.toggle_textsizer('reset', 'off');
@@ -337,6 +344,7 @@ M.block_accessibility = {
                 });
                 break;
             case "block_accessibility_save":
+                this.log('Saving Size');
                 M.block_accessibility.savesize();
                 break;
         }
@@ -454,5 +462,11 @@ M.block_accessibility = {
                 clearInterval(M.block_accessibility.watch);
             }
         }, 1000);
+    },
+
+    log: function(data) {
+        if (this.debug) {
+            console.log(data);
+        }
     }
 }

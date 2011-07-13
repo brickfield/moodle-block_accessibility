@@ -91,7 +91,7 @@ switch($op) {
             header('Content-Type: application/json');
             $output = new stdClass;
             $output->oldfontsize = accessibility_getsize($current);
-            $output->fontsize = accessibility_getsize($USER->defaultfontsize);
+            $output->fontsize = 100;
             echo(json_encode($output));
             exit();
         } else {

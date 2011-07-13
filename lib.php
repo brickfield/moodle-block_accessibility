@@ -34,7 +34,7 @@
  * Convert text size in pixels into a percentage eqivalent, or vice versa, accoring to the YUI fonts CSS guidelines
  * http://developer.yahoo.com/yui/fonts/
  *
- * @param int|real $filename the text size we're converting. Sizes between 10 and 26 will be treated as pixel values. Sizes between 77 and 197 will be treated as percentage values.
+ * @param int|real $size the text size we're converting. Sizes between 10 and 26 will be treated as pixel values. Sizes between 77 and 197 will be treated as percentage values.
  *
  * @return number the converted size
  */
@@ -61,13 +61,13 @@ function accessibility_getsize($size) {
                     24 => 182,
                     25 => 189,
                     26 => 197);
-
-    if ($size >= 10 && $size <= 26) { // If we're looking at a key (px)
+    if (is_int($size) && array_key_exists($size, $sizes)) { // If we're looking at a key (px)
         return $sizes[$size]; // Return the value (%)
-    } else if ($size >= 77 && $size <= 197){ // If we're looking at a value (%)
+    } else if (in_array($size, $sizes)) { // If we're looking at a value (%)
         return array_search($size, $sizes); // Return the key (px)
+    } else {
+        throw new moodle_exception('invalidsize', 'block_accessibility');
     }
-
 }
 
 /**
