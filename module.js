@@ -12,7 +12,7 @@ M.block_accessibility = {
 
     watch: null,
 
-    debug: true,
+    debug: false,
 
     init: function(Y, autoload_atbar) {
         this.log('Accessibility block Debug mode active');
