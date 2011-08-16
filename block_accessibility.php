@@ -171,6 +171,7 @@ class block_accessibility extends block_base {
 
         $content .= html_writer::end_tag('ul');
 
+      $content .= html_writer::end_tag('div');
         if (isset($USER->accessabilitymsg)) {
             $message = $USER->accessabilitymsg;
             unset($USER->accessabilitymsg);
