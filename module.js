@@ -29,7 +29,7 @@ M.block_accessibility = {
         var defaultsize = Y.one('body').getStyle('fontSize');
         if (defaultsize.substr(-2) == 'px') {
             this.defaultsize = defaultsize.substr(0, defaultsize.length-2);
-        } else if (defaultsize.subtring(-1) == '%') {
+        } else if (defaultsize.substr(-1) == '%') {
             this.defaultsize = defaultsize.substr(0, defaultsize.length-1);
         }
 
