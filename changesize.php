@@ -53,7 +53,7 @@ if (!isset($USER->defaultfontsize)) {
 if (!isset($USER->fontsize)) {
     // If the user hasn't already changed the size, we need to find a default so we know where
     // we're increasing/decreasing from
-    if ($userstyle = $DB->get_record('accessibility', array('userid' => $USER->id))) {
+    if ($userstyle = $DB->get_record('block_accessibility', array('userid' => $USER->id))) {
         // First, check the database to see if they've got a setting saved
         $current = $userstyle->fontsize;
     } else {

@@ -48,7 +48,7 @@ if (!accessibility_is_ajax()) {
 switch ($op) {
     case 'save':
 
-        if ($setting = $DB->get_record('accessibility', array('userid' => $USER->id))) {
+        if ($setting = $DB->get_record('block_accessibility', array('userid' => $USER->id))) {
             // Check if the user's already got a saved setting. If they have, just update it.
             if ($size && isset($USER->fontsize)) {
                 $setting->fontsize = $USER->fontsize;
@@ -59,7 +59,7 @@ switch ($op) {
             if ($atbar) {
                 $setting->autoload_atbar = 1;
             }
-            $DB->update_record('accessibility', $setting);
+            $DB->update_record('block_accessibility', $setting);
         } else {
             $setting = new stdClass;
             // Otherwise, create a new record for them.
@@ -73,7 +73,7 @@ switch ($op) {
                 $setting->autoload_atbar = 1;
             }
             $setting->userid = $USER->id;
-            $DB->insert_record('accessibility', $setting);
+            $DB->insert_record('block_accessibility', $setting);
         }
         if (!accessibility_is_ajax()) {
             // If not responding to AJAX, set a message to display and redirect.
@@ -83,7 +83,7 @@ switch ($op) {
         break;
 
     case 'reset':
-        if ($setting = $DB->get_record('accessibility', array('userid' => $USER->id))) {
+        if ($setting = $DB->get_record('block_accessibility', array('userid' => $USER->id))) {
             // if they've got a record, delete it and redirect the user if appropriate.
             if ($size) {
                 $setting->fontsize = null;
@@ -100,9 +100,9 @@ switch ($op) {
             }
 
             if (empty($setting->fontsize) && empty($setting->colourscheme) && empty($setting->atbar)) {
-                $DB->delete_records('accessibility', array('userid' => $USER->id));
+                $DB->delete_records('block_accessibility', array('userid' => $USER->id));
             } else {
-                $DB->update_record('accessibility', $setting);
+                $DB->update_record('block_accessibility', $setting);
             }
             if (!accessibility_is_ajax()) {
                 $USER->accessabilitymsg = get_string('reset', 'block_accessibility');

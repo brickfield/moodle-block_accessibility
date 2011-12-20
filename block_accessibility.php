@@ -185,7 +185,7 @@ class block_accessibility extends block_base {
         $messageattrs = array('id' => 'block_accessibility_message', 'class' => 'clearfix');
         $content .= html_writer::tag('div', $message, $messageattrs);
 
-        $options = $DB->get_record('accessibility', array('userid' => $USER->id));
+        $options = $DB->get_record('block_accessibility', array('userid' => $USER->id));
 
         $checkbox_attrs = array(
             'type' => 'checkbox',

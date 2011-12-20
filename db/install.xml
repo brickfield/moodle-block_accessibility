@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<XMLDB PATH="blocks/accessibility/db" VERSION="20101216" COMMENT="XMLDB file for Moodle blocks/accessibility"
+<XMLDB PATH="blocks/accessibility/db" VERSION="20111220" COMMENT="XMLDB file for Moodle blocks/accessibility"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:noNamespaceSchemaLocation="../../../lib/xmldb/xmldb.xsd"
 >
   <TABLES>
-    <TABLE NAME="accessibility" COMMENT="Default comment for accessibility, please edit me">
+    <TABLE NAME="block_accessibility" COMMENT="Default comment for accessibility, please edit me">
       <FIELDS>
         <FIELD NAME="id" TYPE="int" LENGTH="10" NOTNULL="true" UNSIGNED="true" SEQUENCE="true" NEXT="userid"/>
         <FIELD NAME="userid" TYPE="int" LENGTH="10" NOTNULL="true" UNSIGNED="true" SEQUENCE="false" PREVIOUS="id" NEXT="fontsize"/>

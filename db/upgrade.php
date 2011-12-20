@@ -97,6 +97,19 @@ function xmldb_block_accessibility_upgrade($oldversion=0) {
         upgrade_block_savepoint(true, 2010121500, 'accessibility');
     }
 
+    if ($oldversion < 2011122000) {
+
+        // Define table accessibility to be renamed to block_accessibility
+        $table = new xmldb_table('accessibility');
+
+        // Launch rename table for accessibility
+        $dbman->rename_table($table, 'block_accessibility');
+
+        // accessibility savepoint reached
+        upgrade_block_savepoint(true, 2011122000, 'accessibility');
+    }
+
+
     return $result;
 
 }
