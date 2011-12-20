@@ -25,8 +25,7 @@
  * 400 if the parameter was invalid. If requesting normally, we redirect
  * to reset the saved setting, or to the page we came from as required. (2)
  *
- * @package   blocks
- * @subpackage accessibility                                      (3)
+ * @package   block_accessibility                                      (3)
  * @copyright Copyright &copy; 2009 Taunton's College                   (4)
  * @author  Mark Johnson                                               (5)
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later (6)
@@ -43,10 +42,16 @@ if (!accessibility_is_ajax()) {
 }
 
 switch($scheme) {
-	case 1:
+    case 1:
         unset($USER->colourscheme);
         if (!accessibility_is_ajax()) {
-            $redirecturl = new moodle_url('/blocks/accessibility/database.php', array('op' => 'reset', 'scheme' => true, 'userid' => $USER->id, 'redirect' => $redirect));
+            $urlparams = array(
+                'op' => 'reset',
+                'scheme' => true,
+                'userid' => $USER->id,
+                'redirect' => $redirect
+            );
+            $redirecturl = new moodle_url('/blocks/accessibility/database.php', $urlparams);
         }
         break;
 
@@ -70,5 +75,3 @@ switch($scheme) {
 if (!accessibility_is_ajax()) {
     redirect($redirecturl);
 }
-
-?>

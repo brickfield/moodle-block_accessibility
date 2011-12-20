@@ -23,44 +23,47 @@
  * {@link accessibility_is_ajax()} which finds out if we're responding
  * to an AJAX request.                                                 (2)
  *
- * @package   blocks
- * @subpackage accessibility                                      (3)
+ * @package   block_accessibility                                      (3)
  * @copyright Copyright 2009 onwards Taunton's College                   (4)
- * @author  Mark Johnson                                               (5)
+ * @author  Mark Johnson <mark.johnson@tauntons.ac.uk>                 (5)
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later (6)
  */
 
 /**
- * Convert text size in pixels into a percentage eqivalent, or vice versa, accoring to the YUI fonts CSS guidelines
+ * Convert text size in pixels into a percentage eqivalent, or vice versa, accoring to the YUI
+ * fonts CSS guidelines
  * http://developer.yahoo.com/yui/fonts/
  *
- * @param int|real $size the text size we're converting. Sizes between 10 and 26 will be treated as pixel values. Sizes between 77 and 197 will be treated as percentage values.
- *
+ * @param int|real $size the text size we're converting. Sizes between 10 and 26 will be treated
+ *                       as pixel values. Sizes between 77 and 197 will be treated as percentage
+ *                       values.
  * @return number the converted size
  */
 function accessibility_getsize($size) {
 
     // Define the array of sizes in px against sizes as %
-	$sizes = array( 10 => 77,
-                    11 => 85,
-                    12 => 93,
-                    10 => 77,
-                    11 => 85,
-                    12 => 93,
-                    13 => 100,
-                    14 => 108,
-                    15 => 116,
-                    16 => 123.1,
-                    17 => 131,
-                    18 => 138.5,
-                    19 => 146.5,
-                    20 => 153.9,
-                    21 => 161.6,
-                    22 => 167,
-                    23 => 174,
-                    24 => 182,
-                    25 => 189,
-                    26 => 197);
+    $sizes = array(
+        10 => 77,
+        11 => 85,
+        12 => 93,
+        10 => 77,
+        11 => 85,
+        12 => 93,
+        13 => 100,
+        14 => 108,
+        15 => 116,
+        16 => 123.1,
+        17 => 131,
+        18 => 138.5,
+        19 => 146.5,
+        20 => 153.9,
+        21 => 161.6,
+        22 => 167,
+        23 => 174,
+        24 => 182,
+        25 => 189,
+        26 => 197
+    );
     if (is_int($size) && array_key_exists($size, $sizes)) { // If we're looking at a key (px)
         return $sizes[$size]; // Return the value (%)
     } else if (in_array($size, $sizes)) { // If we're looking at a value (%)
@@ -71,17 +74,17 @@ function accessibility_getsize($size) {
 }
 
 /**
- * Find out whether we're desponding to an AJAX call by seeing if the HTTP_X_REQUESTED_WITH header is XMLHttpRequest
+ * Find out whether we're desponding to an AJAX call by seeing if the HTTP_X_REQUESTED_WITH header
+ * is XMLHttpRequest
  *
  * @return boolean whether we're reponding to an AJAX call or not
  */
 function accessibility_is_ajax() {
-	if(isset($_SERVER['HTTP_X_REQUESTED_WITH']) && $_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest') {
-       $xhr = true;
+    $reqwith = 'HTTP_X_REQUESTED_WITH';
+    if (isset($_SERVER[$reqwith]) && $_SERVER[$reqwith] == 'XMLHttpRequest') {
+        $xhr = true;
     } else {
-       $xhr = false;
+        $xhr = false;
     }
     return $xhr;
 }
-
-?>

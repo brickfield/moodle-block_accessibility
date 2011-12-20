@@ -84,7 +84,8 @@ M.block_accessibility = {
             // Hide block buttons until ATbar is closed
             Y.one('#block_accessibility_textresize').setStyle('display', 'none');
             Y.one('#block_accessibility_changecolour').setStyle('display', 'none');
-            setTimeout("M.block_accessibility.watch_atbar_for_close();", 1000); // Wait 1 second to give the bar a chance to load
+            // Wait 1 second to give the bar a chance to load
+            setTimeout("M.block_accessibility.watch_atbar_for_close();", 1000);
         }
 
     },

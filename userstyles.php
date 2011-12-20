@@ -21,14 +21,12 @@
  * This file is the cornerstone of the block - when the page loads, it
  * checks if the user has a custom settings for the font size and colour
  * scheme (either in the session or the database) and creates a stylesheet
- * to override the standard styles with this setting. This requires a <link>
- * tag to be added to the header.html of any theme that this block needs to
- * work with.                                                           (2)
+ * to override the standard styles with this setting.                  (2)
  *
  * @see block_accessibility.php                                        (3)
- * @package   blocks-accessibility                                      (4)
+ * @package   block_accessibility                                      (4)
  * @copyright Copyright 2009 onwards Taunton's College                   (5)
- * @author Mark Johnson                                                 (6)
+ * @author Mark Johnson <mark.johnson@tauntons.ac.uk>                  (6)
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later (7)
  */
 
@@ -38,14 +36,14 @@ header('Content-Type: text/css');
 // First, check the session to see if the user's overridden the default/saved setting
 $options = $DB->get_record('accessibility', array('userid' => $USER->id));
 
-if(!empty($USER->fontsize)) {
+if (!empty($USER->fontsize)) {
 
     $fontsize = $USER->fontsize;
 
 } else if (!empty($options->fontsize)) {
     $fontsize = $options->fontsize;
 }
-if(!empty($USER->colourscheme)) {
+if (!empty($USER->colourscheme)) {
 
     $colourscheme = $USER->colourscheme;
 
@@ -56,7 +54,7 @@ if(!empty($USER->colourscheme)) {
 }
 
 if (!empty($fontsize) || !empty($colourscheme)) {
-// Echo out CSS for the body element. Use !important to override any other external
+    // Echo out CSS for the body element. Use !important to override any other external
     // stylesheets.
     if (!empty($fontsize)) {
         echo '#page {font-size: '.$fontsize.'% !important;}';
@@ -85,8 +83,5 @@ if (!empty($fontsize) || !empty($colourscheme)) {
                 break;
 
         }
-        
     }
 }
-
-?>

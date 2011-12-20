@@ -25,9 +25,9 @@
  * with suitable HTTP error codes. Otherwise, it sets a message to
  * display, and redirects the user back to where they came from.       (2)
  *
- * @package   blocks-accessibility                                      (3)
+ * @package   block_accessibility                                      (3)
  * @copyright 2009 &copy; Taunton's College                            (4)
- * @author Mark Johnson
+ * @author Mark Johnson <mark.johnson@taunton.ac.uk>
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later (5)
  */
 
@@ -40,12 +40,12 @@ $scheme = optional_param('scheme', false, PARAM_BOOL);
 $atbar = optional_param('atbar', false, PARAM_BOOL);
 
 
-if(!accessibility_is_ajax()) {
+if (!accessibility_is_ajax()) {
     $redirect = required_param('redirect', PARAM_TEXT);
     $redirecturl = new moodle_url($redirect);
 }
 
-switch($op) {
+switch ($op) {
     case 'save':
 
         if ($setting = $DB->get_record('accessibility', array('userid' => $USER->id))) {
@@ -75,7 +75,7 @@ switch($op) {
             $setting->userid = $USER->id;
             $DB->insert_record('accessibility', $setting);
         }
-        if(!accessibility_is_ajax()) {
+        if (!accessibility_is_ajax()) {
             // If not responding to AJAX, set a message to display and redirect.
             $USER->accessabilitymsg = get_string('saved', 'block_accessibility');
             redirect($redirecturl);
@@ -104,21 +104,17 @@ switch($op) {
             } else {
                 $DB->update_record('accessibility', $setting);
             }
-            if(!accessibility_is_ajax()) {
+            if (!accessibility_is_ajax()) {
                 $USER->accessabilitymsg = get_string('reset', 'block_accessibility');
             }
-        } else if(accessibility_is_ajax()) {
+        } else if (accessibility_is_ajax()) {
             header("HTTP/1.0 404 Not Found");
         }
-        if(!accessibility_is_ajax()) {
+        if (!accessibility_is_ajax()) {
             redirect($redirecturl);
         }
         break;
 
-default:
-    header("HTTP/1.0 400 Bad Request");
+    default:
+        header("HTTP/1.0 400 Bad Request");
 }
-
-
-
-?>

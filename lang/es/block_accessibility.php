@@ -45,5 +45,3 @@ $string['col1text'] = 'Volver al esquema de colores original (Se pierde la confi
 $string['col2text'] = 'Bajo Contraste 1';
 $string['col3text'] = 'Bajo Contraste 2';
 $string['col4text'] = 'Alto Contraste';
-
-?>

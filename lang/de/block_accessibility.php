@@ -45,5 +45,3 @@ $string['col1text'] = 'Standard Farbschema (Löscht gespeicherte Einstellung)';
 $string['col2text'] = 'Reduzierter Kontrast 1';
 $string['col3text'] = 'Reduzierter Kontrast 2';
 $string['col4text'] = 'Hoher Kontrast';
-
-?>

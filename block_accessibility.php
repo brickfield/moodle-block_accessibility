@@ -18,8 +18,7 @@
 /**
  * Define the accessibility block's class
  *
- * @package    blocks
- * @subpackage  accessibility
+ * @package    block_accessibility
  * @author      Mark Johnson <mark.johnson@tauntons.ac.uk>
  * @copyright   2010 Tauntons College, UK
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
@@ -35,7 +34,7 @@ class block_accessibility extends block_base {
     /**
      * Set the title
      */
-    function init() {
+    public function init() {
         $this->title = get_string('pluginname', 'block_accessibility');
     }
 
@@ -44,7 +43,7 @@ class block_accessibility extends block_base {
      *
      * @return array
      */
-    function applicable_formats() {
+    public function applicable_formats() {
         return array('all' => true);
     }
 
@@ -53,7 +52,7 @@ class block_accessibility extends block_base {
      *
      * @return object Block contents and footer
      */
-    function get_content () {
+    public function get_content () {
         global $CFG;
         global $USER;
         global $FULLME;
@@ -107,7 +106,7 @@ class block_accessibility extends block_base {
         $reset_attrs = array(
             'id' => 'block_accessibility_reset',
             'title' => get_string('resettext', 'block_accessibility'),
-            'href' => $size_url->out(FALSE, array('op' => 'reset'))
+            'href' => $size_url->out(false, array('op' => 'reset'))
         );
 
         $c1_attrs = array(
@@ -129,24 +128,28 @@ class block_accessibility extends block_base {
 
         $content = '';
 
-      $content .= html_writer::start_tag('div', array('id' => 'accessibility_controls', 'class' => 'content'));
-        $content .= html_writer::start_tag('ul', array('id' => 'block_accessibility_textresize', 'class' => 'button_row'));
+        $strchar = get_string('char', 'block_accessibility');
+        $divattrs = array('id' => 'accessibility_controls', 'class' => 'content');
+        $listattrs = array('id' => 'block_accessibility_textresize', 'class' => 'button_row');
 
-            $content .= html_writer::start_tag('li', array('class' => 'access-button'));
-                $content .= html_writer::tag('a', get_string('char', 'block_accessibility').'-', $dec_attrs);
-            $content .= html_writer::end_tag('li');
+        $content .= html_writer::start_tag('div', $divattrs);
+        $content .= html_writer::start_tag('ul', $listattrs);
 
-            $content .= html_writer::start_tag('li', array('class' => 'access-button'));
-                $content .= html_writer::tag('a', get_string('char', 'block_accessibility'), $reset_attrs);
-            $content .= html_writer::end_tag('li');
+        $content .= html_writer::start_tag('li', array('class' => 'access-button'));
+        $content .= html_writer::tag('a', $strchar.'-', $dec_attrs);
+        $content .= html_writer::end_tag('li');
 
-            $content .= html_writer::start_tag('li', array('class' => 'access-button'));
-                $content .= html_writer::tag('a', get_string('char', 'block_accessibility').'+', $inc_attrs);
-            $content .= html_writer::end_tag('li');
+        $content .= html_writer::start_tag('li', array('class' => 'access-button'));
+        $content .= html_writer::tag('a', $strchar, $reset_attrs);
+        $content .= html_writer::end_tag('li');
 
-            $content .= html_writer::start_tag('li', array('class' => 'access-button'));
-                $content .= html_writer::tag('a', '&nbsp', $save_attrs);
-            $content .= html_writer::end_tag('li');
+        $content .= html_writer::start_tag('li', array('class' => 'access-button'));
+        $content .= html_writer::tag('a', $strchar.'+', $inc_attrs);
+        $content .= html_writer::end_tag('li');
+
+        $content .= html_writer::start_tag('li', array('class' => 'access-button'));
+        $content .= html_writer::tag('a', '&nbsp', $save_attrs);
+        $content .= html_writer::end_tag('li');
 
         $content .= html_writer::end_tag('ul');
 
@@ -154,31 +157,33 @@ class block_accessibility extends block_base {
         $content .= html_writer::start_tag('ul', array('id' => 'block_accessibility_changecolour'));
 
         $content .= html_writer::start_tag('li', array('class' => 'access-button'));
-            $content .= html_writer::tag('a', get_string('char', 'block_accessibility'), $c1_attrs);
+        $content .= html_writer::tag('a', get_string('char', 'block_accessibility'), $c1_attrs);
         $content .= html_writer::end_tag('li');
 
         $content .= html_writer::start_tag('li', array('class' => 'access-button'));
-            $content .= html_writer::tag('a', get_string('char', 'block_accessibility'), $c2_attrs);
+        $content .= html_writer::tag('a', get_string('char', 'block_accessibility'), $c2_attrs);
         $content .= html_writer::end_tag('li');
 
         $content .= html_writer::start_tag('li', array('class' => 'access-button'));
-            $content .= html_writer::tag('a', get_string('char', 'block_accessibility'), $c3_attrs);
+        $content .= html_writer::tag('a', get_string('char', 'block_accessibility'), $c3_attrs);
         $content .= html_writer::end_tag('li');
 
         $content .= html_writer::start_tag('li', array('class' => 'access-button'));
-            $content .= html_writer::tag('a', get_string('char', 'block_accessibility'), $c4_attrs);
+        $content .= html_writer::tag('a', get_string('char', 'block_accessibility'), $c4_attrs);
         $content .= html_writer::end_tag('li');
 
         $content .= html_writer::end_tag('ul');
 
-      $content .= html_writer::end_tag('div');
+        $content .= html_writer::end_tag('div');
         if (isset($USER->accessabilitymsg)) {
             $message = $USER->accessabilitymsg;
             unset($USER->accessabilitymsg);
         } else {
             $message = '';
         }
-        $content .= html_writer::tag('div', $message, array('id' => 'block_accessibility_message', 'class' => 'clearfix'));
+
+        $messageattrs = array('id' => 'block_accessibility_message', 'class' => 'clearfix');
+        $content .= html_writer::tag('div', $message, $messageattrs);
 
         $options = $DB->get_record('accessibility', array('userid' => $USER->id));
 
@@ -215,7 +220,8 @@ class block_accessibility extends block_base {
 
         $content .= html_writer::empty_tag('input', $launch_attrs);
         $content .= html_writer::empty_tag('input', $checkbox_attrs);
-        $content .= html_writer::tag('label', get_string('autolaunch', 'block_accessibility'), $label_attrs);
+        $strlaunch = get_string('autolaunch', 'block_accessibility');
+        $content .= html_writer::tag('label', $strlaunch, $label_attrs);
 
         $this->content->footer = '';
         $this->content->text = $content;
@@ -225,7 +231,6 @@ class block_accessibility extends block_base {
             'fullpath'  =>  '/blocks/accessibility/module.js',
             'requires'  =>  array('base', 'node', 'stylesheet')
         );
-
 
         if ($options && $options->autoload_atbar) {
             $jsdata = array(
@@ -246,7 +251,10 @@ class block_accessibility extends block_base {
         $this->page->requires->string_for_js('jsnocolour', 'block_accessibility');
         $this->page->requires->string_for_js('jsnosizereset', 'block_accessibility');
         $this->page->requires->string_for_js('launchtoolbar', 'block_accessibility');
-        $this->page->requires->js_init_call('M.block_accessibility.init', $jsdata, false, $jsmodule);
+        $this->page->requires->js_init_call('M.block_accessibility.init',
+                                            $jsdata,
+                                            false,
+                                            $jsmodule);
 
         return $this->content;
     }
@@ -254,11 +262,12 @@ class block_accessibility extends block_base {
     /**
      * Periodically clear the TTS cache so it doesn't get out of hand.
      */
-    function cron() {
+    public function cron() {
         global $CFG;
         $count = 0;
-        $count += $this->clear_old_cache($CFG->dirroot.'/blocks/accessibility/toolbar/server/TTS/cache/chunks');
-        $count += $this->clear_old_cache($CFG->dirroot.'/blocks/accessibility/toolbar/server/TTS/cache');
+        $cache = $CFG->dirroot.'/blocks/accessibility/toolbar/server/TTS/cache';
+        $count += $this->clear_old_cache($cache.'/chunks');
+        $count += $this->clear_old_cache($cache);
         mtrace(get_string('clearedoldcache', 'block_accessibility', $count));
 
     }
@@ -269,17 +278,17 @@ class block_accessibility extends block_base {
      * @param string $path The Directory to delete from
      * @return int Number of files deleted.
      */
-    function clear_old_cache($path) {
+    public function clear_old_cache($path) {
         $dh = opendir($path);
         $count = 0;
         while (false !== ($file = readdir($dh))) {
-            $stat = stat($path.'/'.$file);
-            if (is_file($path.'/'.$file) && $stat['mtime'] < time()-3600 && $file != 'index.html') {
-                unlink($path.'/'.$file);
+            $filepath = $path.'/'.$file;
+            $stat = stat($filepath);
+            if (is_file($filepath) && $stat['mtime'] < time()-3600 && $file != 'index.html') {
+                unlink($filepath);
                 $count++;
             }
         }
         return $count;
     }
 }
-?>

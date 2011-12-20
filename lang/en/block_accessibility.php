@@ -1,4 +1,3 @@
-
 <?php
 // This file is part of Moodle - http://moodle.org/
 //
@@ -47,5 +46,3 @@ $string['col1text'] = 'Deafult Colour Scheme (Clears Saved Setting)';
 $string['col2text'] = 'Lowered Contrast 1';
 $string['col3text'] = 'Lowered Contrast 2';
 $string['col4text'] = 'High Contrast';
-
-?>

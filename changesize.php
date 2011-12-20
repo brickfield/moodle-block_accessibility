@@ -24,8 +24,9 @@
  * string or suiable error code. If not, it redirects the user back to
  * where they came from.                                               (2)
  *
- * @package   blocks-accessibility                                      (3)
- * @copyright 2009 Mark Johnson                                        (4)
+ * @package   block_accessibility                                      (3)
+ * @author      Mark Johnson <mark.johnson@tauntons.ac.uk>
+ * @copyright   2010 Tauntons College, UK
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later (5)
  */
 
@@ -49,9 +50,10 @@ if (!isset($USER->defaultfontsize)) {
     }
 }
 
-if(!isset($USER->fontsize)) {
-    // If the user hasn't already changed the size, we need to find a default so we know where we're increasing/decreasing from
-    if($userstyle = $DB->get_record('accessibility', array('userid' => $USER->id))) {
+if (!isset($USER->fontsize)) {
+    // If the user hasn't already changed the size, we need to find a default so we know where
+    // we're increasing/decreasing from
+    if ($userstyle = $DB->get_record('accessibility', array('userid' => $USER->id))) {
         // First, check the database to see if they've got a setting saved
         $current = $userstyle->fontsize;
     } else {
@@ -68,7 +70,7 @@ if ($current >= 77 && $current <= 197) {
 }
 switch($op) {
     case 'inc':
-        if($current == 26) {
+        if ($current == 26) {
             // If we're at the upper limit, don't increase any further.
             $new = accessibility_getsize($current);
         } else {
@@ -77,7 +79,7 @@ switch($op) {
         }
         break;
     case 'dec':
-        if($current == 10) {
+        if ($current == 10) {
             // If we're at the lower limit, don't decrease any further.
             $new = accessibility_getsize($current);
         } else {
@@ -96,7 +98,13 @@ switch($op) {
             exit();
         } else {
             // Otherwise, redirect the user
-            $redirecturl = new moodle_url('/blocks/accessibility/database.php', array('op' => 'reset', 'size' => true, 'userid' => $USER->id, 'redirect' => $redirect));
+            $urlparams = array(
+                'op' => 'reset',
+                'size' => true,
+                'userid' => $USER->id,
+                'redirect' => $redirect
+            );
+            $redirecturl = new moodle_url('/blocks/accessibility/database.php', $urlparams);
             redirect($redirecturl);
         }
         break;
@@ -125,5 +133,3 @@ if (accessibility_is_ajax()) {
     // Otherwise, redirect the user
     redirect($redirecturl);
 }
-
-?>
