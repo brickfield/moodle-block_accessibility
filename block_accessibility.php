@@ -35,7 +35,10 @@ class block_accessibility extends block_base {
      * Set the title
      */
     public function init() {
+        global $PAGE;
         $this->title = get_string('pluginname', 'block_accessibility');
+        $cssurl = '/blocks/accessibility/userstyles.php';
+        $PAGE->requires->css($cssurl);
     }
 
     /**
@@ -60,9 +63,6 @@ class block_accessibility extends block_base {
         if ($this->content !== null) {
             return $this->content;
         }
-
-        $cssurl = '/blocks/accessibility/userstyles.php';
-        $this->page->requires->css($cssurl);
 
         $params = array('redirect' => $FULLME);
         $size_url = new moodle_url('/blocks/accessibility/changesize.php', $params);
