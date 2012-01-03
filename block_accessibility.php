@@ -32,13 +32,22 @@ require_once($CFG->dirroot.'/blocks/accessibility/lib.php');
 class block_accessibility extends block_base {
 
     /**
-     * Set the title
+     * Set the title and include the stylesheet
+     *
+     * We need to include the stylesheet here rather than in {@see get_content()} since get_content
+     * is sometimes called after $OUTPUT->heading(), e.g. such as /user/index.php where the middle
+     * region is hard-coded.
+     * However, /admin/plugins.php calls init() for each plugin after $OUTPUT->heading(), so the
+     * sheet is not included at all on that page.
      */
     public function init() {
         global $PAGE;
         $this->title = get_string('pluginname', 'block_accessibility');
-        $cssurl = '/blocks/accessibility/userstyles.php';
-        $PAGE->requires->css($cssurl);
+
+        if ($PAGE->pagetype != 'admin-plugins') {
+            $cssurl = '/blocks/accessibility/userstyles.php';
+            $PAGE->requires->css($cssurl);
+        }
     }
 
     /**
