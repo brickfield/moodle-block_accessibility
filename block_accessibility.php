@@ -44,7 +44,8 @@ class block_accessibility extends block_base {
         global $PAGE;
         $this->title = get_string('pluginname', 'block_accessibility');
 
-        if (!in_array($PAGE->pagetype, array('admin-plugins', 'admin-blocks'))) {
+        $exclude_types = array('admin-index', 'admin-plugins', 'admin-blocks', 'course-delete');
+        if (!in_array($PAGE->pagetype, $exclude_types)) {
             $cssurl = '/blocks/accessibility/userstyles.php';
             $PAGE->requires->css($cssurl);
         }
