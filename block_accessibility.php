@@ -233,6 +233,7 @@ class block_accessibility extends block_base {
         $strlaunch = get_string('autolaunch', 'block_accessibility');
         $content .= html_writer::tag('label', $strlaunch, $label_attrs);
 
+        $this->content = new stdClass;
         $this->content->footer = '';
         $this->content->text = $content;
 
