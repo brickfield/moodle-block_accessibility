@@ -152,3 +152,16 @@ body.jsdisabled #block_accessibility_launchtoolbar {
     margin: .4em 0;
     padding: 0;
 }
+
+/* ATBar styles */
+#toolbar-launch {
+	position: absolute;
+	padding: 0;
+	top: -3px;
+	left: 50%;
+}
+
+#toolbar-launch img {
+	padding: 0;
+	opacity: 0.6;
+}

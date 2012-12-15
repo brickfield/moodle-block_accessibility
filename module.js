@@ -95,17 +95,11 @@ M.block_accessibility = {
      *  Code from ATbar bookmarklet to load bar into page
      */
     load_atbar: function() {
-        this.log('Launching ATbar');
-        d = document;
-        lf = d.createElement('script');
-        lf.type = 'text/javascript';
-        lf.id = 'ToolbarStarter';
-        lf.text = 'var StudyBarNoSandbox = true';
-        d.getElementsByTagName('head')[0].appendChild(lf);
-        jf = d.createElement('script');
-        jf.src = M.cfg.wwwroot+'/blocks/accessibility/toolbar/client/JTToolbar.user.js';
-        jf.type = 'text/javascript';
-        jf.id = 'ToolBar';
+        d=document;
+        jf=d.createElement('script');
+        jf.src=('https:'==document.location.protocol?'https://ssl.atbar.org/c':'http://c.atbar.org')+'/ATBar2/ATBar.min.user.js';
+        jf.type='text/javascript';
+        jf.id='ToolBar';
         d.getElementsByTagName('head')[0].appendChild(jf);
     },
 
@@ -457,7 +451,7 @@ M.block_accessibility = {
     watch_atbar_for_close: function() {
         Y = this.Y;
         this.watch = setInterval(function() {
-            if (!Y.one('#sbar')) {
+            if (AtKit.isRendered()) {
                 Y.one('#block_accessibility_textresize').setStyle('display', 'block');
                 Y.one('#block_accessibility_changecolour').setStyle('display', 'block');
                 clearInterval(M.block_accessibility.watch);
