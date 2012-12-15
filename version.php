@@ -29,6 +29,8 @@
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later (7)
  */
 
+defined('MOODLE_INTERNAL') || die();
+
 $plugin->version = 2012110700;
 $plugin->cron = 3600;
 $plugin->requires = 2010112400;

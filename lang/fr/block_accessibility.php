@@ -22,6 +22,7 @@
  * @copyright &copy; eCampus Provincial 2012   http://www.ecampus-hainaut.be     (3)
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later (4)
  */
+defined('MOODLE_INTERNAL') || die();
 
 $string['autolaunch'] = '(toujours?)';
 $string['blockname'] = 'Accessibilité';

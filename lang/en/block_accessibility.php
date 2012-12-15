@@ -22,6 +22,7 @@
  * @copyright &copy; Taunton's College 2009                             (3)
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later (4)
  */
+defined('MOODLE_INTERNAL') || die();
 
 $string['autolaunch'] = '(always?)';
 $string['blockname'] = 'Accessibility';

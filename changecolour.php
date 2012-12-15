@@ -34,6 +34,7 @@
 
 require_once('../../config.php');
 require_once($CFG->dirroot.'/blocks/accessibility/lib.php');
+require_login();
 
 $scheme = required_param('scheme', PARAM_INT);
 if (!accessibility_is_ajax()) {

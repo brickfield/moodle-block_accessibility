@@ -21,6 +21,7 @@
  * @author  Joachim Vogelgesang                                        (2)
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later (3)
  */
+defined('MOODLE_INTERNAL') || die();
 
 $string['autolaunch'] = '(immer?)';
 $string['blockname'] = 'Barrierefreiheit';

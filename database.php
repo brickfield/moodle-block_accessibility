@@ -33,6 +33,7 @@
 
 require_once('../../config.php');
 require_once($CFG->dirroot.'/blocks/accessibility/lib.php');
+require_login();
 
 $op = required_param('op', PARAM_TEXT);
 $size = optional_param('size', false, PARAM_BOOL);

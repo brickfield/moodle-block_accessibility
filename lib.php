@@ -39,6 +39,9 @@
  *                       values.
  * @return number the converted size
  */
+
+defined('MOODLE_INTERNAL') || die();
+
 function accessibility_getsize($size) {
 
     // Define the array of sizes in px against sizes as %
