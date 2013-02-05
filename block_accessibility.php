@@ -272,36 +272,4 @@ class block_accessibility extends block_base {
         return $this->content;
     }
 
-    /**
-     * Periodically clear the TTS cache so it doesn't get out of hand.
-     */
-    public function cron() {
-        global $CFG;
-        $count = 0;
-        $cache = $CFG->dirroot.'/blocks/accessibility/toolbar/server/TTS/cache';
-        $count += $this->clear_old_cache($cache.'/chunks');
-        $count += $this->clear_old_cache($cache);
-        mtrace(get_string('clearedoldcache', 'block_accessibility', $count));
-
-    }
-
-    /**
-     * Passes over the given directory and deletes all files over an hour old.
-     *
-     * @param string $path The Directory to delete from
-     * @return int Number of files deleted.
-     */
-    public function clear_old_cache($path) {
-        $dh = opendir($path);
-        $count = 0;
-        while (false !== ($file = readdir($dh))) {
-            $filepath = $path.'/'.$file;
-            $stat = stat($filepath);
-            if (is_file($filepath) && $stat['mtime'] < time()-3600 && $file != 'index.html') {
-                unlink($filepath);
-                $count++;
-            }
-        }
-        return $count;
-    }
 }
