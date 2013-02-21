@@ -32,7 +32,9 @@
 
 require_once('../../config.php');
 require_once($CFG->dirroot.'/blocks/accessibility/lib.php');
-require_login();
+if (!isloggedin()) {
+    die();
+}
 
 header('Content-Type: text/css');
 // First, check the session to see if the user's overridden the default/saved setting
