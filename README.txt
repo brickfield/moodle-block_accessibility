@@ -2,7 +2,7 @@ Accessibility Block for Moodle
 
 Provides options for changing text size and colour scheme. Settings can be saved to persist between sessions.
 
-Also integrates ATbar from Southampton University ECS http://access.ecs.soton.ac.uk/ToolBar/. Code used under BSD Licence.
+Also integrates ATbar from Southampton University ECS http://www.atbar.org. Code used under BSD Licence.
 
 To install, place all files in /blocks/accessibility and visit /admin/index.php in your browser.
 
