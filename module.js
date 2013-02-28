@@ -97,7 +97,7 @@ M.block_accessibility = {
     load_atbar: function() {
         d=document;
         jf=d.createElement('script');
-        jf.src=('https:'==document.location.protocol?'https://ssl.atbar.org/c':'http://c.atbar.org')+'/ATBar2/ATBar.min.user.js';
+        jf.src='https://core.atbar.org/atbar/en/latest/atbar.min.js';
         jf.type='text/javascript';
         jf.id='ToolBar';
         d.getElementsByTagName('head')[0].appendChild(jf);
