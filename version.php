@@ -31,9 +31,9 @@
 
 defined('MOODLE_INTERNAL') || die();
 
-$plugin->version = 2013022800;
+$plugin->version = 2013031600;
 $plugin->cron = 3600;
 $plugin->requires = 2011120500;
 $plugin->component = 'block_accessibility';
 $plugin->maturity = MATURITY_STABLE;
-$plugin->release = '2.1.23';
+$plugin->release = '2.1.3';
