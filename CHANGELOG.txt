@@ -1,3 +1,6 @@
+New in version 2.1.5:
+* Fixed long-standing CSS inclusion bug, thanks to AviMoto
+
 New in version 2.1:
 * Updated ATBar
 * Added French Translation
