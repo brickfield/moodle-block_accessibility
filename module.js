@@ -245,7 +245,7 @@ M.block_accessibility = {
                             style = Y.JSON.parse(o.responseText);
                             // Set the new fontsize
                             M.block_accessibility.log('Increasing size to '+style.fontsize);
-                            Y.one('#page').setStyle('fontSize', style.fontsize+'%');
+                            Y.StyleSheet('#page { font-size:' + style.fontsize + '% !important; }');
                             // disable the per-user stylesheet so our style isn't overridden
                             if (M.block_accessibility.stylesheet !== undefined) {
                                 M.block_accessibility.stylesheet.unset('#page');
@@ -281,7 +281,7 @@ M.block_accessibility = {
                             style = Y.JSON.parse(o.responseText);
                             // Set the new fontsize
                             M.block_accessibility.log('Decreasing size to '+style.fontsize);
-                            Y.one('#page').setStyle('fontSize', style.fontsize+'%');
+                            Y.StyleSheet('#page { font-size:' + style.fontsize + '% !important; }');
                             // disable the per-user stylesheet so our style isn't overridden
                             if (M.block_accessibility.stylesheet !== undefined) {
                                 M.block_accessibility.stylesheet.unset('#page');
