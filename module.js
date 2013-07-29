@@ -17,7 +17,7 @@ M.block_accessibility = {
     init: function(Y, autoload_atbar) {
         this.log('Accessibility block Debug mode active');
         this.Y = Y;
-        sheetnode = Y.one('link[href='+M.cfg.wwwroot+'/blocks/accessibility/userstyles.php]');
+        sheetnode = Y.one('link[href$="/blocks/accessibility/userstyles.php"]');
         this.stylesheet = Y.StyleSheet(sheetnode);
         this.colour2 = Y.StyleSheet('*{background-color: #ffc !important;background-image:none !important;}');
         this.colour2.disable();
@@ -245,7 +245,7 @@ M.block_accessibility = {
                             style = Y.JSON.parse(o.responseText);
                             // Set the new fontsize
                             M.block_accessibility.log('Increasing size to '+style.fontsize);
-                            Y.StyleSheet('#page { font-size:' + style.fontsize + '% !important; }');
+                            Y.one('#page').setStyle('fontSize', style.fontsize+'%');
                             // disable the per-user stylesheet so our style isn't overridden
                             if (M.block_accessibility.stylesheet !== undefined) {
                                 M.block_accessibility.stylesheet.unset('#page');
@@ -281,7 +281,7 @@ M.block_accessibility = {
                             style = Y.JSON.parse(o.responseText);
                             // Set the new fontsize
                             M.block_accessibility.log('Decreasing size to '+style.fontsize);
-                            Y.StyleSheet('#page { font-size:' + style.fontsize + '% !important; }');
+                            Y.one('#page').setStyle('fontSize', style.fontsize+'%');
                             // disable the per-user stylesheet so our style isn't overridden
                             if (M.block_accessibility.stylesheet !== undefined) {
                                 M.block_accessibility.stylesheet.unset('#page');
