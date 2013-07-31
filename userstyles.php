@@ -61,7 +61,7 @@ if (!empty($fontsize) || !empty($colourscheme)) {
     // Echo out CSS for the body element. Use !important to override any other external
     // stylesheets.
     if (!empty($fontsize)) {
-        echo '#page {font-size: '.$fontsize.'% !important;}';
+        echo '#page {font-size: '.$fontsize.'%;}';
     }
     if (!empty($colourscheme)) {
         switch ($colourscheme) {
