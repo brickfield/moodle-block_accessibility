@@ -4,11 +4,11 @@ M.block_accessibility = {
 
     defaultsize: 100,
 
-    colour2: '',
+    colours: new Array(),
 
-    colour3: '',
+    styles: new Array(),
 
-    colour4: '',
+    numberOfColours: 3,
 
     watch: null,
 
@@ -17,14 +17,17 @@ M.block_accessibility = {
     init: function(Y, autoload_atbar) {
         this.log('Accessibility block Debug mode active');
         this.Y = Y;
-        sheetnode = Y.one('link[href='+M.cfg.wwwroot+'/blocks/accessibility/userstyles.php]');
-        this.stylesheet = Y.StyleSheet(sheetnode);
-        this.colour2 = Y.StyleSheet('*{background-color: #ffc !important;background-image:none !important;}');
-        this.colour2.disable();
-        this.colour3 = Y.StyleSheet('*{background-color: #9cf !important;background-image:none !important;}');
-        this.colour3.disable();
-        this.colour4 = Y.StyleSheet('*{background-color: #000 !important;background-image:none !important;color: #ff0 !important;}a{color: #f00 !important;}.block_accessibility .outer{border-color: white;}');
-        this.colour4.disable();
+        style2 = '*:not([class*="mce"]):not([id*="mce"]):not([id*="editor"]) {background-color: #ffc !important;}; forumpost .topic {background-image: none !important;} *:not([class*="mce"]):not([id*="mce"]):not([id*="editor"]){background-image: none !important;}';
+        style3 = '*:not([class*="mce"]):not([id*="mce"]):not([id*="editor"]) {background-color: #9cf !important;} forumpost .topic {background-image: none !important;} *:not([class*="mce"]):not([id*="mce"]):not([id*="editor"]) {background-image: none !important;}';
+        style4 = '*:not(a):not([class*="mce"]):not([id*="mce"]):not([id*="editor"]) {color: #ffff00 !important;} *:not([class*="mce"]):not([id*="mce"]):not([id*="editor"]) {background-color: #000 !important;} *:not([class*="mce"]):not([id*="mce"]):not([id*="editor"]) {background-image: none !important;} #content a, .tabrow0 span {color: #ff0 !important;} .tabrow0 span:hover {text-decoration: underline;} .block_accessibility .outer {border-color:#fff !important;} a {color: #f00 !important;}';
+        this.styles.push(style2);
+        this.styles.push(style3);
+        this.styles.push(style4);
+        this.stylesheet = Y.StyleSheet();
+        for(var i=0; i<this.numberOfColours; i++) {
+            this.colours[i] = Y.StyleSheet(this.styles[i]);
+            this.colours[i].disable();
+        }
         this.log('Initial size: '+Y.one('body').getStyle('fontSize'));
         var defaultsize = Y.one('body').getStyle('fontSize');
         if (defaultsize.substr(-2) == 'px') {
@@ -32,6 +35,24 @@ M.block_accessibility = {
         } else if (defaultsize.substr(-1) == '%') {
             this.defaultsize = defaultsize.substr(0, defaultsize.length-1);
         }
+
+	//get colour scheme and font size
+	xmlhttp = new XMLHttpRequest();
+	xmlhttp.open("GET",M.cfg.wwwroot+"/blocks/accessibility/userstyles.php",false);
+	xmlhttp.send(null);
+	var fileContent = xmlhttp.responseText.split(",");
+
+	//apply size
+	var fontSize = parseInt(fileContent[0]);
+	if(fontSize != -1) {
+	    Y.one('#page').setStyle('fontSize', fontSize+'%');
+	}
+
+	//apply color
+	var index = parseInt(fileContent[1]);
+	if(index != -1 && index-2>=0) {
+	    this.colours[index-2].enable();
+	}
 
         // Attach the click handler
         Y.all('#block_accessibility_textresize a').on('click', function(e) {
@@ -369,41 +390,28 @@ M.block_accessibility = {
             on: {
                 success: function (id, o) {
                     if (M.block_accessibility.stylesheet !== undefined) {
-                        M.block_accessibility.stylesheet.unset('*');
-                        M.block_accessibility.stylesheet.unset('forumpost .topic');
+                        M.block_accessibility.stylesheet.unset('*:not(a):not([class*="mce"]):not([id*="mce"]):not([id*="editor"])');
+                        M.block_accessibility.stylesheet.unset('*:not([class*="mce"]):not([id*="mce"]):not([id*="editor"])');
+			M.block_accessibility.stylesheet.unset('forumpost .topic');
                         M.block_accessibility.stylesheet.unset('#content a, .tabrow0 span');
                         M.block_accessibility.stylesheet.unset('.tabrow0 span:hover');
                         M.block_accessibility.stylesheet.unset('.block_accessibility .outer');
                     }
 
-                    switch (scheme) {
-                        case '1':
-                            M.block_accessibility.colour2.disable();
-                            M.block_accessibility.colour3.disable();
-                            M.block_accessibility.colour4.disable();
-                            M.block_accessibility.resetscheme();
-                            M.block_accessibility.toggle_textsizer('save', 'off');
-                            break;
-                        case '2':
-                            M.block_accessibility.colour2.enable();
-                            M.block_accessibility.colour3.disable();
-                            M.block_accessibility.colour4.disable();
-                            M.block_accessibility.toggle_textsizer('save', 'on');
-                            break;
-                        case '3':
-                            M.block_accessibility.colour2.disable();
-                            M.block_accessibility.colour3.enable();
-                            M.block_accessibility.colour4.disable();
-                            M.block_accessibility.toggle_textsizer('save', 'on');
-                            break;
-                        case '4':
-                            M.block_accessibility.colour2.disable();
-                            M.block_accessibility.colour3.disable();
-                            M.block_accessibility.colour4.enable();
-                            M.block_accessibility.toggle_textsizer('save', 'on');
-                            break;
-                    }
-                },
+		    var enabled = (scheme-2)>=0;
+		    for(var i = 0; i<M.block_accessibility.numberOfColours; i++) {
+			M.block_accessibility.colours[i].disable();
+			if(scheme-2 == i) {
+			    M.block_accessibility.colours[i].enable();
+			}
+			if(enabled) {
+			    M.block_accessibility.toggle_textsizer('save','on');
+			} else {
+			    M.block_accessibility.resetscheme();
+			    M.block_accessibility.toggle_textsizer('save','off');
+			}
+		    }
+		},
 
                 failure: function(id, o) {
                     alert(get_string('jsnocolour', 'block_accessibility')+': '+o.status+' '+o.statusText);
