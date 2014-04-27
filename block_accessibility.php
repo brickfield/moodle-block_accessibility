@@ -45,11 +45,6 @@ class block_accessibility extends block_base {
     public function init() {
         global $PAGE;
         $this->title = get_string('pluginname', 'block_accessibility');
-        
-        if (!$PAGE->requires->is_head_done()){
-            $cssurl = '/blocks/accessibility/userstyles.php';
-            $PAGE->requires->css($cssurl);
-        }
     }
 
     /**

@@ -36,56 +36,22 @@ if (!isloggedin()) {
     die();
 }
 
-header('Content-Type: text/css');
+header('Content-Type: text/plain');
 // First, check the session to see if the user's overridden the default/saved setting
 $options = $DB->get_record('block_accessibility', array('userid' => $USER->id));
 
 if (!empty($USER->fontsize)) {
-
-    $fontsize = $USER->fontsize;
-
+    echo $USER->fontsize;
 } else if (!empty($options->fontsize)) {
-    $fontsize = $options->fontsize;
+    echo $options->fontsize;
+} else {
+    echo -1;
 }
+echo ",";
 if (!empty($USER->colourscheme)) {
-
-    $colourscheme = $USER->colourscheme;
-
+    echo $USER->colourscheme;
 } else if (!empty($options->colourscheme)) {
-
-     $colourscheme = $options->colourscheme;
-
-}
-
-if (!empty($fontsize) || !empty($colourscheme)) {
-    // Echo out CSS for the body element. Use !important to override any other external
-    // stylesheets.
-    if (!empty($fontsize)) {
-        echo '#page {font-size: '.$fontsize.'% !important;}';
-    }
-    if (!empty($colourscheme)) {
-        switch ($colourscheme) {
-            case 2:
-                echo '* {background-color: #ffc !important;};
-                    forumpost .topic {background-image: none !important;}
-                    * {background-image: none !important;}';
-                break;
-
-            case 3:
-                echo '* {background-color: #9cf !important;}
-                    forumpost .topic {background-image: none !important;}
-                    * {background-image: none !important;}';
-                break;
-
-            case 4:
-                echo '* {color: #ffff00 !important;}
-                    * {background-color: #000 !important;}
-                    * {background-image: none !important;}
-                    #content a, .tabrow0 span {color: #ff0 !important;}
-                    .tabrow0 span:hover {text-decoration: underline;}
-                    .block_accessibility .outer {border-color:#fff !important;}';
-                break;
-
-        }
-    }
+    echo $options->colourscheme;
+} else {
+    echo -1;
 }
