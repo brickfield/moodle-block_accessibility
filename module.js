@@ -17,7 +17,7 @@ M.block_accessibility = {
     init: function(Y, autoload_atbar) {
         this.log('Accessibility block Debug mode active');
         this.Y = Y;
-        sheetnode = Y.one('link[href='+M.cfg.wwwroot+'/blocks/accessibility/userstyles.php]');
+        sheetnode = Y.one('link[href$="/blocks/accessibility/userstyles.php"]');
         this.stylesheet = Y.StyleSheet(sheetnode);
         this.colour2 = Y.StyleSheet('*{background-color: #ffc !important;background-image:none !important;}');
         this.colour2.disable();
