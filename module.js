@@ -17,14 +17,18 @@ M.block_accessibility = {
     init: function(Y, autoload_atbar) {
         this.log('Accessibility block Debug mode active');
         this.Y = Y;
-        sheetnode = Y.one('link[href='+M.cfg.wwwroot+'/blocks/accessibility/userstyles.php]');
-        this.stylesheet = Y.StyleSheet(sheetnode);
+        
+        this.sheetnode = Y.one('link[href="'+M.cfg.wwwroot+'/blocks/accessibility/userstyles.php"]');
+        this.stylesheet = Y.StyleSheet(this.sheetnode);
+
+        /*
         this.colour2 = Y.StyleSheet('*{background-color: #ffc !important;background-image:none !important;}');
         this.colour2.disable();
         this.colour3 = Y.StyleSheet('*{background-color: #9cf !important;background-image:none !important;}');
         this.colour3.disable();
         this.colour4 = Y.StyleSheet('*{background-color: #000 !important;background-image:none !important;color: #ff0 !important;}a{color: #f00 !important;}.block_accessibility .outer{border-color: white;}');
         this.colour4.disable();
+        */
         this.log('Initial size: '+Y.one('body').getStyle('fontSize'));
         var defaultsize = Y.one('body').getStyle('fontSize');
         if (defaultsize.substr(-2) == 'px') {
@@ -240,6 +244,12 @@ M.block_accessibility = {
                     method: 'get',
                     on: {
                         success: function(id, o) {
+
+                            // now that we updated user setting to the server, load updated stylesheet
+                            M.block_accessibility.reload_stylesheet();
+
+
+                            /*
                             // If we get a successful response from the server,
                             // Parse the JSON string
                             style = Y.JSON.parse(o.responseText);
@@ -262,6 +272,7 @@ M.block_accessibility = {
                                 M.block_accessibility.toggle_textsizer('dec', 'on');
                             }
                             M.block_accessibility.toggle_textsizer('save', 'on');
+                            */
                         },
                         failure: function(o) {
                             alert(M.util.get_string('jsnosize', 'block_accessibility')+': '+o.status+' '+o.statusText);
@@ -276,6 +287,11 @@ M.block_accessibility = {
                     method: 'get',
                     on: {
                         success: function(id, o) {
+
+                            // now that we updated user setting to the server, load updated stylesheet
+                            M.block_accessibility.reload_stylesheet();
+
+                            /*
                             // If we get a successful response from the server,
                             // Parse the JSON string
                             style = Y.JSON.parse(o.responseText);
@@ -298,6 +314,7 @@ M.block_accessibility = {
                                 M.block_accessibility.toggle_textsizer('inc', 'on');
                             }
                             M.block_accessibility.toggle_textsizer('save', 'on');
+                            */
                         },
                         failure: function(id, o) {
                             alert(M.util.get_string('jsnosize', 'block_accessibility')+': '+o.status+' '+o.statusText);
@@ -312,6 +329,11 @@ M.block_accessibility = {
                     method: 'get',
                     on: {
                         success: function(id, o) {
+
+                            // now that we updated user setting to the server, load updated stylesheet
+                            M.block_accessibility.reload_stylesheet();
+
+                            /*
                             // If we get a successful response from the server,
                             // Parse the JSON string
                             style = Y.JSON.parse(o.responseText);
@@ -331,6 +353,7 @@ M.block_accessibility = {
                             }
                             M.block_accessibility.toggle_textsizer('save', 'off');
                             M.block_accessibility.resetsize();
+                            */
                         },
                         failure: function(id, o) {
                             alert(M.util.get_string('jsnosize', 'block_accessibility')+': '+o.status+' '+o.statusText);
@@ -463,5 +486,10 @@ M.block_accessibility = {
         if (this.debug) {
             console.log(data);
         }
+    },
+
+    reload_stylesheet: function(){
+        var cache_prevention_salt = new Date().getTime();
+        M.block_accessibility.sheetnode.set('href', M.cfg.wwwroot+'/blocks/accessibility/userstyles.php?v='+cache_prevention_salt);                    
     }
 }
