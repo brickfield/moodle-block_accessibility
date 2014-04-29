@@ -21,13 +21,7 @@ M.block_accessibility = {
 
     sheetnode: '',
 
-    defaultsize: null, // initialized on page load, don't forget to update it on save
-
-    /*colour2: '',
-
-    colour3: '',
-
-    colour4: '',*/
+    defaultsize: null,
 
     watch: null,
 
@@ -39,15 +33,6 @@ M.block_accessibility = {
         
         this.sheetnode = Y.one('link[href="'+M.cfg.wwwroot+'/blocks/accessibility/userstyles.php"]');
         this.stylesheet = Y.StyleSheet(this.sheetnode);
-
-        /*
-        this.colour2 = Y.StyleSheet('*{background-color: #ffc !important;background-image:none !important;}');
-        this.colour2.disable();
-        this.colour3 = Y.StyleSheet('*{background-color: #9cf !important;background-image:none !important;}');
-        this.colour3.disable();
-        this.colour4 = Y.StyleSheet('*{background-color: #000 !important;background-image:none !important;color: #ff0 !important;}a{color: #f00 !important;}.block_accessibility .outer{border-color: white;}');
-        this.colour4.disable();
-        */
 
         // Set default font size
         this.log('Initial size: '+Y.one('body').getStyle('fontSize'));
@@ -81,7 +66,6 @@ M.block_accessibility = {
                 M.block_accessibility.atbar_autoload('off');
             }
         });
-
 
         // Create Bookmarklet-style link using code from ATbar site
         // http://access.ecs.soton.ac.uk/StudyBar/versions
@@ -156,65 +140,6 @@ M.block_accessibility = {
     },
 
     /**
-	 * As of 29.04.2014. This will be handled by PHP script
-	 *
-     * Calls the database script on the server to clear the current size setting from
-     * the database. Displays a message on success, or an error on failure. 404 doesn't
-     * count as a failure, as this just means there's no setting to be cleared
-     *
-     * @requires show_message()
-     *
-     */
-     /*
-    resetsize: function() {
-        this.Y.io(M.cfg.wwwroot+'/blocks/accessibility/database.php', {
-            data: 'op=reset&size=true',
-            method: 'get',
-            on: {
-                success: function(id, o) {
-                    M.block_accessibility.show_message(M.util.get_string('reset', 'block_accessibility'));
-                    setTimeout("M.block_accessibility.show_message('')", 5000);
-                },
-                failure: function(id, o) {
-                    if (o.status != '404') {
-                        alert(M.util.get_string('jsnosizereset', 'block_accessibility')+' '+o.status+' '+o.statusText);
-                    }
-                }
-           }
-        });
-    },
-    */
-
-    /**
-	 * As of 29.04.2014. This will be handled by PHP script
-     *
-     * Calls the database script on the server to clear the current colour scheme setting from
-     * the database. Displays a message on success, or an error on failure. 404 doesn't
-     * count as a failure, as this just means there's no setting to be cleared
-     *
-     * @requires show_message()
-     *
-     */
-     /*
-     resetscheme: function() {
-        this.Y.io(M.cfg.wwwroot+'/blocks/accessibility/database.php', {
-            data: 'op=reset&scheme=true',
-            method: 'get',
-            on: {
-                success: function(id, o) {
-                    M.block_accessibility.show_message(M.util.get_string('reset', 'block_accessibility'));
-                    setTimeout("M.block_accessibility.show_message('')", 5000);
-                },
-                failure: function(id, o) {
-                    if (o.status != '404') {
-                        alert(M.util.get_string('jsnocolourreset', 'block_accessibility')+': '+o.status+' '+o.statusText);
-                    }
-                }
-           }
-        });
-    },*/
-
-    /**
      * Enables or disables the buttons as specified
      *
      * @requires webroot
@@ -271,30 +196,9 @@ M.block_accessibility = {
                             var new_fontsize =  M.block_accessibility.get_current_fontsize('#page');
                             M.block_accessibility.log('Increasing size to '+new_fontsize);
 
-                            
-
-                            /*
-                            // If we get a successful response from the server,
-                            // Parse the JSON string
-                            style = Y.JSON.parse(o.responseText);
-                            // Set the new fontsize
-                            M.block_accessibility.log('Increasing size to '+style.fontsize);
-                            Y.one('#page').setStyle('fontSize', style.fontsize+'%');
-                            // disable the per-user stylesheet so our style isn't overridden
-                            if (M.block_accessibility.stylesheet !== undefined) {
-                                M.block_accessibility.stylesheet.unset('#page');
-                            }
-                            */
-
-
                             // Disable/enable buttons as necessary
                             var min_fontsize = M.block_accessibility.MIN_PX_FONTSIZE;
                             var max_fontsize = M.block_accessibility.MAX_PX_FONTSIZE;
-                            /* if we dont get px in all browsers, we will need to use this code
-                            if(new_fontsize >= M.block_accessibility.MIN_FONTSIZE){
-                            	min_fontsize = M.block_accessibility.MIN_FONTSIZE;
-                            	max_fontsize = M.block_accessibility.MAX_FONTSIZE;
-                            }*/
                             if(new_fontsize == M.block_accessibility.defaultsize) {
                                 M.block_accessibility.toggle_textsizer('reset', 'off');
                             } else {
@@ -413,48 +317,8 @@ M.block_accessibility = {
             on: {
                 success: function (id, o) {
                 	M.block_accessibility.reload_stylesheet(); 
-
-                    /*if (M.block_accessibility.stylesheet !== undefined) {
-                        M.block_accessibility.stylesheet.unset('*');
-                        M.block_accessibility.stylesheet.unset('forumpost .topic');
-                        M.block_accessibility.stylesheet.unset('#content a, .tabrow0 span');
-                        M.block_accessibility.stylesheet.unset('.tabrow0 span:hover');
-                        M.block_accessibility.stylesheet.unset('.block_accessibility .outer');
-                    }
-
-                    switch (scheme) {
-                        case '1':
-                            M.block_accessibility.colour2.disable();
-                            M.block_accessibility.colour3.disable();
-                            M.block_accessibility.colour4.disable();
-                            M.block_accessibility.resetscheme();
-                            M.block_accessibility.toggle_textsizer('save', 'off');
-                            break;
-                        case '2':
-                            M.block_accessibility.colour2.enable();
-                            M.block_accessibility.colour3.disable();
-                            M.block_accessibility.colour4.disable();
-                            M.block_accessibility.toggle_textsizer('save', 'on');
-                            break;
-                        case '3':
-                            M.block_accessibility.colour2.disable();
-                            M.block_accessibility.colour3.enable();
-                            M.block_accessibility.colour4.disable();
-                            M.block_accessibility.toggle_textsizer('save', 'on');
-                            break;
-                        case '4':
-                            M.block_accessibility.colour2.disable();
-                            M.block_accessibility.colour3.disable();
-                            M.block_accessibility.colour4.enable();
-                            M.block_accessibility.toggle_textsizer('save', 'on');
-                            break;
-                    }*/
-
                     if(scheme == 1) M.block_accessibility.toggle_textsizer('save', 'off'); // reset
                     else M.block_accessibility.toggle_textsizer('save', 'on');
-                    
-
-
                 },
                 failure: function(id, o) {
                     alert(get_string('jsnocolour', 'block_accessibility')+': '+o.status+' '+o.statusText);
