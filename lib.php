@@ -42,6 +42,13 @@
 
 defined('MOODLE_INTERNAL') || die();
 
+// block constants
+define('DEFAULT_FONTSIZE', 100); // in %
+define('MAX_FONTSIZE', 197); // in %
+define('MIN_FONTSIZE', 77); // in %
+define('MAX_PX_FONTSIZE', 26); // in px
+define('MIN_PX_FONTSIZE', 10); // in px
+
 function accessibility_getsize($size) {
 
     // Define the array of sizes in px against sizes as %
