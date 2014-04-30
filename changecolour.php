@@ -32,40 +32,37 @@
  * @param int scheme - The number of the colour scheme, 1-4             (7)
  */
 
+// INITIALIZATION
+// =========================================================
 require_once('../../config.php');
 require_once($CFG->dirroot.'/blocks/accessibility/lib.php');
 require_login();
 
 $scheme = required_param('scheme', PARAM_INT);
-if (!accessibility_is_ajax()) {
-    $redirect = required_param('redirect', PARAM_TEXT);
-    $redirecturl = new moodle_url($redirect);
-}
 
 switch($scheme) {
-    case 1:
+    case 1: 
+        // Clear the scheme stored in the session
         unset($USER->colourscheme);
-        if (!accessibility_is_ajax()) {
-            $urlparams = array(
-                'op' => 'reset',
-                'scheme' => true,
-                'userid' => $USER->id,
-                'redirect' => $redirect
-            );
-            $redirecturl = new moodle_url('/blocks/accessibility/database.php', $urlparams);
+
+        // Clear user records in database
+        $urlparams = array(
+            'op' => 'reset',
+            'scheme' => true,
+            'userid' => $USER->id
+        );
+        if(!accessibility_is_ajax){
+            $redirect = required_param('redirect', PARAM_TEXT);
+            $urlparams['redirect'] = $redirect; 
         }
+        $redirecturl = new moodle_url('/blocks/accessibility/database.php', $urlparams);
+        redirect($redirecturl);
         break;
 
     case 2:
-        $USER->colourscheme = 2;
-        break;
-
     case 3:
-        $USER->colourscheme = 3;
-        break;
-
     case 4:
-        $USER->colourscheme = 4;
+        $USER->colourscheme = $scheme;
         break;
 
     default:
@@ -73,6 +70,11 @@ switch($scheme) {
         break;
 }
 
-if (!accessibility_is_ajax()) {
+if (accessibility_is_ajax()) {
+    // it would be good idea to include userstyles.php here as HTTP response
+    // this would save one extra HTTP request from module.js
+} else {
+    $redirect = required_param('redirect', PARAM_TEXT);
+    $redirecturl = new moodle_url($redirect);
     redirect($redirecturl);
 }

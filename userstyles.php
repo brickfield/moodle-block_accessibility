@@ -32,60 +32,57 @@
 
 require_once('../../config.php');
 require_once($CFG->dirroot.'/blocks/accessibility/lib.php');
-if (!isloggedin()) {
-    die();
-}
+
+if (!isloggedin()) die();
 
 header('Content-Type: text/css');
+
+// READ USER SETTINGS
+// ================================================
 // First, check the session to see if the user's overridden the default/saved setting
 $options = $DB->get_record('block_accessibility', array('userid' => $USER->id));
 
-if (!empty($USER->fontsize)) {
+// NOTE: User settings priority: 1. $USER session, 2. database
+// check for fontsize user setting
+if (!empty($USER->fontsize)) $fontsize = $USER->fontsize;
+else if (!empty($options->fontsize)) $fontsize = $options->fontsize;
 
-    $fontsize = $USER->fontsize;
+// check for colourscheme user setting
+if (!empty($USER->colourscheme)) $colourscheme = $USER->colourscheme;
+else if (!empty($options->colourscheme)) $colourscheme = $options->colourscheme;
 
-} else if (!empty($options->fontsize)) {
-    $fontsize = $options->fontsize;
+// FONT SIZE DEFINITIONS
+// ================================================
+// Echo out CSS for the body element. Use !important to override any other external stylesheets.
+if (!empty($fontsize)) {
+    echo '#page {font-size: '.$fontsize.'% !important;}';
 }
-if (!empty($USER->colourscheme)) {
 
-    $colourscheme = $USER->colourscheme;
+// COLOUR SCHEMES DEFINITIONS
+// ================================================
+if (!empty($colourscheme)) {
+    switch ($colourscheme) {
+        case 2:
+            echo '* {background-color: #ffc !important;};
+                forumpost .topic {background-image: none !important;}
+                * {background-image: none !important;}';
+            break;
 
-} else if (!empty($options->colourscheme)) {
+        case 3:
+            echo '* {background-color: #9cf !important;}
+                forumpost .topic {background-image: none !important;}
+                * {background-image: none !important;}';
+            break;
 
-     $colourscheme = $options->colourscheme;
+        case 4:
+            echo '* {color: #ffff00 !important;}
+                * {background-color: #000 !important;}
+                * {background-image: none !important;}
+                #content a, .tabrow0 span {color: #ff0 !important;}
+                .tabrow0 span:hover {text-decoration: underline;}
+                .block_accessibility .outer {border-color:#fff !important;}';
+            break;
 
-}
-
-if (!empty($fontsize) || !empty($colourscheme)) {
-    // Echo out CSS for the body element. Use !important to override any other external
-    // stylesheets.
-    if (!empty($fontsize)) {
-        echo '#page {font-size: '.$fontsize.'% !important;}';
     }
-    if (!empty($colourscheme)) {
-        switch ($colourscheme) {
-            case 2:
-                echo '* {background-color: #ffc !important;};
-                    forumpost .topic {background-image: none !important;}
-                    * {background-image: none !important;}';
-                break;
-
-            case 3:
-                echo '* {background-color: #9cf !important;}
-                    forumpost .topic {background-image: none !important;}
-                    * {background-image: none !important;}';
-                break;
-
-            case 4:
-                echo '* {color: #ffff00 !important;}
-                    * {background-color: #000 !important;}
-                    * {background-image: none !important;}
-                    #content a, .tabrow0 span {color: #ff0 !important;}
-                    .tabrow0 span:hover {text-decoration: underline;}
-                    .block_accessibility .outer {border-color:#fff !important;}';
-                break;
-
-        }
-    }
+    
 }

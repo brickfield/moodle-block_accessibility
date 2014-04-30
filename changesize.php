@@ -30,48 +30,48 @@
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later (5)
  */
 
+// INITIALIZATION
+// =========================================================
 require_once('../../config.php');
 require_once($CFG->dirroot.'/blocks/accessibility/lib.php');
 require_login();
 
 header('Cache-Control: no-cache');
-$op = required_param('op', PARAM_TEXT);
-$cur = optional_param('cur', 0, PARAM_INT);
 
-if (!accessibility_is_ajax()) {
-    $redirect = required_param('redirect', PARAM_TEXT);
-    $redirecturl = new moodle_url($redirect);
-}
-
+// if the user hasn't already changed the size, we need to find a default so we know where we're increasing/decreasing from
 if (!isset($USER->defaultfontsize)) {
-    if ($cur) {
-        $USER->defaultfontsize = $cur;
-    } else {
-        $USER->defaultfontsize = 100;
-    }
+    $USER->defaultfontsize = DEFAULT_FONTSIZE;
+
+    // if javascript enabled, get current font-size value directly from the page
+    $cur = optional_param('cur', 0, PARAM_INT);
+    if ($cur) $USER->defaultfontsize = $cur;
 }
 
-if (!isset($USER->fontsize)) {
-    // If the user hasn't already changed the size, we need to find a default so we know where
-    // we're increasing/decreasing from
-    if ($userstyle = $DB->get_record('block_accessibility', array('userid' => $USER->id))) {
-        // First, check the database to see if they've got a setting saved
-        $current = $userstyle->fontsize;
-    } else {
-        // If not, use the current size from the page (if js in available).
-        $current = $USER->defaultfontsize;
-    }
-} else {
-    $current = $USER->fontsize;
+// GET THE CURRENT FONT-SIZE VALUE IN PX
+// =========================================================
+// NOTE: User settings priority: 1. $USER session, 2. database, 3. default
+$current = $USER->defaultfontsize;
+if (isset($USER->fontsize)) {
+    $current = $USER->fontsize; // user session
+}
+else if ($userstyle = $DB->get_record('block_accessibility', array('userid' => $USER->id))) {
+    $current = $userstyle->fontsize; // user stored settings
 }
 
-if ($current >= 77 && $current <= 197) {
+// if value is in %, convert it to px
+if ($current >= MIN_FONTSIZE && $current <= MAX_FONTSIZE) {
     // If we're already dealing with a percentage,
     $current = accessibility_getsize($current); // Get the size in pixels
 }
+// ok, we have font size in px
+// ...
+
+// CALCULATE THE NEW FONT SIZE
+// =========================================================
+$op = required_param('op', PARAM_TEXT);
 switch($op) {
     case 'inc':
-        if ($current == 26) {
+        if ($current == MAX_PX_FONTSIZE) {
             // If we're at the upper limit, don't increase any further.
             $new = accessibility_getsize($current);
         } else {
@@ -80,7 +80,7 @@ switch($op) {
         }
         break;
     case 'dec':
-        if ($current == 10) {
+        if ($current == MIN_PX_FONTSIZE) {
             // If we're at the lower limit, don't decrease any further.
             $new = accessibility_getsize($current);
         } else {
@@ -88,49 +88,41 @@ switch($op) {
         }
         break;
     case 'reset':
-        unset($USER->fontsize); // Clear the fontsize stored in the session
-        if (accessibility_is_ajax()) {
-            // If we're responding to AJAX, send back the new font size to change to
-            header('Content-Type: application/json');
-            $output = new stdClass;
-            $output->oldfontsize = accessibility_getsize($current);
-            $output->fontsize = 100;
-            echo(json_encode($output));
-            exit();
-        } else {
-            // Otherwise, redirect the user
-            $urlparams = array(
-                'op' => 'reset',
-                'size' => true,
-                'userid' => $USER->id,
-                'redirect' => $redirect
-            );
-            $redirecturl = new moodle_url('/blocks/accessibility/database.php', $urlparams);
-            redirect($redirecturl);
-        }
-        break;
-    default:
-        if (accessibility_is_ajax()) {
-            header('HTTP/1.0 400 Bad Request');
-        } else {
-            print_error('invalidop', 'block_accessibility');
-        }
-        exit();
+        // Clear the fontsize stored in the session
+        unset($USER->fontsize); 
 
+        // Clear user records in database
+        $urlparams = array(
+            'op' => 'reset',
+            'size' => true,
+            'userid' => $USER->id
+        );
+        if(!accessibility_is_ajax){
+            $redirect = required_param('redirect', PARAM_TEXT);
+            $urlparams['redirect'] = $redirect; 
+        }
+
+        $redirecturl = new moodle_url('/blocks/accessibility/database.php', $urlparams);
+        redirect($redirecturl);
+        
         break;
+    default: // ERROR   
+        if (accessibility_is_ajax()) header('HTTP/1.0 400 Bad Request');
+        else print_error('invalidop', 'block_accessibility');
+        exit();
 }
 
+// SET THE NEW FONT SIZE
+// =========================================================
 $USER->fontsize = $new; // If we've just increased or decreased, save the new size to the session
 
 if (accessibility_is_ajax()) {
-    // If we're responding to AJAX, send back the new font size to change to
-    header('Content-Type: application/json');
-    $output = new stdClass;
-    $output->fontsize = $USER->fontsize;
-    $output->defaultsize = accessibility_getsize($USER->defaultfontsize);
-    echo(json_encode($output));
-    exit();
+    // it would be good idea to include userstyles.php here as HTTP response
+    // this would save one extra HTTP request from module.js
 } else {
     // Otherwise, redirect the user
+    // if action is not achieved through ajax, redirect back to page is required
+    $redirect = required_param('redirect', PARAM_TEXT);
+    $redirecturl = new moodle_url($redirect);
     redirect($redirecturl);
 }
