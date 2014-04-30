@@ -30,12 +30,15 @@
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later (7)
  */
 
+header('Content-Type: text/css', true);
+header("X-Content-Type-Options: nosniff"); // for IE
+
 require_once('../../config.php');
 require_once($CFG->dirroot.'/blocks/accessibility/lib.php');
 
 if (!isloggedin()) die();
 
-header('Content-Type: text/css');
+
 
 // READ USER SETTINGS
 // ================================================
@@ -51,14 +54,14 @@ else if (!empty($options->fontsize)) $fontsize = $options->fontsize;
 if (!empty($USER->colourscheme)) $colourscheme = $USER->colourscheme;
 else if (!empty($options->colourscheme)) $colourscheme = $options->colourscheme;
 
-// FONT SIZE DEFINITIONS
+// FONT SIZE CSS DECLARATIONS
 // ================================================
 // Echo out CSS for the body element. Use !important to override any other external stylesheets.
 if (!empty($fontsize)) {
     echo '#page {font-size: '.$fontsize.'% !important;}';
 }
 
-// COLOUR SCHEMES DEFINITIONS
+// COLOUR SCHEMES CSS DECLARATIONS
 // ================================================
 if (!empty($colourscheme)) {
     switch ($colourscheme) {
