@@ -25,8 +25,14 @@
  */
 
 defined('MOODLE_INTERNAL') || die();
-
 require_once($CFG->dirroot.'/blocks/accessibility/lib.php');
+
+define('JS_URL', '/blocks/accessibility/module.js');
+define('CSS_URL', '/blocks/accessibility/userstyles.php');
+define('FONTSIZE_URL', '/blocks/accessibility/changesize.php');
+define('COLOUR_URL', '/blocks/accessibility/changecolour.php');
+define('DB_URL', '/blocks/accessibility/database.php');
+
 
 /**
  * accessibility Block's class
@@ -43,11 +49,25 @@ class block_accessibility extends block_base {
      * sheet is not included at all on that page.
      */
     public function init() {
-        global $PAGE;
         $this->title = get_string('pluginname', 'block_accessibility');
+    }
+
+    /**
+     * Called after init(). Here we have instance id so we can use config for specific instance
+     * The function will include CSS declarations into Moodle Page
+     * CSS declarations will be generated according to user settings and instance configuration
+     *
+     */
+    public function specialization(){
+        global $PAGE;
+        $instance_id = $this->instance->id;
+
         
         if (!$PAGE->requires->is_head_done()){
-            $cssurl = '/blocks/accessibility/userstyles.php';
+
+            // link default/saved settings to a page
+            // each block instance has it's own configuration form, so we need instance id
+            $cssurl = CSS_URL.'?instance_id='.$instance_id;
             $PAGE->requires->css($cssurl);
         }
     }
@@ -71,18 +91,25 @@ class block_accessibility extends block_base {
         global $USER;
         global $FULLME;
         global $DB;
+
         if ($this->content !== null) {
             return $this->content;
         }
 
+        // get the current page url (redirection after action when no Javascript)
         $params = array('redirect' => $FULLME);
-        $size_url = new moodle_url('/blocks/accessibility/changesize.php', $params);
-        $colour_url = new moodle_url('/blocks/accessibility/changecolour.php', $params);
+
+        // set block services paths: changesize.php, changecolour.php and database.php
+        $size_url = new moodle_url(FONTSIZE_URL, $params);
+        $colour_url = new moodle_url(COLOUR_URL, $params);
         $params['op'] = 'save';
         $params['size'] = true;
         $params['scheme'] = true;
-        $db_url = new moodle_url('/blocks/accessibility/database.php', $params);
+        $db_url = new moodle_url(DB_URL, $params);
 
+        // INITIALIZE BUTTON ATTRIBUTES
+        // ===============================================
+        // initialization of increase_font, decrease_font and save button
         $inc_attrs = array(
             'title' => get_string('inctext', 'block_accessibility'),
             'id' => "block_accessibility_inc",
@@ -98,28 +125,33 @@ class block_accessibility extends block_base {
             'id' => "block_accessibility_save"
         );
 
+        // if any of increase/decrease buttons reached maximum size, disable it
         if (isset($USER->fontsize)) {
-            if (accessibility_getsize($USER->fontsize) == 10) {
+            if (accessibility_getsize($USER->fontsize) == MIN_PX_FONTSIZE) {
                 $dec_attrs['class'] = 'disabled';
                 unset($dec_attrs['href']);
             }
-            if (accessibility_getsize($USER->fontsize) == 26) {
+            if (accessibility_getsize($USER->fontsize) == MAX_PX_FONTSIZE) {
                 $inc_attrs['class'] = 'disabled';
                 unset($inc_attrs['href']);
             }
         }
+
+        // if user is not logged in, disable save button
         if (isset($USER->username) && (isset($USER->fontsize) || isset($USER->colourscheme))) {
             $save_attrs['href'] = $db_url->out(false);
         } else {
             $save_attrs['class'] = 'disabled';
         }
 
+        // initialization of reset button
         $reset_attrs = array(
             'id' => 'block_accessibility_reset',
             'title' => get_string('resettext', 'block_accessibility'),
             'href' => $size_url->out(false, array('op' => 'reset'))
         );
 
+        // initialization of scheme profiles buttons
         $c1_attrs = array(
             'id' => 'block_accessibility_colour1',
             'href' => $colour_url->out(false, array('scheme' => 1))
@@ -137,6 +169,8 @@ class block_accessibility extends block_base {
             'href' => $colour_url->out(false, array('scheme' => 4))
         );
 
+        // RENDER BLOCK HTML
+        // ===============================================
         $content = '';
 
         $strchar = get_string('char', 'block_accessibility');
@@ -186,24 +220,27 @@ class block_accessibility extends block_base {
         $content .= html_writer::end_tag('ul');
 
         $content .= html_writer::end_tag('div');
+
+        // e.g. "settings saved" or etc.
         if (isset($USER->accessabilitymsg)) {
             $message = $USER->accessabilitymsg;
             unset($USER->accessabilitymsg);
         } else {
             $message = '';
         }
-
         $messageattrs = array('id' => 'block_accessibility_message', 'class' => 'clearfix');
         $content .= html_writer::tag('div', $message, $messageattrs);
 
+        // load database record for a current user
         $options = $DB->get_record('block_accessibility', array('userid' => $USER->id));
 
+        // initialize ATBar 
         $checkbox_attrs = array(
             'type' => 'checkbox',
             'value' => 1,
             'id' => 'atbar_auto',
             'name' => 'atbar_auto',
-            'class' => 'atbar_control'
+            'class' => 'atbar_control',
         );
 
         $label_attrs = array(
@@ -211,17 +248,16 @@ class block_accessibility extends block_base {
             'class' => 'atbar_control'
         );
 
+
+        $jsdata = array('autoload_atbar' => false); // data to pass to module.js
         if ($options && $options->autoload_atbar) {
             $checkbox_attrs['checked'] = 'checked';
             $jsdata = array(
                 'autoload_atbar' => true
             );
-        } else {
-            $jsdata = array(
-                'autoload_atbar' => false
-            );
-        }
-        // ATbar launch button (if javascript is enabled);
+        } 
+
+        // ATbar launch button (if javascript is enabled)
         $launch_attrs = array(
             'type' => 'button',
             'value' => get_string('launchtoolbar', 'block_accessibility'),
@@ -229,31 +265,21 @@ class block_accessibility extends block_base {
             'class' => 'atbar_control'
         );
 
+        // render ATBar
         $content .= html_writer::empty_tag('input', $launch_attrs);
         $content .= html_writer::empty_tag('input', $checkbox_attrs);
         $strlaunch = get_string('autolaunch', 'block_accessibility');
         $content .= html_writer::tag('label', $strlaunch, $label_attrs);
 
+        // SET THE BLOCK CONTENT
+        // ===============================================
         $this->content = new stdClass;
         $this->content->footer = '';
         $this->content->text = $content;
 
-        $jsmodule = array(
-            'name'  =>  'block_accessibility',
-            'fullpath'  =>  '/blocks/accessibility/module.js',
-            'requires'  =>  array('base', 'node', 'stylesheet')
-        );
-
-        if ($options && $options->autoload_atbar) {
-            $jsdata = array(
-                'autoload_atbar' => true
-            );
-        } else {
-            $jsdata = array(
-                'autoload_atbar' => false
-            );
-        }
-
+        // INCLUDE JS AND PASS PARAMETERS
+        // ===============================================
+        // language strings to pass to module.js
         $this->page->requires->string_for_js('saved', 'block_accessibility');
         $this->page->requires->string_for_js('jsnosave', 'block_accessibility');
         $this->page->requires->string_for_js('reset', 'block_accessibility');
@@ -263,10 +289,18 @@ class block_accessibility extends block_base {
         $this->page->requires->string_for_js('jsnocolour', 'block_accessibility');
         $this->page->requires->string_for_js('jsnosizereset', 'block_accessibility');
         $this->page->requires->string_for_js('launchtoolbar', 'block_accessibility');
-        $this->page->requires->js_init_call('M.block_accessibility.init',
-                                            $jsdata,
-                                            false,
-                                            $jsmodule);
+
+        $jsmodule = array(
+            'name'  =>  'block_accessibility',
+            'fullpath'  =>  JS_URL,
+            'requires'  =>  array('base', 'node', 'stylesheet')
+        );
+        // $jsdata['autoload_atbar'] = true; // defined above
+        $jsdata['instance_id'] = $this->instance->id;
+
+        // include js script and pass the arguments
+        $this->page->requires->js_init_call('M.block_accessibility.init', $jsdata, false, $jsmodule);
+        
 
         return $this->content;
     }

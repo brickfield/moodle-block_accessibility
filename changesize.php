@@ -30,15 +30,16 @@
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later (5)
  */
 
+header('Cache-Control: no-cache');
+
 // INITIALIZATION
 // =========================================================
 require_once('../../config.php');
 require_once($CFG->dirroot.'/blocks/accessibility/lib.php');
 require_login();
 
-header('Cache-Control: no-cache');
 
-// if the user hasn't already changed the size, we need to find a default so we know where we're increasing/decreasing from
+// if the user hasn't already changed the size, we need to find a default/referent so we know where we're increasing/decreasing from
 if (!isset($USER->defaultfontsize)) {
     $USER->defaultfontsize = DEFAULT_FONTSIZE;
 
@@ -90,6 +91,7 @@ switch($op) {
     case 'reset':
         // Clear the fontsize stored in the session
         unset($USER->fontsize); 
+        unset($USER->defaultfontsize);
 
         // Clear user records in database
         $urlparams = array(
@@ -97,7 +99,7 @@ switch($op) {
             'size' => true,
             'userid' => $USER->id
         );
-        if(!accessibility_is_ajax){
+        if(!accessibility_is_ajax()){
             $redirect = required_param('redirect', PARAM_TEXT);
             $urlparams['redirect'] = $redirect; 
         }

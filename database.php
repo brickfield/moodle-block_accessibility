@@ -109,7 +109,7 @@ switch ($op) {
                 $USER->accessabilitymsg = get_string('reset', 'block_accessibility');
             }
         } else if (accessibility_is_ajax()) {
-            header("HTTP/1.0 404 Not Found");
+            //header("HTTP/1.0 404 Not Found");
         }
         if (!accessibility_is_ajax()) {
             redirect($redirecturl);

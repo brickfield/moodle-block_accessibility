@@ -16,7 +16,7 @@
 
 
 /**
- * Sets per-user styles                                                (1)
+ * Sets per-user styles (all the CSS declarations are here)            (1)
  *
  * This file is the cornerstone of the block - when the page loads, it
  * checks if the user has a custom settings for the font size and colour
@@ -34,9 +34,18 @@ header('Content-Type: text/css', true);
 header("X-Content-Type-Options: nosniff"); // for IE
 
 require_once('../../config.php');
-require_once($CFG->dirroot.'/blocks/accessibility/lib.php');
 
 if (!isloggedin()) die();
+
+/* Get block instance config data outside of it's class
+   https://moodle.org/mod/forum/discuss.php?d=129799
+   Also check configdata encoding in C:\...\blocks\moodleblock.class.php
+   ukljuci gore text/css
+*/
+$instance_id = required_param('instance_id', PARAM_INT);
+$data = $DB->get_record('block_instances', array('id' => $instance_id), '*', MUST_EXIST); 
+$block_instance = block_instance('accessibility', $data);
+// if (!$block_instance) error...
 
 
 
@@ -58,34 +67,55 @@ else if (!empty($options->colourscheme)) $colourscheme = $options->colourscheme;
 // ================================================
 // Echo out CSS for the body element. Use !important to override any other external stylesheets.
 if (!empty($fontsize)) {
-    echo '#page {font-size: '.$fontsize.'% !important;}';
+	echo '#page {font-size: '.$fontsize.'% !important;}';
 }
+
 
 // COLOUR SCHEMES CSS DECLARATIONS
 // ================================================
 if (!empty($colourscheme)) {
-    switch ($colourscheme) {
-        case 2:
-            echo '* {background-color: #ffc !important;};
-                forumpost .topic {background-image: none !important;}
-                * {background-image: none !important;}';
-            break;
+	// $colourscheme == 1 is reset, so don't output any styles
+	if($colourscheme > 1 && $colourscheme < 5){ // this is how many declarations we defined in edit_form.php
+		var_dump($block_instance);
+		if(!empty($block_instance->config)){
+			$fg_colour = $block_instance->config->{'fg'.$colourscheme};
+			$bg_colour = $block_instance->config->{'bg'.$colourscheme};
+		}
+		else{ // block has never been configured, load default colours
+			require_once($CFG->dirroot.'/blocks/accessibility/defaults.php');
+			$fg_colour = $defaults['fg'.$colourscheme];
+			$bg_colour = $defaults['bg'.$colourscheme];
+		}
+		
+	}
 
-        case 3:
-            echo '* {background-color: #9cf !important;}
-                forumpost .topic {background-image: none !important;}
-                * {background-image: none !important;}';
-            break;
+	// if no colours defined, no output, it will remain as default
+	if(!empty($bg_colour)){ echo '
+		forumpost .topic {
+			background-image: none !important;
+		}
+		*{
+			background-color: '.$bg_colour.' !important;
+			background-image: none !important;
+			text-shadow:none !important;
+		}';
+	}
 
-        case 4:
-            echo '* {color: #ffff00 !important;}
-                * {background-color: #000 !important;}
-                * {background-image: none !important;}
-                #content a, .tabrow0 span {color: #ff0 !important;}
-                .tabrow0 span:hover {text-decoration: underline;}
-                .block_accessibility .outer {border-color:#fff !important;}';
-            break;
+	// it is recommended not to change forground colour
+	if(!empty($fg_colour)){ echo '
+		*{
+			color: '.$fg_colour.' !important;
+		}
+		#content a, .tabrow0 span {
+			color: '.$fg_colour.' !important;
+		}
+		.tabrow0 span:hover {
+			text-decoration: underline;
+		}
+		.block_accessibility .outer {
+			border-color: '.$bg_colour.' !important;
+		}';
+	}
 
-    }
-    
+	
 }
