@@ -21,17 +21,22 @@ M.block_accessibility = {
 
     sheetnode: '',
 
+    instance_id: '',
+
     defaultsize: null,
 
     watch: null,
 
     debug: false,
 
-    init: function(Y, autoload_atbar) {
+
+    init: function(Y, autoload_atbar, instance_id) {
         this.log('Accessibility block Debug mode active');
         this.Y = Y;
+        this.instance_id = instance_id;
         
-        this.sheetnode = Y.one('link[href="'+M.cfg.wwwroot+'/blocks/accessibility/userstyles.php"]');
+        this.sheetnode = Y.one('link[href="'+M.cfg.wwwroot+
+        	'/blocks/accessibility/userstyles.php?instance_id='+instance_id+'"]');
         this.stylesheet = Y.StyleSheet(this.sheetnode);
 
         // Set default font size
@@ -387,7 +392,12 @@ M.block_accessibility = {
      */
     reload_stylesheet: function(){
         var cache_prevention_salt = new Date().getTime();
-        M.block_accessibility.sheetnode.set('href', M.cfg.wwwroot+'/blocks/accessibility/userstyles.php?v='+cache_prevention_salt);                    
+        M.block_accessibility.sheetnode.set(
+        	'href', M.cfg.wwwroot+
+        	'/blocks/accessibility/userstyles.php?instance_id='+
+        	M.block_accessibility.instance_id+
+        	'&v='+cache_prevention_salt
+        );                    
     },
 
     /**

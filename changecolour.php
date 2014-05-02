@@ -51,7 +51,7 @@ switch($scheme) {
             'scheme' => true,
             'userid' => $USER->id
         );
-        if(!accessibility_is_ajax){
+        if(!accessibility_is_ajax()){
             $redirect = required_param('redirect', PARAM_TEXT);
             $urlparams['redirect'] = $redirect; 
         }

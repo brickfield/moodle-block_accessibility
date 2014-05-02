@@ -46,3 +46,18 @@ $string['col1text'] = 'Standard Farbschema (Löscht gespeicherte Einstellung)';
 $string['col2text'] = 'Reduzierter Kontrast 1';
 $string['col3text'] = 'Reduzierter Kontrast 2';
 $string['col4text'] = 'Hoher Kontrast';
+
+/*	Configuration form - please help us translate it on GitHub 
+	------------------------------------------------------------
+*/
+$string['config_autosave'] = 'Auto save'; // label
+$string['config_autosave_checkbox'] = 'Save user settings automatically (button "save" will disappear)'; // checkbox label
+$string['config_autosave_help'] = 'Font size and colour schemes settings are automatically saved to the session as long as user is logged in to the system. However, session settings will be cleared once the user log off. The user can keep chosen settings throughout the sessions using the "save" button in the block. Enabling Auto-save option will remove the "save" button and automatically save settings for the user. This might lead to slightly higher impact to the system performance, which is why this option is disabled by default.'; // help block
+$string['config_showATbar'] = 'ATbar';
+$string['config_showATbar_checkbox'] = 'Allow ATbar appearance within Accessibility block';
+$string['config_showATbar_help'] = 'Accessibility block also integrates ATbar from Southampton University ECS <a href="http://www.atbar.org">http://www.atbar.org</a>.';
+$string['config_fg'] = 'Text colour (not required)';
+$string['config_fg_help'] = 'Define colour scheme foreground colour here. Keep in mind that the colour will be applied uniformly to all user interface elements. It is not always desirable to have the same colour in each user interface element. <strong>It is recommended to leave foreground colour field empty</strong> so that elements can keep its default colours. Try to change background colour only.';
+$string['config_bg'] = 'Background colour';
+$string['config_bg_help'] = 'Define colour scheme background colour here. Keep in mind that the background colour will be applied uniformly to all user interface elements.';
+$string['color_input_error'] = 'Please enter a color in a format as such: #FF0050';
