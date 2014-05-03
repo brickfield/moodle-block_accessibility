@@ -67,7 +67,13 @@ else if (!empty($options->colourscheme)) $colourscheme = $options->colourscheme;
 // ================================================
 // Echo out CSS for the body element. Use !important to override any other external stylesheets.
 if (!empty($fontsize)) {
-	echo '#page {font-size: '.$fontsize.'% !important;}';
+	$pageid = '#page';
+	echo $pageid.','.$pageid.' label{font-size: '.$fontsize.'% !important;}';
+	//Adjust line-height accordingly
+	$elements = array('li','h2','p','label');
+	foreach ($elements as $e){
+		echo $pageid.' '.$e.'{ line-height:normal;}';
+	}
 }
 
 
