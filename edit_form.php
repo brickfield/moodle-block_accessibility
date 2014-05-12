@@ -1,6 +1,7 @@
 <?php
 
-// This settings will be available throughout the block. Example: $this->config->autosave
+// This settings will be available throughout the block.
+// Usage example: $this->config->autosave
 define('CNF_AUTOSAVE', 'config_autosave');
 define('CNF_ATBAR', 'config_showATbar');
 define('CNF_FG', 'config_fg'); // fg1, fg2,...
@@ -15,8 +16,7 @@ class block_accessibility_edit_form extends block_edit_form {
 		global $CFG;
 		require_once($CFG->dirroot.'/blocks/accessibility/defaults.php');
 		
-		
-		/* this is not implemented yet
+		/* not implemented, so far I'm not sure if it's going to be useful
 		// auto-save user settings
 		$mform->addElement('advcheckbox',CNF_AUTOSAVE,
 			get_string (CNF_AUTOSAVE, 'block_accessibility'),
@@ -27,7 +27,7 @@ class block_accessibility_edit_form extends block_edit_form {
 		$mform->setDefault(CNF_AUTOSAVE, 0);
 		$mform->setType (CNF_AUTOSAVE, PARAM_INT);
 		$mform->addHelpButton(CNF_AUTOSAVE, CNF_AUTOSAVE, 'block_accessibility');
-
+		*/
 
 		// allow ATbar 
 		$mform->addElement('advcheckbox', CNF_ATBAR,
@@ -41,7 +41,6 @@ class block_accessibility_edit_form extends block_edit_form {
 		$mform->addHelpButton(CNF_ATBAR, CNF_ATBAR, 'block_accessibility');
 
 		// An idea: put here default font-size setting?
-		*/
 
 		// colour schemes
 		for($i=2; $i<5; $i++) {  // this is how many declarations we defined in userstyles.php
@@ -80,7 +79,7 @@ class block_accessibility_edit_form extends block_edit_form {
 
 		}
 
-		// if someone is willing to do reset button, it would be helpful
+		// if someone is willing to do settings form reset button, it would be helpful
 			
 		
 		

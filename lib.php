@@ -49,6 +49,9 @@ define('MIN_FONTSIZE', 77); // in %
 define('MAX_PX_FONTSIZE', 26); // in px
 define('MIN_PX_FONTSIZE', 10); // in px
 
+define('DEFAULT_SHOWATBAR', TRUE);
+define('DEFAULT_AUTOSAVE', FALSE);
+
 function accessibility_getsize($size) {
 
     // Define the array of sizes in px against sizes as %

@@ -39,270 +39,284 @@ define('DB_URL', '/blocks/accessibility/database.php');
  */
 class block_accessibility extends block_base {
 
-    /**
-     * Set the title and include the stylesheet
-     *
-     * We need to include the stylesheet here rather than in {@see get_content()} since get_content
-     * is sometimes called after $OUTPUT->heading(), e.g. such as /user/index.php where the middle
-     * region is hard-coded.
-     * However, /admin/plugins.php calls init() for each plugin after $OUTPUT->heading(), so the
-     * sheet is not included at all on that page.
-     */
-    public function init() {
-        $this->title = get_string('pluginname', 'block_accessibility');
-    }
+	/**
+	 * Set the title and include the stylesheet
+	 *
+	 * We need to include the stylesheet here rather than in {@see get_content()} since get_content
+	 * is sometimes called after $OUTPUT->heading(), e.g. such as /user/index.php where the middle
+	 * region is hard-coded.
+	 * However, /admin/plugins.php calls init() for each plugin after $OUTPUT->heading(), so the
+	 * sheet is not included at all on that page.
+	 */
+	public function init() {
+		$this->title = get_string('pluginname', 'block_accessibility');
+	}
 
-    /**
-     * Called after init(). Here we have instance id so we can use config for specific instance
-     * The function will include CSS declarations into Moodle Page
-     * CSS declarations will be generated according to user settings and instance configuration
-     *
-     */
-    public function specialization(){
-        global $PAGE;
-        $instance_id = $this->instance->id;
+	/**
+	 * Called after init(). Here we have instance id so we can use config for specific instance
+	 * The function will include CSS declarations into Moodle Page
+	 * CSS declarations will be generated according to user settings and instance configuration
+	 *
+	 */
+	public function specialization(){
+		global $PAGE;
+		$instance_id = $this->instance->id;
 
-        
-        if (!$PAGE->requires->is_head_done()){
+		
+		if (!$PAGE->requires->is_head_done()){
 
-            // link default/saved settings to a page
-            // each block instance has it's own configuration form, so we need instance id
-            $cssurl = CSS_URL.'?instance_id='.$instance_id;
-            $PAGE->requires->css($cssurl);
-        }
-    }
+			// link default/saved settings to a page
+			// each block instance has it's own configuration form, so we need instance id
+			$cssurl = CSS_URL.'?instance_id='.$instance_id;
+			$PAGE->requires->css($cssurl);
+		}
+	}
 
-    /**
-     * Set where the block should be allowed to be added
-     *
-     * @return array
-     */
-    public function applicable_formats() {
-        return array('all' => true);
-    }
+	/**
+	 * Set where the block should be allowed to be added
+	 *
+	 * @return array
+	 */
+	public function applicable_formats() {
+		return array('all' => true);
+	}
 
-    /**
-     * Generate the contents for the block
-     *
-     * @return object Block contents and footer
-     */
-    public function get_content () {
-        global $CFG;
-        global $USER;
-        global $FULLME;
-        global $DB;
+	/**
+	 * Generate the contents for the block
+	 *
+	 * @return object Block contents and footer
+	 */
+	public function get_content () {
+		global $CFG;
+		global $USER;
+		global $FULLME;
+		global $DB;
 
-        if ($this->content !== null) {
-            return $this->content;
-        }
+		if ($this->content !== null) {
+			return $this->content;
+		}
 
-        // get the current page url (redirection after action when no Javascript)
-        $params = array('redirect' => $FULLME);
+		/* this is not implemented yet
+		// autosave block's config option
+		$autosave = DEFAULT_AUTOSAVE; // by default
+		if(isset($this->config->autosave)) $autosave = $this->config->autosave;
+		*/
 
-        // set block services paths: changesize.php, changecolour.php and database.php
-        $size_url = new moodle_url(FONTSIZE_URL, $params);
-        $colour_url = new moodle_url(COLOUR_URL, $params);
-        $params['op'] = 'save';
-        $params['size'] = true;
-        $params['scheme'] = true;
-        $db_url = new moodle_url(DB_URL, $params);
+		// get the current page url (redirection after action when no Javascript)
+		$params = array('redirect' => $FULLME);
 
-        // INITIALIZE BUTTON ATTRIBUTES
-        // ===============================================
-        // initialization of increase_font, decrease_font and save button
-        $inc_attrs = array(
-            'title' => get_string('inctext', 'block_accessibility'),
-            'id' => "block_accessibility_inc",
-            'href' => $size_url->out(false, array('op' => 'inc'))
-        );
-        $dec_attrs = array(
-            'title' => get_string('dectext', 'block_accessibility'),
-            'id' => "block_accessibility_dec",
-            'href' => $size_url->out(false, array('op' => 'dec'))
-        );
-        $save_attrs = array(
-            'title' => get_string('save', 'block_accessibility'),
-            'id' => "block_accessibility_save"
-        );
+		// set block services paths: changesize.php, changecolour.php and database.php
+		$size_url = new moodle_url(FONTSIZE_URL, $params);
+		$colour_url = new moodle_url(COLOUR_URL, $params);
+		$params['op'] = 'save';
+		$params['size'] = true;
+		$params['scheme'] = true;
+		$db_url = new moodle_url(DB_URL, $params);
 
-        // if any of increase/decrease buttons reached maximum size, disable it
-        if (isset($USER->fontsize)) {
-            if (accessibility_getsize($USER->fontsize) == MIN_PX_FONTSIZE) {
-                $dec_attrs['class'] = 'disabled';
-                unset($dec_attrs['href']);
-            }
-            if (accessibility_getsize($USER->fontsize) == MAX_PX_FONTSIZE) {
-                $inc_attrs['class'] = 'disabled';
-                unset($inc_attrs['href']);
-            }
-        }
+		// INITIALIZE BUTTON ATTRIBUTES
+		// ===============================================
+		// initialization of increase_font, decrease_font and save button
+		$inc_attrs = array(
+			'title' => get_string('inctext', 'block_accessibility'),
+			'id' => "block_accessibility_inc",
+			'href' => $size_url->out(false, array('op' => 'inc'))
+		);
+		$dec_attrs = array(
+			'title' => get_string('dectext', 'block_accessibility'),
+			'id' => "block_accessibility_dec",
+			'href' => $size_url->out(false, array('op' => 'dec'))
+		);
+		$save_attrs = array(
+			'title' => get_string('save', 'block_accessibility'),
+			'id' => "block_accessibility_save"
+		);
 
-        // if user is not logged in, disable save button
-        if (isset($USER->username) && (isset($USER->fontsize) || isset($USER->colourscheme))) {
-            $save_attrs['href'] = $db_url->out(false);
-        } else {
-            $save_attrs['class'] = 'disabled';
-        }
+		// if any of increase/decrease buttons reached maximum size, disable it
+		if (isset($USER->fontsize)) {
+			if (accessibility_getsize($USER->fontsize) == MIN_PX_FONTSIZE) {
+				$dec_attrs['class'] = 'disabled';
+				unset($dec_attrs['href']);
+			}
+			if (accessibility_getsize($USER->fontsize) == MAX_PX_FONTSIZE) {
+				$inc_attrs['class'] = 'disabled';
+				unset($inc_attrs['href']);
+			}
+		}
 
-        // initialization of reset button
-        $reset_attrs = array(
-            'id' => 'block_accessibility_reset',
-            'title' => get_string('resettext', 'block_accessibility'),
-            'href' => $size_url->out(false, array('op' => 'reset'))
-        );
+		// if user is not logged in, disable save button
+		if (isset($USER->username) && (isset($USER->fontsize) || isset($USER->colourscheme))) {
+			$save_attrs['href'] = $db_url->out(false);
+		} else {
+			$save_attrs['class'] = 'disabled';
+		}
 
-        // initialization of scheme profiles buttons
-        $c1_attrs = array(
-            'id' => 'block_accessibility_colour1',
-            'href' => $colour_url->out(false, array('scheme' => 1))
-        );
-        $c2_attrs = array(
-            'id' => 'block_accessibility_colour2',
-            'href' => $colour_url->out(false, array('scheme' => 2))
-        );
-        $c3_attrs = array(
-            'id' => 'block_accessibility_colour3',
-            'href' => $colour_url->out(false, array('scheme' => 3))
-        );
-        $c4_attrs = array(
-            'id' => 'block_accessibility_colour4',
-            'href' => $colour_url->out(false, array('scheme' => 4))
-        );
+		// initialization of reset button
+		$reset_attrs = array(
+			'id' => 'block_accessibility_reset',
+			'title' => get_string('resettext', 'block_accessibility'),
+			'href' => $size_url->out(false, array('op' => 'reset'))
+		);
 
-        // RENDER BLOCK HTML
-        // ===============================================
-        $content = '';
+		// initialization of scheme profiles buttons
+		$c1_attrs = array(
+			'id' => 'block_accessibility_colour1',
+			'href' => $colour_url->out(false, array('scheme' => 1))
+		);
+		$c2_attrs = array(
+			'id' => 'block_accessibility_colour2',
+			'href' => $colour_url->out(false, array('scheme' => 2))
+		);
+		$c3_attrs = array(
+			'id' => 'block_accessibility_colour3',
+			'href' => $colour_url->out(false, array('scheme' => 3))
+		);
+		$c4_attrs = array(
+			'id' => 'block_accessibility_colour4',
+			'href' => $colour_url->out(false, array('scheme' => 4))
+		);
 
-        $strchar = get_string('char', 'block_accessibility');
-        $divattrs = array('id' => 'accessibility_controls', 'class' => 'content');
-        $listattrs = array('id' => 'block_accessibility_textresize', 'class' => 'button_row');
+		// RENDER BLOCK HTML
+		// ===============================================
+		$content = '';
 
-        $content .= html_writer::start_tag('div', $divattrs);
-        $content .= html_writer::start_tag('ul', $listattrs);
+		$strchar = get_string('char', 'block_accessibility');
+		$divattrs = array('id' => 'accessibility_controls', 'class' => 'content');
+		$listattrs = array('id' => 'block_accessibility_textresize', 'class' => 'button_row');
 
-        $content .= html_writer::start_tag('li', array('class' => 'access-button'));
-        $content .= html_writer::tag('a', $strchar.'-', $dec_attrs);
-        $content .= html_writer::end_tag('li');
+		$content .= html_writer::start_tag('div', $divattrs);
+		$content .= html_writer::start_tag('ul', $listattrs);
 
-        $content .= html_writer::start_tag('li', array('class' => 'access-button'));
-        $content .= html_writer::tag('a', $strchar, $reset_attrs);
-        $content .= html_writer::end_tag('li');
+		$content .= html_writer::start_tag('li', array('class' => 'access-button'));
+		$content .= html_writer::tag('a', $strchar.'-', $dec_attrs);
+		$content .= html_writer::end_tag('li');
 
-        $content .= html_writer::start_tag('li', array('class' => 'access-button'));
-        $content .= html_writer::tag('a', $strchar.'+', $inc_attrs);
-        $content .= html_writer::end_tag('li');
+		$content .= html_writer::start_tag('li', array('class' => 'access-button'));
+		$content .= html_writer::tag('a', $strchar, $reset_attrs);
+		$content .= html_writer::end_tag('li');
 
-        $content .= html_writer::start_tag('li', array('class' => 'access-button'));
-        $content .= html_writer::tag('a', '&nbsp', $save_attrs);
-        $content .= html_writer::end_tag('li');
+		$content .= html_writer::start_tag('li', array('class' => 'access-button'));
+		$content .= html_writer::tag('a', $strchar.'+', $inc_attrs);
+		$content .= html_writer::end_tag('li');
 
-        $content .= html_writer::end_tag('ul');
+		$content .= html_writer::start_tag('li', array('class' => 'access-button'));
+		$content .= html_writer::tag('a', '&nbsp', $save_attrs);
+		$content .= html_writer::end_tag('li');
 
-        // Colour change buttons
-        $content .= html_writer::start_tag('ul', array('id' => 'block_accessibility_changecolour'));
+		$content .= html_writer::end_tag('ul');
 
-        $content .= html_writer::start_tag('li', array('class' => 'access-button'));
-        $content .= html_writer::tag('a', get_string('char', 'block_accessibility'), $c1_attrs);
-        $content .= html_writer::end_tag('li');
+		// Colour change buttons
+		$content .= html_writer::start_tag('ul', array('id' => 'block_accessibility_changecolour'));
 
-        $content .= html_writer::start_tag('li', array('class' => 'access-button'));
-        $content .= html_writer::tag('a', get_string('char', 'block_accessibility'), $c2_attrs);
-        $content .= html_writer::end_tag('li');
+		$content .= html_writer::start_tag('li', array('class' => 'access-button'));
+		$content .= html_writer::tag('a', get_string('char', 'block_accessibility'), $c1_attrs);
+		$content .= html_writer::end_tag('li');
 
-        $content .= html_writer::start_tag('li', array('class' => 'access-button'));
-        $content .= html_writer::tag('a', get_string('char', 'block_accessibility'), $c3_attrs);
-        $content .= html_writer::end_tag('li');
+		$content .= html_writer::start_tag('li', array('class' => 'access-button'));
+		$content .= html_writer::tag('a', get_string('char', 'block_accessibility'), $c2_attrs);
+		$content .= html_writer::end_tag('li');
 
-        $content .= html_writer::start_tag('li', array('class' => 'access-button'));
-        $content .= html_writer::tag('a', get_string('char', 'block_accessibility'), $c4_attrs);
-        $content .= html_writer::end_tag('li');
+		$content .= html_writer::start_tag('li', array('class' => 'access-button'));
+		$content .= html_writer::tag('a', get_string('char', 'block_accessibility'), $c3_attrs);
+		$content .= html_writer::end_tag('li');
 
-        $content .= html_writer::end_tag('ul');
+		$content .= html_writer::start_tag('li', array('class' => 'access-button'));
+		$content .= html_writer::tag('a', get_string('char', 'block_accessibility'), $c4_attrs);
+		$content .= html_writer::end_tag('li');
 
-        $content .= html_writer::end_tag('div');
+		$content .= html_writer::end_tag('ul');
 
-        // e.g. "settings saved" or etc.
-        if (isset($USER->accessabilitymsg)) {
-            $message = $USER->accessabilitymsg;
-            unset($USER->accessabilitymsg);
-        } else {
-            $message = '';
-        }
-        $messageattrs = array('id' => 'block_accessibility_message', 'class' => 'clearfix');
-        $content .= html_writer::tag('div', $message, $messageattrs);
+		$content .= html_writer::end_tag('div');
 
-        // load database record for a current user
-        $options = $DB->get_record('block_accessibility', array('userid' => $USER->id));
+		// e.g. "settings saved" or etc.
+		if (isset($USER->accessabilitymsg)) {
+			$message = $USER->accessabilitymsg;
+			unset($USER->accessabilitymsg);
+		} else {
+			$message = '';
+		}
+		$messageattrs = array('id' => 'block_accessibility_message', 'class' => 'clearfix');
+		$content .= html_writer::tag('div', $message, $messageattrs);
 
-        // initialize ATBar 
-        $checkbox_attrs = array(
-            'type' => 'checkbox',
-            'value' => 1,
-            'id' => 'atbar_auto',
-            'name' => 'atbar_auto',
-            'class' => 'atbar_control',
-        );
+		// data to pass to module.js
+		$jsdata['autoload_atbar'] = false;
+		$jsdata['instance_id'] = $this->instance->id;
 
-        $label_attrs = array(
-            'for' => 'atbar_auto',
-            'class' => 'atbar_control'
-        );
+		// RENDER ATBAR
+		// ===============================================
+		$showATbar = DEFAULT_SHOWATBAR; // by default
+		if(isset($this->config->showATbar)) $showATbar = $this->config->showATbar;
+
+		if($showATbar){
 
 
-        $jsdata = array('autoload_atbar' => false); // data to pass to module.js
-        if ($options && $options->autoload_atbar) {
-            $checkbox_attrs['checked'] = 'checked';
-            $jsdata = array(
-                'autoload_atbar' => true
-            );
-        } 
+			// load database record for a current user
+			$options = $DB->get_record('block_accessibility', array('userid' => $USER->id));
 
-        // ATbar launch button (if javascript is enabled)
-        $launch_attrs = array(
-            'type' => 'button',
-            'value' => get_string('launchtoolbar', 'block_accessibility'),
-            'id' => 'block_accessibility_launchtoolbar',
-            'class' => 'atbar_control'
-        );
+			// initialize ATBar 
+			$checkbox_attrs = array(
+				'type' => 'checkbox',
+				'value' => 1,
+				'id' => 'atbar_auto',
+				'name' => 'atbar_auto',
+				'class' => 'atbar_control',
+			);
 
-        // render ATBar
-        $content .= html_writer::empty_tag('input', $launch_attrs);
-        $content .= html_writer::empty_tag('input', $checkbox_attrs);
-        $strlaunch = get_string('autolaunch', 'block_accessibility');
-        $content .= html_writer::tag('label', $strlaunch, $label_attrs);
+			$label_attrs = array(
+				'for' => 'atbar_auto',
+				'class' => 'atbar_control'
+			);
 
-        // SET THE BLOCK CONTENT
-        // ===============================================
-        $this->content = new stdClass;
-        $this->content->footer = '';
-        $this->content->text = $content;
 
-        // INCLUDE JS AND PASS PARAMETERS
-        // ===============================================
-        // language strings to pass to module.js
-        $this->page->requires->string_for_js('saved', 'block_accessibility');
-        $this->page->requires->string_for_js('jsnosave', 'block_accessibility');
-        $this->page->requires->string_for_js('reset', 'block_accessibility');
-        $this->page->requires->string_for_js('jsnosizereset', 'block_accessibility');
-        $this->page->requires->string_for_js('jsnocolourreset', 'block_accessibility');
-        $this->page->requires->string_for_js('jsnosize', 'block_accessibility');
-        $this->page->requires->string_for_js('jsnocolour', 'block_accessibility');
-        $this->page->requires->string_for_js('jsnosizereset', 'block_accessibility');
-        $this->page->requires->string_for_js('launchtoolbar', 'block_accessibility');
+			if ($options && $options->autoload_atbar) {
+				$checkbox_attrs['checked'] = 'checked';
+				$jsdata['autoload_atbar'] = true;
+			} 
 
-        $jsmodule = array(
-            'name'  =>  'block_accessibility',
-            'fullpath'  =>  JS_URL,
-            'requires'  =>  array('base', 'node', 'stylesheet')
-        );
-        // $jsdata['autoload_atbar'] = true; // defined above
-        $jsdata['instance_id'] = $this->instance->id;
+			// ATbar launch button (if javascript is enabled)
+			$launch_attrs = array(
+				'type' => 'button',
+				'value' => get_string('launchtoolbar', 'block_accessibility'),
+				'id' => 'block_accessibility_launchtoolbar',
+				'class' => 'atbar_control'
+			);
 
-        // include js script and pass the arguments
-        $this->page->requires->js_init_call('M.block_accessibility.init', $jsdata, false, $jsmodule);
-        
+			// render ATBar
+			$content .= html_writer::empty_tag('input', $launch_attrs);
+			$content .= html_writer::empty_tag('input', $checkbox_attrs);
+			$strlaunch = get_string('autolaunch', 'block_accessibility');
+			$content .= html_writer::tag('label', $strlaunch, $label_attrs);
+		}
 
-        return $this->content;
-    }
+		// SET THE BLOCK CONTENT
+		// ===============================================
+		$this->content = new stdClass;
+		$this->content->footer = '';
+		$this->content->text = $content;
+
+		// INCLUDE JS AND PASS PARAMETERS
+		// ===============================================
+		// language strings to pass to module.js
+		$this->page->requires->string_for_js('saved', 'block_accessibility');
+		$this->page->requires->string_for_js('jsnosave', 'block_accessibility');
+		$this->page->requires->string_for_js('reset', 'block_accessibility');
+		$this->page->requires->string_for_js('jsnosizereset', 'block_accessibility');
+		$this->page->requires->string_for_js('jsnocolourreset', 'block_accessibility');
+		$this->page->requires->string_for_js('jsnosize', 'block_accessibility');
+		$this->page->requires->string_for_js('jsnocolour', 'block_accessibility');
+		$this->page->requires->string_for_js('jsnosizereset', 'block_accessibility');
+		$this->page->requires->string_for_js('launchtoolbar', 'block_accessibility');
+
+		$jsmodule = array(
+			'name'  =>  'block_accessibility',
+			'fullpath'  =>  JS_URL,
+			'requires'  =>  array('base', 'node', 'stylesheet')
+		);
+
+		// include js script and pass the arguments
+		$this->page->requires->js_init_call('M.block_accessibility.init', $jsdata, false, $jsmodule);
+		
+
+		return $this->content;
+	}
 
 }

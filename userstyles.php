@@ -40,7 +40,6 @@ if (!isloggedin()) die();
 /* Get block instance config data outside of it's class
    https://moodle.org/mod/forum/discuss.php?d=129799
    Also check configdata encoding in C:\...\blocks\moodleblock.class.php
-   ukljuci gore text/css
 */
 $instance_id = required_param('instance_id', PARAM_INT);
 $data = $DB->get_record('block_instances', array('id' => $instance_id), '*', MUST_EXIST); 
@@ -67,13 +66,7 @@ else if (!empty($options->colourscheme)) $colourscheme = $options->colourscheme;
 // ================================================
 // Echo out CSS for the body element. Use !important to override any other external stylesheets.
 if (!empty($fontsize)) {
-	$pageid = '#page';
-	echo $pageid.','.$pageid.' label{font-size: '.$fontsize.'% !important;}';
-	//Adjust line-height accordingly
-	$elements = array('li','h2','p','label');
-	foreach ($elements as $e){
-		echo $pageid.' '.$e.'{ line-height:normal;}';
-	}
+	echo '#page {font-size: '.$fontsize.'% !important;}';
 }
 
 
