@@ -73,6 +73,15 @@ class block_accessibility extends block_base {
 	}
 
 	/**
+	 * instance_allow_multiple explicitly tells there cannot be multiple
+	 * block instance on the same page
+	 *
+	 */
+	public function instance_allow_multiple(){
+		return FALSE;
+	}
+
+	/**
 	 * Set where the block should be allowed to be added
 	 *
 	 * @return array
