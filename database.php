@@ -109,6 +109,8 @@ switch ($op) {
                 $USER->accessabilitymsg = get_string('reset', 'block_accessibility');
             }
         } else if (accessibility_is_ajax()) {
+            // The request should return 404 in the event that there is no saved setting to be reset (the record is "Not Found", so 404 seemed the appropriate response)
+            // but if user wants to clear the setting (both session and db), we don't really care if setting existed
             //header("HTTP/1.0 404 Not Found");
         }
         if (!accessibility_is_ajax()) {
