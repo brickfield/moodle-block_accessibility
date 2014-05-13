@@ -59,16 +59,15 @@ class block_accessibility extends block_base {
 	 *
 	 */
 	public function specialization(){
-		global $PAGE;
 		$instance_id = $this->instance->id;
 
 		
-		if (!$PAGE->requires->is_head_done()){
+		if (!$this->page->requires->is_head_done()){
 
 			// link default/saved settings to a page
 			// each block instance has it's own configuration form, so we need instance id
 			$cssurl = CSS_URL.'?instance_id='.$instance_id;
-			$PAGE->requires->css($cssurl);
+			$this->page->requires->css($cssurl);
 		}
 	}
 
