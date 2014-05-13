@@ -32,6 +32,8 @@
 
 header('Content-Type: text/css', true);
 header("X-Content-Type-Options: nosniff"); // for IE
+//header('Cache-Control: no-cache');
+
 
 require_once('../../config.php');
 
@@ -43,7 +45,7 @@ if (!isloggedin()) die();
 */
 $instance_id = required_param('instance_id', PARAM_INT);
 $data = $DB->get_record('block_instances', array('id' => $instance_id), '*', MUST_EXIST); 
-$block_instance = block_instance('accessibility', $data);
+$block_instance = block_instance('accessibility', $data); // test it in all languages?
 // if (!$block_instance) error...
 
 
@@ -62,11 +64,21 @@ else if (!empty($options->fontsize)) $fontsize = $options->fontsize;
 if (!empty($USER->colourscheme)) $colourscheme = $USER->colourscheme;
 else if (!empty($options->colourscheme)) $colourscheme = $options->colourscheme;
 
+
 // FONT SIZE CSS DECLARATIONS
 // ================================================
 // Echo out CSS for the body element. Use !important to override any other external stylesheets.
 if (!empty($fontsize)) {
-	echo '#page {font-size: '.$fontsize.'% !important;}';
+	echo '
+	#page { /* block elements */
+		font-size: '.$fontsize.'% !important;
+		line-height:1.5; /*WCAG 2.0*/
+	}
+	#page *{
+		font-size: inherit !important;
+		line-height: inherit !important;
+	}
+	';
 }
 
 
@@ -97,7 +109,8 @@ if (!empty($colourscheme)) {
 			background-color: '.$bg_colour.' !important;
 			background-image: none !important;
 			text-shadow:none !important;
-		}';
+		}
+		';
 	}
 
 	// it is recommended not to change forground colour
@@ -113,7 +126,8 @@ if (!empty($colourscheme)) {
 		}
 		.block_accessibility .outer {
 			border-color: '.$bg_colour.' !important;
-		}';
+		}
+		';
 	}
 
 	
