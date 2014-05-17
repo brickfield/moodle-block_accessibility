@@ -105,7 +105,8 @@ if (!empty($colourscheme)) {
 		forumpost .topic {
 			background-image: none !important;
 		}
-		*{
+		*:not([class*="mce"]):not([id*="mce"]):not([id*="editor"]){
+			/* it works well only with * selector but mce editor gets unusable */
 			background-color: '.$bg_colour.' !important;
 			background-image: none !important;
 			text-shadow:none !important;
@@ -115,7 +116,8 @@ if (!empty($colourscheme)) {
 
 	// it is recommended not to change forground colour
 	if(!empty($fg_colour)){ echo '
-		*{
+		*:not([class*="mce"]):not([id*="mce"]):not([id*="editor"]){
+			/* it works well only with * selector but mce editor gets unusable */
 			color: '.$fg_colour.' !important;
 		}
 		#content a, .tabrow0 span {
