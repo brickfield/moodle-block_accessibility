@@ -96,6 +96,11 @@ M.block_accessibility = {
 			}
 		}
 
+		// assign loader icon events
+		Y.on('io:start', M.block_accessibility.show_loading);
+		Y.on('io:complete', M.block_accessibility.hide_loading);
+				
+
 	},
 
 
@@ -400,7 +405,7 @@ M.block_accessibility = {
 			'/blocks/accessibility/userstyles.php?instance_id='+
 			M.block_accessibility.instance_id+
 			'&v='+cache_prevention_salt
-		);                    
+		); 
 	},
 
 	/**
@@ -421,5 +426,14 @@ M.block_accessibility = {
 			currentsize = defaultsize.substr(0, defaultsize.length-1);
 		}
 		return currentsize;
+	},
+
+	show_loading: function(){
+		Y.one('#loader-icon').setStyle('display', 'block');
+		Y.one('#accessibility_controls').setStyle('opacity', '0.2');
+	},
+	hide_loading: function(){
+		Y.one('#loader-icon').setStyle('display', 'none');
+		Y.one('#accessibility_controls').setStyle('opacity', '1');
 	}
 }

@@ -43,7 +43,7 @@ class block_accessibility_edit_form extends block_edit_form {
 		// An idea: put here default font-size setting?
 
 		// colour schemes
-		for($i=2; $i<5; $i++) {  // this is how many declarations we defined in userstyles.php
+		for($i=2; $i<5; $i++) {  // this is how many declarations we defined in defaults.php
 			// get previously saved configuration
 			$form = $this->block->config; // or cast it to (array) and get properties like with []
 			$fg = str_replace('config_', '', CNF_FG);
@@ -56,7 +56,7 @@ class block_accessibility_edit_form extends block_edit_form {
 			<div class="fitem" style="padding:10px 0 8px">
 				<div class="fitemtitle"></div>
 				<div class="felement">
-					<span style="padding:2px 8px; color:'.$fg_colour.'; border:1px solid '.$fg_colour.'; background:'.$bg_colour.'">A</span>
+					<span style="padding:2px 8px; color:'.$fg_colour.'; border:1px solid '.$fg_colour.'; background:'.$bg_colour.' !important">A</span>
 					Colour scheme #'.$i.'
 				</div>
 			</div>');
