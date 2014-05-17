@@ -233,7 +233,6 @@ class block_accessibility extends block_base {
 
 		$content .= html_writer::end_tag('ul');
 
-		$content .= html_writer::end_tag('div');
 
 		// e.g. "settings saved" or etc.
 		if (isset($USER->accessabilitymsg)) {
@@ -285,15 +284,22 @@ class block_accessibility extends block_base {
 				'type' => 'button',
 				'value' => get_string('launchtoolbar', 'block_accessibility'),
 				'id' => 'block_accessibility_launchtoolbar',
-				'class' => 'atbar_control'
+				'class' => 'atbar_control access-button'
 			);
 
 			// render ATBar
 			$content .= html_writer::empty_tag('input', $launch_attrs);
+
+			$spanattrs = array('class' => 'atbar-always');
+			$content .= html_writer::start_tag('span', $spanattrs);
 			$content .= html_writer::empty_tag('input', $checkbox_attrs);
 			$strlaunch = get_string('autolaunch', 'block_accessibility');
 			$content .= html_writer::tag('label', $strlaunch, $label_attrs);
+			$content .= html_writer::end_tag('span');
 		}
+
+		$content .= html_writer::end_tag('div');
+
 
 		// SET THE BLOCK CONTENT
 		// ===============================================

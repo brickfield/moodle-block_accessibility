@@ -84,6 +84,9 @@ if (!empty($fontsize)) {
 
 // COLOUR SCHEMES CSS DECLARATIONS
 // ================================================
+/*
+	So far, selector * is used. This might cause some problems. Idea: Maybe better solution is to apply backgrounds to specific elements like body, .header, ...
+*/
 if (!empty($colourscheme)) {
 	// $colourscheme == 1 is reset, so don't output any styles
 	if($colourscheme > 1 && $colourscheme < 5){ // this is how many declarations we defined in edit_form.php
