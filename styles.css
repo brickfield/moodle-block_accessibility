@@ -5,12 +5,9 @@ body.jsdisabled #block_accessibility_launchtoolbar {
 #accessibility_controls .access-button {
     display: inline-block;
     vertical-align: middle;
-    margin: 0 .2em;
+    margin: 0 .15em;
     border: 1px solid #ccc;
     border-radius: 3px;
-    font-size: 13px !important;
-    width: 30px;
-    line-height: 30px;
     text-align: center;
     background: -moz-linear-gradient(top, rgba(254,255,232,0) 0%, rgba(214,219,191,0.3) 100%) !important; /* FF3.6+ */
     background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(254,255,232,0)), color-stop(100%,rgba(214,219,191,0.3))) !important; /* Chrome,Safari4+ */
@@ -19,6 +16,14 @@ body.jsdisabled #block_accessibility_launchtoolbar {
     background: -ms-linear-gradient(top, rgba(254,255,232,0) 0%,rgba(214,219,191,0.3) 100%) !important; /* IE10+ */
     filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#00feffe8', endColorstr='#4dd6dbbf',GradientType=0 ) !important; /* IE6-9 */
     background: linear-gradient(top, rgba(254,255,232,0) 0%,rgba(214,219,191,0.3) 100%) !important; /* W3C */
+
+    /*disable selection*/
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
 }
 
 #accessibility_controls .access-button:hover {
@@ -29,15 +34,6 @@ body.jsdisabled #block_accessibility_launchtoolbar {
     background: -ms-linear-gradient(top, rgba(254,255,232,0) 0%,rgba(214,219,191,0.5) 50%) !important; /* IE10+ */
     filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#00feffe8', endColorstr='#80d6dbbf',GradientType=0 ) !important; /* IE6-9 */
     background: linear-gradient(top, rgba(254,255,232,0) 0%,rgba(214,219,191,0.5) 50%) !important; /* W3C */
-}
-
-
-#block_accessibility_inc {
-    font-size: 16px !important;
-}
-
-#block_accessibility_dec {
-    font-size: 10px !important;
 }
 
 .access-button a#block_accessibility_save {
@@ -54,9 +50,9 @@ body.jsdisabled #block_accessibility_launchtoolbar {
     background-position: center !important;
 }
 
-#accessibility_controls .access-button.disabled {
-    border: 1px solid #eee;
-    color: #ccc;
+#accessibility_controls .access-button .disabled {
+    opacity:0.3;
+    cursor:not-allowed;;
 }
 
 #accessibility_controls .access-button a {
@@ -64,6 +60,8 @@ body.jsdisabled #block_accessibility_launchtoolbar {
     cursor: pointer;
     color: #000;
     border-radius: 2px;
+    padding: .15em .3em;
+    min-width: 1.5em;
 }
 
 #accessibility_controls .access-button a:hover {
@@ -164,4 +162,8 @@ body.jsdisabled #block_accessibility_launchtoolbar {
 #toolbar-launch img {
 	padding: 0;
 	opacity: 0.6;
+}
+
+.atbar-always{
+    display: inline-block;
 }
