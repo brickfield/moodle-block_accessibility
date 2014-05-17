@@ -90,7 +90,6 @@ if (!empty($fontsize)) {
 if (!empty($colourscheme)) {
 	// $colourscheme == 1 is reset, so don't output any styles
 	if($colourscheme > 1 && $colourscheme < 5){ // this is how many declarations we defined in edit_form.php
-		var_dump($block_instance);
 		if(!empty($block_instance->config)){
 			$fg_colour = $block_instance->config->{'fg'.$colourscheme};
 			$bg_colour = $block_instance->config->{'bg'.$colourscheme};
@@ -137,3 +136,27 @@ if (!empty($colourscheme)) {
 
 	
 }
+
+// ACCESSIBILITY BLOCK'S COLOUR SCHEMES BUTTONS
+// Do not edit (this part of code is not in styles.php because colours are defined in block's configuration form)
+// ================================================
+for($i=2; $i<5; $i++) {  // this is how many declarations we defined in defaults.php
+	$colourscheme = $i;
+	if(!empty($block_instance->config)){
+		$fg_colour = $block_instance->config->{'fg'.$colourscheme};
+		$bg_colour = $block_instance->config->{'bg'.$colourscheme};
+	}
+	else{ // block has never been configured, load default colours
+		require_once($CFG->dirroot.'/blocks/accessibility/defaults.php');
+		$fg_colour = $defaults['fg'.$colourscheme];
+		$bg_colour = $defaults['bg'.$colourscheme];
+	}
+	echo '#block_accessibility_colour'.$colourscheme.'{';
+	if(!empty($fg_colour)) echo 'color:'.$fg_colour.' !important;';
+	if(!empty($bg_colour)) echo 'background-color:'.$bg_colour.' !important;';
+	echo '}';
+
+
+}
+
+		
