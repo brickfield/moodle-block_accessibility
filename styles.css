@@ -2,6 +2,10 @@ body.jsdisabled #block_accessibility_launchtoolbar {
     display: none;
 }
 
+.block_accessibility{
+    position: relative; /* for loader.gif to position absolute */
+}
+
 #accessibility_controls .access-button {
     display: inline-block;
     vertical-align: middle;
@@ -166,4 +170,15 @@ body.jsdisabled #block_accessibility_launchtoolbar {
 
 .atbar-always{
     display: inline-block;
+}
+
+#loader-icon{
+    position: absolute;
+    width: 54px;
+    height: 55px;
+    top: 42%;
+    left:5em;
+    background: url('[[pix:block_accessibility|loader]]') !important;
+    display:none;
+
 }

@@ -32,6 +32,7 @@ define('CSS_URL', '/blocks/accessibility/userstyles.php');
 define('FONTSIZE_URL', '/blocks/accessibility/changesize.php');
 define('COLOUR_URL', '/blocks/accessibility/changecolour.php');
 define('DB_URL', '/blocks/accessibility/database.php');
+define('LOADER_ICON', '/blocks/accessibility/pix/loader.gif');
 
 
 /**
@@ -299,6 +300,13 @@ class block_accessibility extends block_base {
 		}
 
 		$content .= html_writer::end_tag('div');
+
+		// loader icon
+		// html_writer::empty_tag('img', array('src' => new moodle_url(LOADER_ICON), 'alt' => 'loader icon')); // it doesn't work
+		$spanattrs = array('id' => 'loader-icon');
+		$content .= html_writer::start_tag('span', $spanattrs);
+		$content .= html_writer::end_tag('span');
+
 
 
 		// SET THE BLOCK CONTENT
