@@ -1,18 +1,17 @@
 Accessibility Block for Moodle
 
-Provides options for changing text size and colour scheme. Settings can be saved to persist between sessions.
+Provides options for changing text size and colour scheme. Settings can be saved to persist between sessions. Colours can be changed in the block instance configuration in Moodle.
 
 Also integrates ATbar from Southampton University ECS http://www.atbar.org. Code used under BSD Licence.
 
-To install, place all files in /blocks/accessibility and visit /admin/index.php in your browser.
+To install, place all files in /blocks/accessibility and visit /admin/index.php in your browser. To achieve block appearance throughout entire Moodle site (so-called "Sticky block") once the plugin is installed into Moodle, it's recommended to add its instance onto the Moodle homepage. Homepage instance of the block enables “Page contexts” option in block instance configuration (F7) to be set to "Display throughout entire site".
 
-This block was written by Mark Johnson <mark@barrenfrozenwasteland.com>
-It is copyright of Mark Johnson, Richard Taunton's Sixth Form College and
-contributors.
+This block was initially written by Mark Johnson <mark@barrenfrozenwasteland.com>
+It is copyright of Mark Johnson, Richard Taunton's Sixth Form College and contributors.
 
-Translations are copyright of their respective authors, as indicated in each
-language file.
-Current languages are English, German, Spanish and French.  If you're
+Translations are copyright of their respective authors, as indicated in each language file.
+
+Current languages are English, German, Spanish, Portuguese, Croatian and French.  If you're
 interested in adding a translation please raise a bug on Github
 https://github.com/marxjohnson/moodle-block_accessibility/issues
 
