@@ -4,7 +4,7 @@ Provides options for changing text size and colour scheme. Settings can be saved
 
 Also integrates ATbar from Southampton University ECS http://www.atbar.org. Code used under BSD Licence.
 
-To install, place all files in /blocks/accessibility and visit /admin/index.php in your browser. To achieve block appearance throughout entire Moodle site (so-called "Sticky block") once the plugin is installed into Moodle, it's recommended to add its instance onto the Moodle homepage. Homepage instance of the block enables “Page contexts” option in block instance configuration (F7) to be set to "Display throughout entire site".
+To install, place all files in /blocks/accessibility and visit /admin/index.php in your browser. To achieve block appearance throughout entire Moodle site (so-called "Sticky block") once the plugin is installed into Moodle, it's recommended to add its instance onto the Moodle homepage. Homepage instance of the block enables "Page contexts" option in block instance configuration (F7) to be set to "Display throughout entire site".
 
 This block was initially written by Mark Johnson <mark@barrenfrozenwasteland.com>
 It is copyright of Mark Johnson, Richard Taunton's Sixth Form College and contributors.

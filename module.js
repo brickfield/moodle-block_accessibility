@@ -400,12 +400,27 @@ M.block_accessibility = {
 	 */
 	reload_stylesheet: function(){
 		var cache_prevention_salt = new Date().getTime();
-		M.block_accessibility.sheetnode.set(
+
+		/*
+			Why wouldn't we just set the href attribute insted of creating a new node? Because before the new stylesheet is loaded and while old one is deleted, the page loose all the styles and all the elements get unstyled for a some time
+		*/
+		var oldStylesheet = M.block_accessibility.sheetnode;
+		var newStylesheet = oldStylesheet.cloneNode(true);
+		newStylesheet.set(
 			'href', M.cfg.wwwroot+
 			'/blocks/accessibility/userstyles.php?instance_id='+
 			M.block_accessibility.instance_id+
 			'&v='+cache_prevention_salt
 		); 
+		this.Y.one('head').append(newStylesheet);
+		newStylesheet.getDOMNode().onload = function(){ oldStylesheet.remove() };
+		M.block_accessibility.sheetnode = newStylesheet;
+
+
+		//alert(M.block_accessibility.sheetnode + ' '+ clone);
+
+		
+
 	},
 
 	/**
