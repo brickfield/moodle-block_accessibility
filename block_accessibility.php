@@ -101,6 +101,10 @@ class block_accessibility extends block_base {
 		global $FULLME;
 		global $DB;
 
+
+		// Until Issue #63 is fixed, we don't want to display block for unauthenticated users
+		if(!isloggedin()) return null;
+
 		if ($this->content !== null) {
 			return $this->content;
 		}
