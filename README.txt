@@ -9,6 +9,8 @@ To install, place all files in /blocks/accessibility/ directory and visit /admin
 This block was initially written by Mark Johnson <mark@barrenfrozenwasteland.com>
 It is copyright of Mark Johnson, Richard Taunton's Sixth Form College and contributors.
 
+Developers can find the documentation here: https://drive.google.com/folderview?id=0BwrUG2o1JsD_bGo2S3hJNXFDd28&usp=sharing
+
 Translations are copyright of their respective authors, as indicated in each language file.
 
 Current languages are English, German, Spanish, Portuguese, Croatian and French.  If you're
