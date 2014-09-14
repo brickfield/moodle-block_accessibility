@@ -64,3 +64,6 @@ $string['config_fg_help'] = 'Define colour scheme foreground colour here. Keep i
 $string['config_bg'] = 'Background colour';
 $string['config_bg_help'] = 'Define colour scheme background colour here. Keep in mind that the background colour will be applied uniformly to all user interface elements.';
 $string['color_input_error'] = 'Please enter a color in a format as such: #FF0050';
+
+$string['accessibility:addinstance'] = 'Dodaj novi Accessibility block';
+$string['accessibility:myaddinstance'] = 'Dodaj novi Accessibility block na glavnu stranicu';
