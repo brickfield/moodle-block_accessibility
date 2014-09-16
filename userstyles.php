@@ -32,7 +32,7 @@
 
 header('Content-Type: text/css', true);
 header("X-Content-Type-Options: nosniff"); // for IE
-//header('Cache-Control: no-cache');
+header('Cache-Control: no-cache');
 
 
 require_once('../../config.php');
@@ -90,7 +90,7 @@ if (!empty($fontsize)) {
 if (!empty($colourscheme)) {
 	// $colourscheme == 1 is reset, so don't output any styles
 	if($colourscheme > 1 && $colourscheme < 5){ // this is how many declarations we defined in edit_form.php
-		if(!empty($block_instance->config)){
+		if($block_instance->config !== NULL){
 			$fg_colour = $block_instance->config->{'fg'.$colourscheme};
 			$bg_colour = $block_instance->config->{'bg'.$colourscheme};
 		}
@@ -142,7 +142,8 @@ if (!empty($colourscheme)) {
 // ================================================
 for($i=2; $i<5; $i++) {  // this is how many declarations we defined in defaults.php
 	$colourscheme = $i;
-	if(!empty($block_instance->config)){
+	if($block_instance->config !== NULL){
+		//var_dump($block_instance->config->{'fg'.$colourscheme}, $block_instance->config->{'bg'.$colourscheme});
 		$fg_colour = $block_instance->config->{'fg'.$colourscheme};
 		$bg_colour = $block_instance->config->{'bg'.$colourscheme};
 	}

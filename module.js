@@ -17,7 +17,7 @@ M.block_accessibility = {
 	MAX_PX_FONTSIZE: 26,
 	MIN_PX_FONTSIZE: 10,
 
-	stylesheet: '',
+	//stylesheet: '',
 
 	sheetnode: '',
 
@@ -31,16 +31,15 @@ M.block_accessibility = {
 
 
 	init: function(Y, autoload_atbar, instance_id) {
-		this.log('Accessibility block Debug mode active');
 		this.Y = Y;
 		this.instance_id = instance_id;
 		
 		this.sheetnode = Y.one('link[href="'+M.cfg.wwwroot+
 			'/blocks/accessibility/userstyles.php?instance_id='+instance_id+'"]');
-		this.stylesheet = Y.StyleSheet(this.sheetnode);
+		//this.stylesheet = Y.StyleSheet(this.sheetnode);
 
 		// Set default font size
-		this.log('Initial size: '+Y.one('body').getStyle('fontSize'));
+		//this.log('Initial size: '+Y.one('body').getStyle('fontSize'));
 		this.defaultsize = M.block_accessibility.get_current_fontsize('body');
 
 		// Attach the click handler
@@ -99,8 +98,6 @@ M.block_accessibility = {
 		// assign loader icon events
 		Y.on('io:start', M.block_accessibility.show_loading);
 		Y.on('io:complete', M.block_accessibility.hide_loading);
-				
-
 	},
 
 
@@ -121,7 +118,7 @@ M.block_accessibility = {
 	 * @param {String} msg the message to display
 	 */
 	show_message: function(msg) {
-		this.log('Message set to '+msg);
+		//this.log('Message set to '+msg);
 		this.Y.one('#block_accessibility_message').setContent(msg);
 
 		// make message disappear after some time
@@ -165,12 +162,12 @@ M.block_accessibility = {
 		var button = this.Y.one('#block_accessibility_'+id);
 		if (op == 'on') {
 			if (button.hasClass('disabled')) {
-				this.log('Enabling '+button);
+				//this.log('Enabling '+button);
 				button.removeClass('disabled');
 			}
 		} else if (op == 'off') {
 			if(!button.hasClass('disabled')) {
-				this.log('Disabling '+button);
+				//this.log('Disabling '+button);
 				button.addClass('disabled');
 			}
 		}
@@ -193,11 +190,12 @@ M.block_accessibility = {
 	 *
 	 */
 	changesize: function(button) {
+
 		Y = this.Y;
 
 		switch (button.get('id')) {
 			case "block_accessibility_inc":
-				this.log('Increasing size from '+this.defaultsize);
+				//this.log('Increasing size from '+this.defaultsize);
 				Y.io(M.cfg.wwwroot+'/blocks/accessibility/changesize.php', {
 					data: 'op=inc&cur='+this.defaultsize, // we need to find a default so we know where we're increasing/decreasing from, otherwise PHP will assume 100%
 					method: 'get',
@@ -232,7 +230,7 @@ M.block_accessibility = {
 				});
 				break;
 			case "block_accessibility_dec":
-				this.log('Decreasing size from '+this.defaultsize);
+				//this.log('Decreasing size from '+this.defaultsize);
 				Y.io(M.cfg.wwwroot+'/blocks/accessibility/changesize.php', {
 					data: 'op=dec&cur='+this.defaultsize,
 					method: 'get',
@@ -268,7 +266,7 @@ M.block_accessibility = {
 				});
 				break;
 			case "block_accessibility_reset":
-				this.log('Resetting size from '+this.defaultsize);
+				//this.log('Resetting size from '+this.defaultsize);
 				Y.io(M.cfg.wwwroot+'/blocks/accessibility/changesize.php', {
 					data: 'op=reset&cur='+this.defaultsize,
 					method: 'get',
@@ -300,7 +298,7 @@ M.block_accessibility = {
 				});
 				break;
 			case "block_accessibility_save":
-				this.log('Saving Size');
+				//this.log('Saving Size');
 				M.block_accessibility.savesize();
 				break;
 		}
@@ -379,10 +377,13 @@ M.block_accessibility = {
 	watch_atbar_for_close: function() {
 		Y = this.Y;
 		this.watch = setInterval(function() {
-			if (AtKit.isRendered()) {
-				Y.one('#block_accessibility_textresize').setStyle('display', 'block');
-				Y.one('#block_accessibility_changecolour').setStyle('display', 'block');
-				clearInterval(M.block_accessibility.watch);
+
+			if (typeof AtKit !== 'undefined') {
+				if (AtKit.isRendered()) {
+					Y.one('#block_accessibility_textresize').setStyle('display', 'block');
+					Y.one('#block_accessibility_changecolour').setStyle('display', 'block');
+					clearInterval(M.block_accessibility.watch);
+				}
 			}
 		}, 1000);
 	},
@@ -405,21 +406,47 @@ M.block_accessibility = {
 			Why wouldn't we just set the href attribute insted of creating a new node? Because before the new stylesheet is loaded and while old one is deleted, the page loose all the styles and all the elements get unstyled for a some time
 		*/
 		var oldStylesheet = M.block_accessibility.sheetnode;
-		var newStylesheet = oldStylesheet.cloneNode(true);
-		newStylesheet.set(
-			'href', M.cfg.wwwroot+
+		var newStylesheet = null;
+		var cssURL = M.cfg.wwwroot+
 			'/blocks/accessibility/userstyles.php?instance_id='+
 			M.block_accessibility.instance_id+
 			'&v='+cache_prevention_salt
-		); 
-		this.Y.one('head').append(newStylesheet);
-		newStylesheet.getDOMNode().onload = function(){ oldStylesheet.remove() };
-		M.block_accessibility.sheetnode = newStylesheet;
-
-
-		//alert(M.block_accessibility.sheetnode + ' '+ clone);
-
 		
+		if (document.createStyleSheet) // only for IE < 11
+		{
+			/* 
+				here we use href attribute change which makes some delay while reloading stylesheet
+
+				1. one another idea would be to load stylesheet using this.Y.io(.. and create <style> element
+				var styleSheet = document.createElement('STYLE');
+				document.documentElement.firstChild.appendChild(styleSheet);
+
+				2. initial idea was the same as for non-IE browsers but somehow doesn't work:
+				oldStylesheet.remove(true);
+				newStylesheet = document.createStyleSheet(cssURL);
+				// also keep in mind that createStyleSheet can create up to 31 stylesheets	
+				// http://msdn.microsoft.com/en-us/library/ie/ms531194(v=vs.85).aspx			
+			*/
+			
+			oldStylesheet.set('href', cssURL);
+		}
+		else
+		{
+			// IE 11 and non-IE browsers:
+			// creating new stylesheet and deleting old one makes more smooth transition
+
+			newStylesheet = oldStylesheet.cloneNode(true);
+			newStylesheet.set('href', cssURL); 
+			this.Y.one('head').append(newStylesheet);
+			// remove old stylesheet
+			newStylesheet.getDOMNode().onload = function(){
+				oldStylesheet.remove(true);
+				alert('REMOVED ' + oldStylesheet);
+			};
+
+			M.block_accessibility.sheetnode = newStylesheet;
+		}
+
 
 	},
 
