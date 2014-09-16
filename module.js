@@ -31,6 +31,9 @@ M.block_accessibility = {
 
 
 	init: function(Y, autoload_atbar, instance_id) {
+		// keep in mind that dynamic AJAX mode cannot work properly with IE <= 8 (for now), so this script will not even be loaded in block_accessibillity.php
+
+
 		this.Y = Y;
 		this.instance_id = instance_id;
 		
@@ -401,10 +404,6 @@ M.block_accessibility = {
 	 */
 	reload_stylesheet: function(){
 		var cache_prevention_salt = new Date().getTime();
-
-		/*
-			Why wouldn't we just set the href attribute insted of creating a new node? Because before the new stylesheet is loaded and while old one is deleted, the page loose all the styles and all the elements get unstyled for a some time
-		*/
 		var oldStylesheet = M.block_accessibility.sheetnode;
 		var newStylesheet = null;
 		var cssURL = M.cfg.wwwroot+
@@ -412,7 +411,7 @@ M.block_accessibility = {
 			M.block_accessibility.instance_id+
 			'&v='+cache_prevention_salt
 		
-		if (document.createStyleSheet) // only for IE < 11
+		if (document.createStyleSheet) // only for IE < 11 and IE > 8
 		{
 			/* 
 				here we use href attribute change which makes some delay while reloading stylesheet
@@ -434,6 +433,7 @@ M.block_accessibility = {
 		{
 			// IE 11 and non-IE browsers:
 			// creating new stylesheet and deleting old one makes more smooth transition
+			// Why wouldn't we just set the href attribute insted of creating another stylesheet node? Because before the new stylesheet is loaded and while old one is deleted, the page will lose all the styles and all the elements get unstyled for a some time (poor user experience)
 
 			newStylesheet = oldStylesheet.cloneNode(true);
 			newStylesheet.set('href', cssURL); 
@@ -441,7 +441,6 @@ M.block_accessibility = {
 			// remove old stylesheet
 			newStylesheet.getDOMNode().onload = function(){
 				oldStylesheet.remove(true);
-				alert('REMOVED ' + oldStylesheet);
 			};
 
 			M.block_accessibility.sheetnode = newStylesheet;
@@ -477,5 +476,5 @@ M.block_accessibility = {
 	hide_loading: function(){
 		Y.one('#loader-icon').setStyle('display', 'none');
 		Y.one('#accessibility_controls').setStyle('opacity', '1');
-	}
+	},
 }

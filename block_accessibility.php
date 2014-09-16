@@ -319,27 +319,32 @@ class block_accessibility extends block_base {
 		$this->content->footer = '';
 		$this->content->text = $content;
 
-		// INCLUDE JS AND PASS PARAMETERS
-		// ===============================================
-		// language strings to pass to module.js
-		$this->page->requires->string_for_js('saved', 'block_accessibility');
-		$this->page->requires->string_for_js('jsnosave', 'block_accessibility');
-		$this->page->requires->string_for_js('reset', 'block_accessibility');
-		$this->page->requires->string_for_js('jsnosizereset', 'block_accessibility');
-		$this->page->requires->string_for_js('jsnocolourreset', 'block_accessibility');
-		$this->page->requires->string_for_js('jsnosize', 'block_accessibility');
-		$this->page->requires->string_for_js('jsnocolour', 'block_accessibility');
-		$this->page->requires->string_for_js('jsnosizereset', 'block_accessibility');
-		$this->page->requires->string_for_js('launchtoolbar', 'block_accessibility');
 
-		$jsmodule = array(
-			'name'  =>  'block_accessibility',
-			'fullpath'  =>  JS_URL,
-			'requires'  =>  array('base', 'node', 'stylesheet')
-		);
+		// keep in mind that dynamic AJAX mode cannot work properly with IE <= 8 (for now), so javascript will not even be loaded
+		if(!preg_match('/(?i)msie [1-8]/',$_SERVER['HTTP_USER_AGENT']))
+		{
+			// INCLUDE JS AND PASS PARAMETERS
+			// ===============================================
+			// language strings to pass to module.js
+			$this->page->requires->string_for_js('saved', 'block_accessibility');
+			$this->page->requires->string_for_js('jsnosave', 'block_accessibility');
+			$this->page->requires->string_for_js('reset', 'block_accessibility');
+			$this->page->requires->string_for_js('jsnosizereset', 'block_accessibility');
+			$this->page->requires->string_for_js('jsnocolourreset', 'block_accessibility');
+			$this->page->requires->string_for_js('jsnosize', 'block_accessibility');
+			$this->page->requires->string_for_js('jsnocolour', 'block_accessibility');
+			$this->page->requires->string_for_js('jsnosizereset', 'block_accessibility');
+			$this->page->requires->string_for_js('launchtoolbar', 'block_accessibility');
 
-		// include js script and pass the arguments
-		$this->page->requires->js_init_call('M.block_accessibility.init', $jsdata, false, $jsmodule);
+			$jsmodule = array(
+				'name'  =>  'block_accessibility',
+				'fullpath'  =>  JS_URL,
+				'requires'  =>  array('base', 'node', 'stylesheet')
+			);
+
+			// include js script and pass the arguments
+			$this->page->requires->js_init_call('M.block_accessibility.init', $jsdata, false, $jsmodule);
+		}
 		
 
 		return $this->content;
