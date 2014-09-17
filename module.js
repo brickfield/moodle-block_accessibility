@@ -29,7 +29,6 @@ M.block_accessibility = {
 
 	debug: false,
 
-
 	init: function(Y, autoload_atbar, instance_id) {
 		// keep in mind that dynamic AJAX mode cannot work properly with IE <= 8 (for now), so this script will not even be loaded in block_accessibillity.php
 
@@ -99,7 +98,7 @@ M.block_accessibility = {
 		}
 
 		// assign loader icon events
-		Y.on('io:start', M.block_accessibility.show_loading);
+		// Y.on('io:start', M.block_accessibility.show_loading); // this triggers even for io actions outside block
 		Y.on('io:complete', M.block_accessibility.hide_loading);
 	},
 
@@ -147,7 +146,8 @@ M.block_accessibility = {
 				},
 				failure: function(id, o) {
 					alert(M.util.get_string('jsnosave', 'block_accessibility')+' '+o.status+' '+o.statusText);
-				}
+				},
+				start: M.block_accessibility.show_loading
 			}
 		});
 	},
@@ -228,7 +228,8 @@ M.block_accessibility = {
 						},
 						failure: function(o) {
 							alert(M.util.get_string('jsnosize', 'block_accessibility')+': '+o.status+' '+o.statusText);
-						}
+						},
+						start: M.block_accessibility.show_loading
 				   }
 				});
 				break;
@@ -264,7 +265,8 @@ M.block_accessibility = {
 						},
 						failure: function(id, o) {
 							alert(M.util.get_string('jsnosize', 'block_accessibility')+': '+o.status+' '+o.statusText);
-						}
+						},
+						start: M.block_accessibility.show_loading
 				   }
 				});
 				break;
@@ -296,7 +298,8 @@ M.block_accessibility = {
 						},
 						failure: function(id, o) {
 							alert(M.util.get_string('jsnosize', 'block_accessibility')+': '+o.status+' '+o.statusText);
-						}
+						},
+						start: M.block_accessibility.show_loading
 				   }
 				});
 				break;
@@ -336,7 +339,8 @@ M.block_accessibility = {
 				},
 				failure: function(id, o) {
 					alert(get_string('jsnocolour', 'block_accessibility')+': '+o.status+' '+o.statusText);
-				}
+				},
+				start: M.block_accessibility.show_loading
 			}
 		});
 	},
@@ -355,7 +359,8 @@ M.block_accessibility = {
 						if (o.status != '404') {
 							alert(M.util.get_string('jsnosave', 'block_accessibility')+': '+o.status+' '+o.statusText);
 						}
-					}
+					},
+					start: M.block_accessibility.show_loading
 			   }
 			});
 		} else if (op == 'off') {
@@ -371,7 +376,8 @@ M.block_accessibility = {
 						if (o.status != '404') {
 							alert(M.util.get_string('jsnoreset', 'block_accessibility')+': '+o.status+' '+o.statusText);
 						}
-					}
+					},
+					start: M.block_accessibility.show_loading
 			   }
 			});
 		}
@@ -471,7 +477,7 @@ M.block_accessibility = {
 
 	show_loading: function(){
 		Y.one('#loader-icon').setStyle('display', 'block');
-		Y.one('#accessibility_controls').setStyle('opacity', '0.2');
+		Y.one('#accessibility_controls').setStyle('opacity', '0.2');	
 	},
 	hide_loading: function(){
 		Y.one('#loader-icon').setStyle('display', 'none');
