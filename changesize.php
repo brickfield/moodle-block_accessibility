@@ -44,8 +44,11 @@ if (!isset($USER->defaultfontsize)) {
     $USER->defaultfontsize = DEFAULT_FONTSIZE;
 
     // if javascript enabled, get current font-size value directly from the page
+    // UPDATE 24.09.2014. It turns out not to be correct, needs to be adjusted...at least for clean theme...
+    /*
     $cur = optional_param('cur', 0, PARAM_INT);
     if ($cur) $USER->defaultfontsize = $cur;
+    */
 }
 
 // GET THE CURRENT FONT-SIZE VALUE IN PX
@@ -64,7 +67,8 @@ if ($current >= MIN_FONTSIZE && $current <= MAX_FONTSIZE) {
     // If we're already dealing with a percentage,
     $current = accessibility_getsize($current); // Get the size in pixels
 }
-// ok, we have font size in px
+
+// ok, we have font size in px now
 // ...
 
 // CALCULATE THE NEW FONT SIZE
@@ -106,6 +110,9 @@ switch($op) {
 
         $redirecturl = new moodle_url('/blocks/accessibility/database.php', $urlparams);
         redirect($redirecturl);
+
+
+        // ... REDIRECTED! EXIT
         
         break;
     default: // ERROR   
@@ -119,6 +126,7 @@ switch($op) {
 $USER->fontsize = $new; // If we've just increased or decreased, save the new size to the session
 
 if (accessibility_is_ajax()) {
+    // no redirect
     // it would be good idea to include userstyles.php here as HTTP response
     // this would save one extra HTTP request from module.js
 } else {
