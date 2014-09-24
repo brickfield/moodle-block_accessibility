@@ -70,14 +70,25 @@ else if (!empty($options->colourscheme)) $colourscheme = $options->colourscheme;
 // Echo out CSS for the body element. Use !important to override any other external stylesheets.
 if (!empty($fontsize)) {
 	echo '
+	
 	#page { /* block elements */
 		font-size: '.$fontsize.'% !important;
 		line-height:1.5; /*WCAG 2.0*/
 	}
+
 	#page *{
-		font-size: inherit !important;
 		line-height: inherit !important;
+		font-size: inherit !important;
 	}
+
+
+	/* issue #74 - default h* sizes from Moodle CSS */
+	#page #page-header h1, #page #region-main h1{font-size:'. (0.32 * $fontsize) .'px !important}
+	#page #page-header h2, #page #region-main h2{font-size:'. (0.28 * $fontsize) .'px !important}
+	#page #page-header h3, #page #region-main h3{font-size:'. (0.24 * $fontsize) .'px !important}
+	#page #page-header h4, #page #region-main h4{font-size:'. (0.20 * $fontsize) .'px !important}
+	#page #page-header h5, #page #region-main h5{font-size:'. (0.16 * $fontsize) .'px !important}
+	#page #page-header h6, #page #region-main h6{font-size:'. (0.12 * $fontsize) .'px !important}
 	';
 }
 

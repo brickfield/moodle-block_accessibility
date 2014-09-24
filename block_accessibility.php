@@ -146,22 +146,25 @@ class block_accessibility extends block_base {
 
 		// if any of increase/decrease buttons reached maximum size, disable it
 		if (isset($USER->fontsize)) {
-			if (accessibility_getsize($USER->fontsize) == MIN_PX_FONTSIZE) {
+			if (accessibility_getsize($USER->fontsize) == MIN_FONTSIZE) {
 				$dec_attrs['class'] = 'disabled';
 				unset($dec_attrs['href']);
 			}
-			if (accessibility_getsize($USER->fontsize) == MAX_PX_FONTSIZE) {
+			if (accessibility_getsize($USER->fontsize) == MAX_FONTSIZE) {
 				$inc_attrs['class'] = 'disabled';
 				unset($inc_attrs['href']);
 			}
 		}
 
 		// if user is not logged in, disable save button
+		// UPDATE 18.9.2014. Anyway the block will not be displayed for nonauthenticated users
+		/*
 		if (isset($USER->username) && (isset($USER->fontsize) || isset($USER->colourscheme))) {
 			$save_attrs['href'] = $db_url->out(false);
 		} else {
 			$save_attrs['class'] = 'disabled';
 		}
+		*/
 
 		// initialization of reset button
 		$reset_attrs = array(
