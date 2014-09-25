@@ -144,16 +144,28 @@ class block_accessibility extends block_base {
 			'id' => "block_accessibility_save"
 		);
 
+		// initialization of reset button
+		$reset_attrs = array(
+			'id' => 'block_accessibility_reset',
+			'title' => get_string('resettext', 'block_accessibility'),
+			'href' => $size_url->out(false, array('op' => 'reset'))
+		);
+
+
 		// if any of increase/decrease buttons reached maximum size, disable it
 		if (isset($USER->fontsize)) {
-			if (accessibility_getsize($USER->fontsize) == MIN_FONTSIZE) {
+			if ($USER->fontsize == MIN_FONTSIZE) {
 				$dec_attrs['class'] = 'disabled';
 				unset($dec_attrs['href']);
 			}
-			if (accessibility_getsize($USER->fontsize) == MAX_FONTSIZE) {
+			if ($USER->fontsize == MAX_FONTSIZE) {
 				$inc_attrs['class'] = 'disabled';
 				unset($inc_attrs['href']);
 			}
+		}
+		// or disable reset button
+		else{
+			$reset_attrs['class'] = 'disabled';
 		}
 
 		// if user is not logged in, disable save button
@@ -166,12 +178,6 @@ class block_accessibility extends block_base {
 		}
 		*/
 
-		// initialization of reset button
-		$reset_attrs = array(
-			'id' => 'block_accessibility_reset',
-			'title' => get_string('resettext', 'block_accessibility'),
-			'href' => $size_url->out(false, array('op' => 'reset'))
-		);
 
 		// initialization of scheme profiles buttons
 		$c1_attrs = array(
@@ -190,12 +196,16 @@ class block_accessibility extends block_base {
 			'id' => 'block_accessibility_colour4',
 			'href' => $colour_url->out(false, array('scheme' => 4))
 		);
+		if (!isset($USER->colourscheme)) {
+			$c1_attrs['class'] = 'disabled';
+		}
 
 		// RENDER BLOCK HTML
 		// ===============================================
 		$content = '';
 
 		$strchar = get_string('char', 'block_accessibility');
+		$resetchar = "R";
 		$divattrs = array('id' => 'accessibility_controls', 'class' => 'content');
 		$listattrs = array('id' => 'block_accessibility_textresize', 'class' => 'button_row');
 
@@ -224,19 +234,19 @@ class block_accessibility extends block_base {
 		$content .= html_writer::start_tag('ul', array('id' => 'block_accessibility_changecolour'));
 
 		$content .= html_writer::start_tag('li', array('class' => 'access-button'));
-		$content .= html_writer::tag('a', get_string('char', 'block_accessibility'), $c1_attrs);
+		$content .= html_writer::tag('a', $resetchar, $c1_attrs);
 		$content .= html_writer::end_tag('li');
 
 		$content .= html_writer::start_tag('li', array('class' => 'access-button'));
-		$content .= html_writer::tag('a', get_string('char', 'block_accessibility'), $c2_attrs);
+		$content .= html_writer::tag('a', $strchar, $c2_attrs);
 		$content .= html_writer::end_tag('li');
 
 		$content .= html_writer::start_tag('li', array('class' => 'access-button'));
-		$content .= html_writer::tag('a', get_string('char', 'block_accessibility'), $c3_attrs);
+		$content .= html_writer::tag('a', $strchar, $c3_attrs);
 		$content .= html_writer::end_tag('li');
 
 		$content .= html_writer::start_tag('li', array('class' => 'access-button'));
-		$content .= html_writer::tag('a', get_string('char', 'block_accessibility'), $c4_attrs);
+		$content .= html_writer::tag('a', $strchar, $c4_attrs);
 		$content .= html_writer::end_tag('li');
 
 		$content .= html_writer::end_tag('ul');

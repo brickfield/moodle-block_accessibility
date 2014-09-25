@@ -56,6 +56,7 @@ function accessibility_getsize($size) {
 
     // Define the array of sizes in px against sizes as %
     // make sure to maintain defined constants above in the script
+    // http://yuilibrary.com/yui/docs/cssfonts/
     $sizes = array(
         10 => 77,
         11 => 85,

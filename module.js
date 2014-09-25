@@ -15,7 +15,9 @@ M.block_accessibility = {
 	// only in JS-mode, because .getStyle('fontSize') will return computed style in px
 	DAFAULT_PX_FONTSIZE: 13,
 	MAX_PX_FONTSIZE: 26,
-	MIN_PX_FONTSIZE: 10,
+	MIN_PX_FONTSIZE: 10+1, // +1 because of unknown error...YUI for 77% returns style of 11px
+
+	MAIN_SELECTOR : '#page', // userstyles.php applies CSS font-size to this element
 
 	//stylesheet: '',
 
@@ -42,7 +44,8 @@ M.block_accessibility = {
 
 		// Set default font size
 		//this.log('Initial size: '+Y.one('body').getStyle('fontSize'));
-		this.defaultsize = M.block_accessibility.get_current_fontsize('body');
+		//this.defaultsize = M.block_accessibility.get_current_fontsize('body'); // this is disabled because it gives false results...
+		this.defaultsize = M.block_accessibility.DEFAULT_FONTSIZE; 
 
 		// Attach the click handler
 		Y.all('#block_accessibility_textresize a').on('click', function(e) {
@@ -207,7 +210,7 @@ M.block_accessibility = {
 
 							// now that we updated user setting to the server, load updated stylesheet
 							M.block_accessibility.reload_stylesheet();  
-							var new_fontsize =  M.block_accessibility.get_current_fontsize('#page');
+							var new_fontsize =  M.block_accessibility.get_current_fontsize(M.block_accessibility.MAIN_SELECTOR);
 							M.block_accessibility.log('Increasing size to '+new_fontsize);
 
 							// Disable/enable buttons as necessary
@@ -220,9 +223,8 @@ M.block_accessibility = {
 							}
 							if (new_fontsize >= max_fontsize) {
 								M.block_accessibility.toggle_textsizer('inc', 'off');
-							} else if (new_fontsize <= min_fontsize) {
-								M.block_accessibility.toggle_textsizer('dec', 'on');
 							}
+							M.block_accessibility.toggle_textsizer('dec', 'on');
 							M.block_accessibility.toggle_textsizer('save', 'on');
 							
 						},
@@ -243,10 +245,9 @@ M.block_accessibility = {
 
 							// now that we updated user setting to the server, load updated stylesheet
 							M.block_accessibility.reload_stylesheet();
-							var new_fontsize =  M.block_accessibility.get_current_fontsize('#page');
+							var new_fontsize =  M.block_accessibility.get_current_fontsize(M.block_accessibility.MAIN_SELECTOR);
 							M.block_accessibility.log('Decreasing size to '+new_fontsize);
 
-							
 							// Disable/enable buttons as necessary
 							var min_fontsize = M.block_accessibility.MIN_PX_FONTSIZE;
 							var max_fontsize = M.block_accessibility.MAX_PX_FONTSIZE;
@@ -257,9 +258,8 @@ M.block_accessibility = {
 							}
 							if (new_fontsize <= min_fontsize) {
 								M.block_accessibility.toggle_textsizer('dec', 'off');
-							} else if (new_fontsize == max_fontsize) {
-								M.block_accessibility.toggle_textsizer('inc', 'on');
-							}
+							} 
+							M.block_accessibility.toggle_textsizer('inc', 'on');
 							M.block_accessibility.toggle_textsizer('save', 'on');
 							
 						},
@@ -280,7 +280,7 @@ M.block_accessibility = {
 
 							// now that we updated user setting to the server, load updated stylesheet
 							M.block_accessibility.reload_stylesheet();
-							var new_fontsize =  M.block_accessibility.get_current_fontsize('#page');
+							var new_fontsize =  M.block_accessibility.get_current_fontsize(M.block_accessibility.MAIN_SELECTOR);
 							M.block_accessibility.log('Resetting size to '+new_fontsize);
   
 							// Disable/enable buttons as necessary
@@ -334,8 +334,14 @@ M.block_accessibility = {
 			on: {
 				success: function (id, o) {
 					M.block_accessibility.reload_stylesheet(); 
-					if(scheme == 1) M.block_accessibility.toggle_textsizer('save', 'off'); // reset
-					else M.block_accessibility.toggle_textsizer('save', 'on');
+					if(scheme == 1){
+						M.block_accessibility.toggle_textsizer('save', 'off'); // reset
+						M.block_accessibility.toggle_textsizer('colour1', 'off');
+					}
+					else{
+						M.block_accessibility.toggle_textsizer('save', 'on');
+						M.block_accessibility.toggle_textsizer('colour1', 'on');
+					} 
 				},
 				failure: function(id, o) {
 					alert(get_string('jsnocolour', 'block_accessibility')+': '+o.status+' '+o.statusText);
@@ -456,6 +462,7 @@ M.block_accessibility = {
 	},
 
 	/**
+	 * Stripes px or % and gives value only
 	 * For improved user experience, only in JS-mode, we can set current font size as default font size
 	 * We would initially put 100%, but it doesn't have to be true for all themes
 	 * Also font-size value can be in % or in px, there is mapping defined in lib.php in the block
