@@ -67,3 +67,4 @@ $string['color_input_error'] = 'Please enter a color in a format as such: #FF005
 
 $string['accessibility:addinstance'] = 'Dodaj novi Accessibility block';
 $string['accessibility:myaddinstance'] = 'Dodaj novi Accessibility block na glavnu stranicu';
+$string['jsnotloggedin'] = 'Greška! Molimo Vas provjerite jeste li prijavljeni u sustav ili kontaktirajte administratora';

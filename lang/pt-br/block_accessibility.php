@@ -65,3 +65,4 @@ $string['color_input_error'] = 'Please enter a color in a format as such: #FF005
 
 $string['accessibility:addinstance'] = 'Add a new Accessibility block';
 $string['accessibility:myaddinstance'] = 'Add a new Accessibility block to My home';
+$string['jsnotloggedin'] = 'Error! Please check if you are logged-in to the system or contact your administrator';
