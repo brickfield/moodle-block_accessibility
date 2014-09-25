@@ -207,6 +207,11 @@ M.block_accessibility = {
 					method: 'get',
 					on: {
 						success: function(id, o) {
+							
+							// if redirected to login page, or some other error...
+							if (o.response.length > 0) {
+								alert(M.util.get_string('jsnotloggedin', 'block_accessibility')+': '+o.status+' '+o.statusText);
+							}
 
 							// now that we updated user setting to the server, load updated stylesheet
 							M.block_accessibility.reload_stylesheet();  
@@ -243,6 +248,11 @@ M.block_accessibility = {
 					on: {
 						success: function(id, o) {
 
+							// if redirected to login page, or some other error...
+							if (o.response.length > 0) {
+								alert(M.util.get_string('jsnotloggedin', 'block_accessibility')+': '+o.status+' '+o.statusText);
+							}
+
 							// now that we updated user setting to the server, load updated stylesheet
 							M.block_accessibility.reload_stylesheet();
 							var new_fontsize =  M.block_accessibility.get_current_fontsize(M.block_accessibility.MAIN_SELECTOR);
@@ -277,6 +287,11 @@ M.block_accessibility = {
 					method: 'get',
 					on: {
 						success: function(id, o) {
+
+							// if redirected to login page, or some other error...
+							if (o.response.length > 0) {
+								alert(M.util.get_string('jsnotloggedin', 'block_accessibility')+': '+o.status+' '+o.statusText);
+							}
 
 							// now that we updated user setting to the server, load updated stylesheet
 							M.block_accessibility.reload_stylesheet();
@@ -333,6 +348,11 @@ M.block_accessibility = {
 			method: 'get',
 			on: {
 				success: function (id, o) {
+					// if redirected to login page, or some other error...
+					if (o.response.length > 0) {
+						alert(M.util.get_string('jsnotloggedin', 'block_accessibility')+': '+o.status+' '+o.statusText);
+					}
+					
 					M.block_accessibility.reload_stylesheet(); 
 					if(scheme == 1){
 						M.block_accessibility.toggle_textsizer('save', 'off'); // reset

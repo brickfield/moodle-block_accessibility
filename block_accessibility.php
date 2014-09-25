@@ -347,6 +347,7 @@ class block_accessibility extends block_base {
 			$this->page->requires->string_for_js('jsnosize', 'block_accessibility');
 			$this->page->requires->string_for_js('jsnocolour', 'block_accessibility');
 			$this->page->requires->string_for_js('jsnosizereset', 'block_accessibility');
+			$this->page->requires->string_for_js('jsnotloggedin', 'block_accessibility');
 			$this->page->requires->string_for_js('launchtoolbar', 'block_accessibility');
 
 			$jsmodule = array(
