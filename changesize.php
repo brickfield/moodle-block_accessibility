@@ -62,13 +62,13 @@ else if ($userstyle = $DB->get_record('block_accessibility', array('userid' => $
     $current = $userstyle->fontsize; // user stored settings
 }
 
-// if value is in %, convert it to px
-if ($current >= MIN_FONTSIZE && $current <= MAX_FONTSIZE) {
+// if value is in %, convert it to px to get array index of px so we are able to increment it...
+if ($current > MAX_PX_FONTSIZE) { // must be in % then
     // If we're already dealing with a percentage,
     $current = accessibility_getsize($current); // Get the size in pixels
 }
 
-// ok, we have font size in px now
+// ok, we have font size in px now, get new percentage value from it
 // ...
 
 // CALCULATE THE NEW FONT SIZE
@@ -121,7 +121,7 @@ switch($op) {
         exit();
 }
 
-// SET THE NEW FONT SIZE
+// SET THE NEW FONT SIZE IN % !!
 // =========================================================
 $USER->fontsize = $new; // If we've just increased or decreased, save the new size to the session
 
