@@ -175,7 +175,11 @@ for($i=2; $i<5; $i++) {  // this is how many declarations we defined in defaults
 	if(!empty($fg_colour)) echo 'color:'.$fg_colour.' !important;';
 	if(!empty($bg_colour)) echo 'background-color:'.$bg_colour.' !important;';
 	echo '}';
-
-
 }
 		
+// display:inline-block CSS declaration is not applied to block's buttons because IE7 doesn't support it. float is used insted for IE7 only
+if(preg_match('/(?i)msie [1-7]/',$_SERVER['HTTP_USER_AGENT']))
+{
+	echo '#accessibility_controls .access-button{float:left;}';
+	echo '.atbar-always{float:left;}';
+}

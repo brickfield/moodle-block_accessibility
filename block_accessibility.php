@@ -200,6 +200,13 @@ class block_accessibility extends block_base {
 			$c1_attrs['class'] = 'disabled';
 		}
 
+
+		// display:inline-block CSS declaration is not applied to block's buttons because IE7 doesn't support it. float is used insted for IE7 only
+		$clearfix = '';
+		if(preg_match('/(?i)msie [1-7]/',$_SERVER['HTTP_USER_AGENT'])){
+			$clearfix = html_writer::tag('div', '', array('style'=>'clear:both')); // required for IE7
+		}
+
 		// RENDER BLOCK HTML
 		// ===============================================
 		$content = '';
@@ -229,6 +236,9 @@ class block_accessibility extends block_base {
 		$content .= html_writer::end_tag('li');
 
 		$content .= html_writer::end_tag('ul');
+		
+		$content .= $clearfix;
+
 
 		// Colour change buttons
 		$content .= html_writer::start_tag('ul', array('id' => 'block_accessibility_changecolour'));
@@ -250,6 +260,9 @@ class block_accessibility extends block_base {
 		$content .= html_writer::end_tag('li');
 
 		$content .= html_writer::end_tag('ul');
+
+		$content .= $clearfix;
+
 
 
 		// e.g. "settings saved" or etc.
@@ -323,6 +336,9 @@ class block_accessibility extends block_base {
 		$spanattrs = array('id' => 'loader-icon');
 		$content .= html_writer::start_tag('span', $spanattrs);
 		$content .= html_writer::end_tag('span');
+
+		$content .= $clearfix;
+
 
 
 
