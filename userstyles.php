@@ -113,12 +113,20 @@ if (!empty($colourscheme)) {
 		
 	}
 
+
+	// keep in mind that :not selector cannot work properly with IE <= 8 so this will not be included
+	$not_selector_for_gteIE8 = '';
+	if(!preg_match('/(?i)msie [1-8]/',$_SERVER['HTTP_USER_AGENT']))
+	{
+		$not_selector_for_gteIE8 = ':not([class*="mce"]):not([id*="mce"]):not([id*="editor"])';
+	}
+
 	// if no colours defined, no output, it will remain as default
 	if(!empty($bg_colour)){ echo '
 		forumpost .topic {
 			background-image: none !important;
 		}
-		*:not([class*="mce"]):not([id*="mce"]):not([id*="editor"]){
+		*'. $not_selector_for_gteIE8 .'{
 			/* it works well only with * selector but mce editor gets unusable */
 			background-color: '.$bg_colour.' !important;
 			background-image: none !important;
@@ -129,7 +137,7 @@ if (!empty($colourscheme)) {
 
 	// it is recommended not to change forground colour
 	if(!empty($fg_colour)){ echo '
-		*:not([class*="mce"]):not([id*="mce"]):not([id*="editor"]){
+		*'. $not_selector_for_gteIE8 .'{
 			/* it works well only with * selector but mce editor gets unusable */
 			color: '.$fg_colour.' !important;
 		}
@@ -170,5 +178,4 @@ for($i=2; $i<5; $i++) {  // this is how many declarations we defined in defaults
 
 
 }
-
 		
