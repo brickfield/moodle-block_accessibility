@@ -121,6 +121,7 @@ class block_accessibility extends block_base {
 		// set block services paths: changesize.php, changecolour.php and database.php
 		$size_url = new moodle_url(FONTSIZE_URL, $params);
 		$colour_url = new moodle_url(COLOUR_URL, $params);
+
 		$params['op'] = 'save';
 		$params['size'] = true;
 		$params['scheme'] = true;
@@ -141,7 +142,8 @@ class block_accessibility extends block_base {
 		);
 		$save_attrs = array(
 			'title' => get_string('save', 'block_accessibility'),
-			'id' => "block_accessibility_save"
+			'id' => "block_accessibility_save",
+			'href' => $db_url->out(false)
 		);
 
 		// initialization of reset button
@@ -373,7 +375,7 @@ class block_accessibility extends block_base {
 			);
 
 			// include js script and pass the arguments
-			$this->page->requires->js_init_call('M.block_accessibility.init', $jsdata, false, $jsmodule);
+			//$this->page->requires->js_init_call('M.block_accessibility.init', $jsdata, false, $jsmodule);
 		}
 		
 
