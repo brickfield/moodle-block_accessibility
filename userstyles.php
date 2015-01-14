@@ -30,12 +30,14 @@
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later (7)
  */
 
+/**
+ config.php overwrites header content-type in moodle 2.8
+ */
+require_once('../../config.php');
+
 header('Content-Type: text/css', true);
 header("X-Content-Type-Options: nosniff"); // for IE
 header('Cache-Control: no-cache');
-
-
-require_once('../../config.php');
 
 if (!isloggedin()) die();
 
