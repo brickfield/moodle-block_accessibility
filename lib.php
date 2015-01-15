@@ -43,6 +43,7 @@
 defined('MOODLE_INTERNAL') || die();
 
 // block constants
+// ! this definitions might cause conflicts to other Moodle plugins if there is used the same name
 define('DEFAULT_FONTSIZE', 100); // in %
 define('MAX_FONTSIZE', 197); // in %
 define('MIN_FONTSIZE', 77); // in %

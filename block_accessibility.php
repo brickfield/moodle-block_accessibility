@@ -27,18 +27,17 @@
 defined('MOODLE_INTERNAL') || die();
 require_once($CFG->dirroot.'/blocks/accessibility/lib.php');
 
-define('JS_URL', '/blocks/accessibility/module.js');
-define('CSS_URL', '/blocks/accessibility/userstyles.php');
-define('FONTSIZE_URL', '/blocks/accessibility/changesize.php');
-define('COLOUR_URL', '/blocks/accessibility/changecolour.php');
-define('DB_URL', '/blocks/accessibility/database.php');
-define('LOADER_ICON', '/blocks/accessibility/pix/loader.gif');
-
-
 /**
  * accessibility Block's class
  */
 class block_accessibility extends block_base {
+
+	CONST JS_URL = '/blocks/accessibility/module.js';
+ 	CONST CSS_URL = '/blocks/accessibility/userstyles.php';
+ 	CONST FONTSIZE_URL = '/blocks/accessibility/changesize.php';
+	CONST COLOUR_URL = '/blocks/accessibility/changecolour.php';
+	CONST DB_URL = '/blocks/accessibility/database.php';
+	//CONST LOADER_ICON = '/blocks/accessibility/pix/loader.gif'; // not in use anymore
 
 	/**
 	 * Set the title and include the stylesheet
@@ -67,7 +66,7 @@ class block_accessibility extends block_base {
 
 			// link default/saved settings to a page
 			// each block instance has it's own configuration form, so we need instance id
-			$cssurl = CSS_URL.'?instance_id='.$instance_id;
+			$cssurl = self::CSS_URL.'?instance_id='.$instance_id;
 			$this->page->requires->css($cssurl);
 		}
 	}
@@ -119,13 +118,13 @@ class block_accessibility extends block_base {
 		$params = array('redirect' => $FULLME);
 
 		// set block services paths: changesize.php, changecolour.php and database.php
-		$size_url = new moodle_url(FONTSIZE_URL, $params);
-		$colour_url = new moodle_url(COLOUR_URL, $params);
+		$size_url = new moodle_url(self::FONTSIZE_URL, $params);
+		$colour_url = new moodle_url(self::COLOUR_URL, $params);
 
 		$params['op'] = 'save';
 		$params['size'] = true;
 		$params['scheme'] = true;
-		$db_url = new moodle_url(DB_URL, $params);
+		$db_url = new moodle_url(self::DB_URL, $params);
 
 		// INITIALIZE BUTTON ATTRIBUTES
 		// ===============================================
@@ -334,7 +333,7 @@ class block_accessibility extends block_base {
 		$content .= html_writer::end_tag('div');
 
 		// loader icon
-		// html_writer::empty_tag('img', array('src' => new moodle_url(LOADER_ICON), 'alt' => 'loader icon')); // it doesn't work
+		// html_writer::empty_tag('img', array('src' => new moodle_url(self::LOADER_ICON), 'alt' => 'loader icon')); // it doesn't work so it's implemented by CSS
 		$spanattrs = array('id' => 'loader-icon');
 		$content .= html_writer::start_tag('span', $spanattrs);
 		$content .= html_writer::end_tag('span');
@@ -370,12 +369,12 @@ class block_accessibility extends block_base {
 
 			$jsmodule = array(
 				'name'  =>  'block_accessibility',
-				'fullpath'  =>  JS_URL,
+				'fullpath'  =>  self::JS_URL,
 				'requires'  =>  array('base', 'node', 'stylesheet')
 			);
 
 			// include js script and pass the arguments
-			//$this->page->requires->js_init_call('M.block_accessibility.init', $jsdata, false, $jsmodule);
+			$this->page->requires->js_init_call('M.block_accessibility.init', $jsdata, false, $jsmodule);
 		}
 		
 
