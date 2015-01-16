@@ -1,3 +1,7 @@
+New in 2.2.2:
+* Moodle 2.8 support
+* Various bugfixes and improvements
+
 New in 2.2.1:
 * IE support improved
 * Scaling of headings adjusted
