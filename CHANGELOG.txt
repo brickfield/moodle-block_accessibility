@@ -1,3 +1,6 @@
+New in 2.2.3:
+* Minor bugfixes
+
 New in 2.2.2:
 * Moodle 2.8 support
 * Various bugfixes and improvements
