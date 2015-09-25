@@ -181,22 +181,28 @@ class block_accessibility extends block_base {
 
 
 		// initialization of scheme profiles buttons
+
 		$c1_attrs = array(
+			'title' => get_string('col1text', 'block_accessibility'),
 			'id' => 'block_accessibility_colour1',
 			'href' => $colour_url->out(false, array('scheme' => 1))
 		);
 		$c2_attrs = array(
+			'title' => get_string('col2text', 'block_accessibility'),
 			'id' => 'block_accessibility_colour2',
 			'href' => $colour_url->out(false, array('scheme' => 2))
 		);
 		$c3_attrs = array(
+			'title' => get_string('col3text', 'block_accessibility'),
 			'id' => 'block_accessibility_colour3',
 			'href' => $colour_url->out(false, array('scheme' => 3))
 		);
 		$c4_attrs = array(
+			'title' => get_string('col4text', 'block_accessibility'),
 			'id' => 'block_accessibility_colour4',
 			'href' => $colour_url->out(false, array('scheme' => 4))
 		);
+
 		if (!isset($USER->colourscheme)) {
 			$c1_attrs['class'] = 'disabled';
 		}
