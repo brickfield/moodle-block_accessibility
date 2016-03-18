@@ -105,7 +105,7 @@ switch($op) {
         );
         if(!accessibility_is_ajax()){
             $redirect = required_param('redirect', PARAM_TEXT);
-            $urlparams['redirect'] = $redirect; 
+            $urlparams['redirect'] = safe_redirect_url($redirect); 
         }
 
         $redirecturl = new moodle_url('/blocks/accessibility/database.php', $urlparams);
