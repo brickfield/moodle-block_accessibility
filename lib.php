@@ -101,3 +101,24 @@ function accessibility_is_ajax() {
     }
     return $xhr;
 }
+
+/**
+ * Prevent redirecting to external URLs and redirect to the Moodle wwwroot if one is passed
+ * @param string $redirect
+ * @return string Safe URL to redirect to
+ */
+function safe_redirect_url($redirect) {
+	global $CFG;
+	$redirecturl = new moodle_url($redirect);
+	
+	if (preg_match('/^(http(s)?:)?\/\//', $redirecturl)) {
+		$urlTest = preg_replace('/^http(s)?:/', '', $redirecturl);
+		$rootTest = preg_replace('/^http(s)?:/', '', $CFG->wwwroot);
+	
+		if (!preg_match('/^' . preg_quote($rootTest, '/') . '/', $urlTest)) {
+			$redirecturl = $CFG->wwwroot;
+		}
+	}
+	return $redirecturl;
+}
+
