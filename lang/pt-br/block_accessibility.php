@@ -25,7 +25,7 @@
 defined('MOODLE_INTERNAL') || die();
 
 $string['autolaunch'] = '(sempre?)';
-$string['blockname'] = 'Acesibilidade';
+$string['blockname'] = 'Acessibilidade';
 $string['clearedoldcache'] = 'Arquivos antigos {$a} apagados do cache';
 $string['char'] = 'A';
 $string['dectext'] = 'Diminuir o Tamanho do Texto';
@@ -37,8 +37,8 @@ $string['jsnosave'] = 'Erro ao salvar as configurações';
 $string['jsnosize'] = 'Error ao mudar o tamanho';
 $string['jsnosizereset'] = 'Erro ao redefinir o tamanho do texto';
 $string['launchtoolbar'] = 'Lançar ATbar';
-$string['pluginname'] = 'Acesibilidade';
-$string['pluginnameplural'] = 'Blocos de Acesibilidade';
+$string['pluginname'] = 'Acessibilidade';
+$string['pluginnameplural'] = 'Blocos de Acessibilidade';
 $string['resettext'] = 'Redefiniri o Tamanho do Texto (Apaga a Configuração Salva)';
 $string['reset'] = 'Configuração Apagada';
 $string['save'] = 'Salvar Configuração';
@@ -48,21 +48,21 @@ $string['col2text'] = 'Contraste Baixado 1';
 $string['col3text'] = 'Contraste Baixado 2';
 $string['col4text'] = 'Contraste Alto';
 
-/*	Configuration form - please help us translate it on GitHub 
+/*	Configuration form - please help us translate it on GitHub
 	------------------------------------------------------------
 */
-$string['config_autosave'] = 'Auto save'; // label
-$string['config_autosave_checkbox'] = 'Save user settings automatically (button "save" will disappear)'; // checkbox label
-$string['config_autosave_help'] = 'Font size and colour schemes settings are automatically saved to the session as long as user is logged in to the system. However, session settings will be cleared once the user log off. The user can keep chosen settings throughout the sessions using the "save" button in the block. Enabling Auto-save option will remove the "save" button and automatically save settings for the user. This might lead to slightly higher impact to the system performance, which is why this option is disabled by default.'; // help block
+$string['config_autosave'] = 'Salvar automaticamente'; // label
+$string['config_autosave_checkbox'] = 'Salvar configurações do usuário automaticamente(botão "salvar" desaparecerá)'; // checkbox label
+$string['config_autosave_help'] = 'Configurações de Tamanho da fonte e Esquema de cores são salvas automaticamente na sessão enquanto o usuário estiver logado no sistema. No entanto, configurações de sessão serão apagadas quando o usuário sair do sistema. O usuário pode manter as configurações escolhidas ao logo das sessões usando o botão "Salvar" no bloco. Habilitando a opção "Salvar automaticamente" o botão "Salvar" será removido e as configurações do usuário serão automaticamente salvas. Isto pode impactar na performance do sistema, por isso esta opção é desabilitada por padrão.'; // help block
 $string['config_showATbar'] = 'ATbar';
-$string['config_showATbar_checkbox'] = 'Allow ATbar appearance within Accessibility block';
-$string['config_showATbar_help'] = 'Accessibility block also integrates ATbar from Southampton University ECS <a href="http://www.atbar.org">http://www.atbar.org</a>.';
-$string['config_fg'] = 'Text colour (not required)';
-$string['config_fg_help'] = 'Define colour scheme foreground colour here. Keep in mind that the colour will be applied uniformly to all user interface elements. It is not always desirable to have the same colour in each user interface element. <strong>It is recommended to leave foreground colour field empty</strong> so that elements can keep its default colours. Try to change background colour only.';
-$string['config_bg'] = 'Background colour';
-$string['config_bg_help'] = 'Define colour scheme background colour here. Keep in mind that the background colour will be applied uniformly to all user interface elements.';
-$string['color_input_error'] = 'Please enter a color in a format as such: #FF0050';
+$string['config_showATbar_checkbox'] = 'Permitir a barra ATbar junto com o bloco Acessibilidade';
+$string['config_showATbar_help'] = 'O bloco Acessibilidade també é integrado com a barra ATbar da Universidade de Southampton ECS <a href="http://www.atbar.org">http://www.atbar.org</a>.';
+$string['config_fg'] = 'Cor do texto (não obrigatório)';
+$string['config_fg_help'] = 'Defina a cor do texto aqui. Tenha em mente que a cor do texto será aplicada uniformemente a todos os elementos da interface do usuário. Não é sempre desejável ter a mesma cor em cada elemento da interface do usuário. <strong>É recomendado deixar o campo da cor do texto vazio</strong>, assim os elementos podem manter suas cores padrão. Tente mudar apenas a cor de fundo.';
+$string['config_bg'] = 'Cor de fundo';
+$string['config_bg_help'] = 'Defina a cor de fundo aqui. Tenha em mente que a cor de fundo será aplicada uniformemente a todos os elementos da interface do usuário.';
+$string['color_input_error'] = 'Por favor, insira uma cor como no formato: #FF0050';
 
-$string['accessibility:addinstance'] = 'Add a new Accessibility block';
-$string['accessibility:myaddinstance'] = 'Add a new Accessibility block to My home';
-$string['jsnotloggedin'] = 'Error! Please check if you are logged-in to the system or contact your administrator';
+$string['accessibility:addinstance'] = 'Adicionar um novo bloco Acessibilidade';
+$string['accessibility:myaddinstance'] = 'Adicionar um novo bloco Acessibilidade à Página inicial';
+$string['jsnotloggedin'] = 'Erro! Por favor, verifique se você está logado no sistema ou contate seu administrador';
