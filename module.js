@@ -216,7 +216,7 @@ M.block_accessibility = {
 						success: function(id, o) {
 							
 							// if redirected to login page, or some other error...
-							if (o.response.length > 0) {
+							if (!(o.response === undefined) && o.response.length > 0) {
 								alert(M.util.get_string('jsnotloggedin', 'block_accessibility')+': '+o.status+' '+o.statusText);
 							}
 
@@ -257,7 +257,7 @@ M.block_accessibility = {
 						success: function(id, o) {
 
 							// if redirected to login page, or some other error...
-							if (o.response.length > 0) {
+							if (!(o.response === undefined) && o.response.length > 0) {
 								alert(M.util.get_string('jsnotloggedin', 'block_accessibility')+': '+o.status+' '+o.statusText);
 							}
 
@@ -298,7 +298,7 @@ M.block_accessibility = {
 						success: function(id, o) {
 
 							// if redirected to login page, or some other error...
-							if (o.response.length > 0) {
+							if (!(o.response === undefined) && o.response.length > 0) {
 								alert(M.util.get_string('jsnotloggedin', 'block_accessibility')+': '+o.status+' '+o.statusText);
 							}
 
@@ -359,7 +359,7 @@ M.block_accessibility = {
 			on: {
 				success: function (id, o) {
 					// if redirected to login page, or some other error...
-					if (o.response.length > 0) {
+					if (!(o.response === undefined) && o.response.length > 0) {
 						alert(M.util.get_string('jsnotloggedin', 'block_accessibility')+': '+o.status+' '+o.statusText);
 					}
 					

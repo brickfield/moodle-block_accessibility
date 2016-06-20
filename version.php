@@ -36,4 +36,4 @@ $plugin->cron = 3600;
 $plugin->requires = 2011120500;
 $plugin->component = 'block_accessibility';
 $plugin->maturity = MATURITY_STABLE;
-$plugin->release = '2.2.2';
+$plugin->release = '2.2.3';
