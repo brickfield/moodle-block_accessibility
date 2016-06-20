@@ -16,11 +16,12 @@
 
 
 /**
- * English Lang Strings                                                (1)
+ * English Lang Strings                                                
  *
- * @author  Fernando Souza                                             (2)
- * @copyright Fernando Souza 2013	                               (3)
- * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later (4)
+ * @author  Fernando Souza                                             
+ * @author  Willian Mano
+ * @copyright Fernando Souza 2013, Willian Mano 2016                   
+ * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later 
  */
 defined('MOODLE_INTERNAL') || die();
 
