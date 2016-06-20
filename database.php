@@ -14,7 +14,6 @@
 // You should have received a copy of the GNU General Public License
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
-
 /**
  * Interacts with the database to save/reset font size settings        (1)
  *
@@ -32,14 +31,13 @@
  */
 
 require_once('../../config.php');
-require_once($CFG->dirroot.'/blocks/accessibility/lib.php');
+require_once($CFG->dirroot . '/blocks/accessibility/lib.php');
 require_login();
 
 $op = required_param('op', PARAM_TEXT);
 $size = optional_param('size', false, PARAM_BOOL);
 $scheme = optional_param('scheme', false, PARAM_BOOL);
 $atbar = optional_param('atbar', false, PARAM_BOOL);
-
 
 if (!accessibility_is_ajax()) {
     $redirect = required_param('redirect', PARAM_TEXT);
@@ -85,16 +83,20 @@ switch ($op) {
 
     case 'reset':
         if ($setting = $DB->get_record('block_accessibility', array('userid' => $USER->id))) {
-            // if they've got a record, delete it and redirect the user if appropriate.
+            // If they've got a record, delete it and redirect the user if appropriate.
             if ($size) {
                 $setting->fontsize = null;
-            } else if (!empty($USER->fontsize)) {
-                $setting->fontsize = $USER->fontsize;
+            } else {
+                if (!empty($USER->fontsize)) {
+                    $setting->fontsize = $USER->fontsize;
+                }
             }
             if ($scheme) {
                 $setting->colourscheme = null;
-            } else if (!empty($USER->colourscheme)) {
-                $setting->colourscheme = $USER->colourscheme;
+            } else {
+                if (!empty($USER->colourscheme)) {
+                    $setting->colourscheme = $USER->colourscheme;
+                }
             }
             if ($atbar) {
                 $setting->autoload_atbar = 0;
@@ -108,10 +110,6 @@ switch ($op) {
             if (!accessibility_is_ajax()) {
                 $USER->accessabilitymsg = get_string('reset', 'block_accessibility');
             }
-        } else if (accessibility_is_ajax()) {
-            // The request should return 404 in the event that there is no saved setting to be reset (the record is "Not Found", so 404 seemed the appropriate response)
-            // but if user wants to clear the setting (both session and db), we don't really care if setting existed
-            //header("HTTP/1.0 404 Not Found");
         }
         if (!accessibility_is_ajax()) {
             redirect($redirecturl);

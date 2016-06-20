@@ -14,7 +14,6 @@
 // You should have received a copy of the GNU General Public License
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
-
 /**
  * Defines upgrades for Accessibility Block
  *
@@ -25,7 +24,7 @@
  */
 defined('MOODLE_INTERNAL') || die();
 
-function xmldb_block_accessibility_upgrade($oldversion=0) {
+function xmldb_block_accessibility_upgrade($oldversion = 0) {
 
     global $CFG, $THEME, $DB;
 
@@ -40,41 +39,41 @@ function xmldb_block_accessibility_upgrade($oldversion=0) {
 
     if ($result && $oldversion < 2009071000) {
 
-        // Changing type of field fontsize on table accessibility to number
+        // Changing type of field fontsize on table accessibility to number.
         $table = new XMLDBTable('accessibility');
         $field = new XMLDBField('fontsize');
         $field->setAttributes(XMLDB_TYPE_NUMBER,
-                              '4, 1',
-                              XMLDB_UNSIGNED,
-                              null,
-                              null,
-                              null,
-                              null,
-                              null,
-                              'userid');
+                '4, 1',
+                XMLDB_UNSIGNED,
+                null,
+                null,
+                null,
+                null,
+                null,
+                'userid');
 
-        // Launch change of type for field fontsize
+        // Launch change of type for field fontsize.
         $result = $result && $dbman->change_field_type($table, $field);
         upgrade_block_savepoint(true, 2009071000, 'accessibility');
     }
 
     if ($result && $oldversion < 2009082500) {
 
-        // Define field colourscheme to be added to accessibility
+        // Define field colourscheme to be added to accessibility.
         $table = new xmldb_table('accessibility');
         $field = new xmldb_field('colourscheme',
-                              XMLDB_TYPE_INTEGER,
-                              '1',
-                              XMLDB_UNSIGNED,
-                              null,
-                              null,
-                              null,
-                              null,
-                              null,
-                              'fontsize');
+                XMLDB_TYPE_INTEGER,
+                '1',
+                XMLDB_UNSIGNED,
+                null,
+                null,
+                null,
+                null,
+                null,
+                'fontsize');
 
-        // Launch add field colourschemea
-        if (!$dbman->field_exists($table,$field)) {
+        // Launch add field colourscheme.
+        if (!$dbman->field_exists($table, $field)) {
             $dbman->add_field($table, $field);
         }
         upgrade_block_savepoint(true, 2009082500, 'accessibility');
@@ -82,50 +81,49 @@ function xmldb_block_accessibility_upgrade($oldversion=0) {
 
     if ($oldversion < 2010121500) {
 
-        // Define field autoload_atbar to be added to accessibility
+        // Define field autoload_atbar to be added to accessibility.
         $table = new xmldb_table('accessibility');
         $cs = new xmldb_field('colourscheme',
-                              XMLDB_TYPE_INTEGER,
-                              '1',
-                              XMLDB_UNSIGNED,
-                              null,
-                              null,
-                              null,
-                              null,
-                              null,
-                              'fontsize');
+                XMLDB_TYPE_INTEGER,
+                '1',
+                XMLDB_UNSIGNED,
+                null,
+                null,
+                null,
+                null,
+                null,
+                'fontsize');
         $field = new xmldb_field('autoload_atbar',
-                                 XMLDB_TYPE_INTEGER,
-                                 '1',
-                                 XMLDB_UNSIGNED,
-                                 XMLDB_NOTNULL,
-                                 null,
-                                 '0',
-                                 'colourscheme');
+                XMLDB_TYPE_INTEGER,
+                '1',
+                XMLDB_UNSIGNED,
+                XMLDB_NOTNULL,
+                null,
+                '0',
+                'colourscheme');
         if (!$dbman->field_exists($table, $cs)) {
             $dbman->add_field($table, $cs);
         }
-        // Conditionally launch add field autoload_atbar
+        // Conditionally launch add field autoload_atbar.
         if (!$dbman->field_exists($table, $field)) {
             $dbman->add_field($table, $field);
         }
 
-        // accessibility savepoint reached
+        // Accessibility savepoint reached.
         upgrade_block_savepoint(true, 2010121500, 'accessibility');
     }
 
     if ($oldversion < 2011122000) {
 
-        // Define table accessibility to be renamed to block_accessibility
+        // Define table accessibility to be renamed to block_accessibility.
         $table = new xmldb_table('accessibility');
 
-        // Launch rename table for accessibility
+        // Launch rename table for accessibility.
         $dbman->rename_table($table, 'block_accessibility');
 
-        // accessibility savepoint reached
+        // Accessibility savepoint reached.
         upgrade_block_savepoint(true, 2011122000, 'accessibility');
     }
-
 
     return $result;
 

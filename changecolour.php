@@ -14,7 +14,6 @@
 // You should have received a copy of the GNU General Public License
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
-
 /**
  * Sets the session variable for custom colour schemes                  (1)
  *
@@ -32,28 +31,26 @@
  * @param int scheme - The number of the colour scheme, 1-4             (7)
  */
 
-// INITIALIZATION
-// =========================================================
 require_once('../../config.php');
-require_once($CFG->dirroot.'/blocks/accessibility/lib.php');
+require_once($CFG->dirroot . '/blocks/accessibility/lib.php');
 require_login();
 
 $scheme = required_param('scheme', PARAM_INT);
 
-switch($scheme) {
-    case 1: 
-        // Clear the scheme stored in the session
+switch ($scheme) {
+    case 1:
+        // Clear the scheme stored in the session.
         unset($USER->colourscheme);
 
-        // Clear user records in database
+        // Clear user records in database.
         $urlparams = array(
-            'op' => 'reset',
-            'scheme' => true,
-            'userid' => $USER->id
+                'op' => 'reset',
+                'scheme' => true,
+                'userid' => $USER->id
         );
-        if(!accessibility_is_ajax()){
+        if (!accessibility_is_ajax()) {
             $redirect = required_param('redirect', PARAM_TEXT);
-            $urlparams['redirect'] = safe_redirect_url($redirect); 
+            $urlparams['redirect'] = safe_redirect_url($redirect);
         }
         $redirecturl = new moodle_url('/blocks/accessibility/database.php', $urlparams);
         redirect($redirecturl);
@@ -70,10 +67,7 @@ switch($scheme) {
         break;
 }
 
-if (accessibility_is_ajax()) {
-    // it would be good idea to include userstyles.php here as HTTP response
-    // this would save one extra HTTP request from module.js
-} else {
+if (!accessibility_is_ajax()) {
     $redirect = required_param('redirect', PARAM_TEXT);
     $redirecturl = new moodle_url($redirect);
     redirect($redirecturl);

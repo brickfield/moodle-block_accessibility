@@ -14,7 +14,6 @@
 // You should have received a copy of the GNU General Public License
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
-
 /**
  * Defines 2 functions used in the block                               (1)
  *
@@ -42,47 +41,49 @@
 
 defined('MOODLE_INTERNAL') || die();
 
-// block constants
-// ! this definitions might cause conflicts to other Moodle plugins if there is used the same name
-define('DEFAULT_FONTSIZE', 100); // in %
-define('MAX_FONTSIZE', 197); // in %
-define('MIN_FONTSIZE', 77); // in %
-define('MAX_PX_FONTSIZE', 26); // in px
-define('MIN_PX_FONTSIZE', 10); // in px
+// Block constants.
+// ! this definitions might cause conflicts to other Moodle plugins if there is used the same name.
+define('DEFAULT_FONTSIZE', 100); // In %.
+define('MAX_FONTSIZE', 197); // In %.
+define('MIN_FONTSIZE', 77); // In %.
+define('MAX_PX_FONTSIZE', 26); // In px.
+define('MIN_PX_FONTSIZE', 10); // In px.
 
-define('DEFAULT_SHOWATBAR', TRUE);
-define('DEFAULT_AUTOSAVE', FALSE);
+define('DEFAULT_SHOWATBAR', true);
+define('DEFAULT_AUTOSAVE', false);
 
 function accessibility_getsize($size) {
 
     // Define the array of sizes in px against sizes as %
     // make sure to maintain defined constants above in the script
-    // http://yuilibrary.com/yui/docs/cssfonts/
+    // http://yuilibrary.com/yui/docs/cssfonts/.
     $sizes = array(
-        10 => 77,
-        11 => 85,
-        12 => 93,
-        13 => 100,
-        14 => 108,
-        15 => 116,
-        16 => 123.1,
-        17 => 131,
-        18 => 138.5,
-        19 => 146.5,
-        20 => 153.9,
-        21 => 161.6,
-        22 => 167,
-        23 => 174,
-        24 => 182,
-        25 => 189,
-        26 => 197
+            10 => 77,
+            11 => 85,
+            12 => 93,
+            13 => 100,
+            14 => 108,
+            15 => 116,
+            16 => 123.1,
+            17 => 131,
+            18 => 138.5,
+            19 => 146.5,
+            20 => 153.9,
+            21 => 161.6,
+            22 => 167,
+            23 => 174,
+            24 => 182,
+            25 => 189,
+            26 => 197
     );
-    if (is_int($size) && array_key_exists($size, $sizes)) { // If we're looking at a key (px)
-        return $sizes[$size]; // Return the value (%)
-    } else if (in_array($size, $sizes)) { // If we're looking at a value (%)
-        return array_search($size, $sizes); // Return the key (px)
+    if (is_int($size) && array_key_exists($size, $sizes)) { // If we're looking at a key (px).
+        return $sizes[$size]; // Return the value (%).
     } else {
-        throw new moodle_exception('invalidsize', 'block_accessibility');
+        if (in_array($size, $sizes)) { // If we're looking at a value (%).
+            return array_search($size, $sizes); // Return the key (px).
+        } else {
+            throw new moodle_exception('invalidsize', 'block_accessibility');
+        }
     }
 }
 
@@ -104,21 +105,21 @@ function accessibility_is_ajax() {
 
 /**
  * Prevent redirecting to external URLs and redirect to the Moodle wwwroot if one is passed
+ *
  * @param string $redirect
  * @return string Safe URL to redirect to
  */
 function safe_redirect_url($redirect) {
-	global $CFG;
-	$redirecturl = new moodle_url($redirect);
-	
-	if (preg_match('/^(http(s)?:)?\/\//', $redirecturl)) {
-		$urlTest = preg_replace('/^http(s)?:/', '', $redirecturl);
-		$rootTest = preg_replace('/^http(s)?:/', '', $CFG->wwwroot);
-	
-		if (!preg_match('/^' . preg_quote($rootTest, '/') . '/', $urlTest)) {
-			$redirecturl = $CFG->wwwroot;
-		}
-	}
-	return $redirecturl;
-}
+    global $CFG;
+    $redirecturl = new moodle_url($redirect);
 
+    if (preg_match('/^(http(s)?:)?\/\//', $redirecturl)) {
+        $urltest = preg_replace('/^http(s)?:/', '', $redirecturl);
+        $roottest = preg_replace('/^http(s)?:/', '', $CFG->wwwroot);
+
+        if (!preg_match('/^' . preg_quote($roottest, '/') . '/', $urltest)) {
+            $redirecturl = $CFG->wwwroot;
+        }
+    }
+    return $redirecturl;
+}
