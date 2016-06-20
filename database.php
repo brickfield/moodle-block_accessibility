@@ -43,7 +43,7 @@ $atbar = optional_param('atbar', false, PARAM_BOOL);
 
 if (!accessibility_is_ajax()) {
     $redirect = required_param('redirect', PARAM_TEXT);
-    $redirecturl = new moodle_url($redirect);
+    $redirecturl = safe_redirect_url($redirect);
 }
 
 switch ($op) {
