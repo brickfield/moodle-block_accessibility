@@ -75,6 +75,9 @@ if (accessibility_is_ajax()) {
     // this would save one extra HTTP request from module.js
 } else {
     $redirect = required_param('redirect', PARAM_TEXT);
+    $host = preg_replace('/\//', '\/', $CFG->wwwroot);
+    if(preg_match('/^' . $host . '/',$redirect)){
     $redirecturl = new moodle_url($redirect);
     redirect($redirecturl);
+    }
 }
