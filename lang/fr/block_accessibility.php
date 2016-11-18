@@ -24,27 +24,27 @@
 defined('MOODLE_INTERNAL') || die();
 
 $string['autolaunch'] = '(toujours?)';
-$string['blockname'] = 'Accessibilité';
-$string['clearedoldcache'] = 'Nettoyé {$a} vieux fichier(s) dans le cache';
+$string['blockname'] = 'AccessibilitÃ©';
+$string['clearedoldcache'] = 'NettoyÃ© {$a} vieux fichier(s) dans le cache';
 $string['char'] = 'A';
 $string['dectext'] = 'Diminuer Taille du Texte';
 $string['inctext'] = 'Augmenter Taille du Texte';
-$string['invalidop'] = 'Opération invalide!';
+$string['invalidop'] = 'OpÃ©ration invalide!';
 $string['jsnocolour'] = 'Erreur lors du changement de couleurs';
-$string['jsnocolourreset'] = 'Erreur lors de la remise à zéro des couleurs';
-$string['jsnosave'] = 'Erreur lors de la sauvegarder des paramètres';
+$string['jsnocolourreset'] = 'Erreur lors de la remise Ã  zÃ©ro des couleurs';
+$string['jsnosave'] = 'Erreur lors de la sauvegarder des paramÃ¨tres';
 $string['jsnosize'] = 'Erreur lors du changement de la taille';
-$string['jsnosizereset'] = 'Erreur lors de la remise à zéro de la taille du texte';
+$string['jsnosizereset'] = 'Erreur lors de la remise Ã  zÃ©ro de la taille du texte';
 $string['launchtoolbar'] = 'Lancer ATbar';
-$string['pluginname'] = 'Accessibilité';
-$string['pluginnameplural'] = 'Accessibilité Block';
-$string['resettext'] = 'Remise à zéro de la taille du texte';
-$string['reset'] = 'Paramètres ré-initialisés';
-$string['save'] = 'Sauver les paramètres';
-$string['saved'] = 'Paramètres sauvés';
-$string['col1text'] = 'Couleurs par défaut';
-$string['col2text'] = 'Contraste élevé 1';
-$string['col3text'] = 'Contraste élevé 2';
+$string['pluginname'] = 'AccessibilitÃ©';
+$string['pluginnameplural'] = 'AccessibilitÃ© Block';
+$string['resettext'] = 'Remise Ã  zÃ©ro de la taille du texte';
+$string['reset'] = 'ParamÃ¨tres rÃ©-initialisÃ©s';
+$string['save'] = 'Sauver les paramÃ¨tres';
+$string['saved'] = 'ParamÃ¨tres sauvÃ©s';
+$string['col1text'] = 'Couleurs par dÃ©faut';
+$string['col2text'] = 'Contraste Ã©levÃ© 1';
+$string['col3text'] = 'Contraste Ã©levÃ© 2';
 $string['col4text'] = 'Contraste Haut';
 
 /*	Configuration form - please help us translate it on GitHub 
