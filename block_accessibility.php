@@ -213,7 +213,7 @@ class block_accessibility extends block_base {
         $content .= html_writer::end_tag('li');
 
         $content .= html_writer::start_tag('li', array('class' => 'access-button'));
-        $content .= html_writer::tag('a', '&nbsp', $saveattrs);
+        $content .= html_writer::tag('a', '&nbsp;', $saveattrs);
         $content .= html_writer::end_tag('li');
 
         $content .= html_writer::end_tag('ul');
