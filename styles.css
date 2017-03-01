@@ -129,6 +129,7 @@ body.jsdisabled #block_accessibility_launchtoolbar {
     top:50px !important;
     z-index: 1100 !important; /* one less than profile menu */
 }
+
 /* Fix dictionary/text to speech/styles pop-up to allow scrolling and make responsive */
 #at-facebox{
 width: 100% !important;
@@ -143,7 +144,7 @@ width: 96vw !important;
 }
 div.at-fb-content div{
 height: 30vh !important;
-} 
+}
 .at-fb-footer{
 width: 40px !important;
 float: right !important;
@@ -152,4 +153,3 @@ top: 10px !important;
 right: 0px !important;
 border-top: 0px solid transparent !important;
 }
-
