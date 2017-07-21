@@ -1,0 +1,10 @@
+{
+    "name": "marxjohnson/moodle-block_accessibility",
+    "type": "moodle-block",
+    "require": {
+        "composer/installers": "~1.0"
+    },
+    "extra": {
+        "installer-name": "accessibility"
+    }
+}
