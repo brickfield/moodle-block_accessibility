@@ -39,8 +39,6 @@
  * @return number the converted size
  */
 
-defined('MOODLE_INTERNAL') || die();
-
 // Block constants.
 // ! this definitions might cause conflicts to other Moodle plugins if there is used the same name.
 define('DEFAULT_FONTSIZE', 100); // In %.

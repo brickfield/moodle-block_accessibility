@@ -28,9 +28,6 @@
  * @copyright   2010 Tauntons College, UK
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later (5)
  */
-
-header('Cache-Control: no-cache');
-
 require_once('../../config.php');
 require_once($CFG->dirroot . '/blocks/accessibility/lib.php');
 require_login();
@@ -45,10 +42,18 @@ if (!isset($USER->defaultfontsize)) {
 // NOTE: User settings priority: 1. $USER session, 2. database, 3. default.
 $current = $USER->defaultfontsize;
 if (isset($USER->fontsize)) {
-    $current = $USER->fontsize; // User session.
+    if (!is_null($USER->fontsize)) {
+        $current = $USER->fontsize; // User session.
+    } else {
+        $current = DEFAULT_FONTSIZE;
+    }
 } else {
     if ($userstyle = $DB->get_record('block_accessibility', array('userid' => $USER->id))) {
-        $current = $userstyle->fontsize; // User stored settings.
+        if (!is_null($userstyle->fontsize)) {
+            $current = $USER->fontsize; // User session.
+        } else {
+            $current = DEFAULT_FONTSIZE;
+        }
     }
 }
 
@@ -108,7 +113,7 @@ switch ($op) {
         exit();
 }
 
-// Set the new font size in %
+// Set the new font size in %.
 $USER->fontsize = $new; // If we've just increased or decreased, save the new size to the session.
 
 if (!accessibility_is_ajax()) {
