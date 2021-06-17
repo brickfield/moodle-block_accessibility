@@ -20,12 +20,12 @@
  * This file is the cornerstone of the block - when the page loads, it
  * checks if the user has a custom settings for the font size and colour
  * scheme (either in the session or the database) and creates a stylesheet
- * to override the standard styles with this setting.                  (2)
+ * to override the standard styles with this setting.
  *
- * @package   block_accessibility                                      (4)
- * @copyright Copyright 2009 onwards Taunton's College                   (5)
- * @author Mark Johnson                                                 (6)
- * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later (7)
+ * @package   block_accessibility
+ * @copyright Copyright 2009 onwards Taunton's College
+ * @author Mark Johnson
+ * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later 
  */
 
 defined('MOODLE_INTERNAL') || die();

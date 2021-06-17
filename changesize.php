@@ -15,18 +15,18 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Changes the text size via PHP or AJAX                               (1)
+ * Changes the text size via PHP or AJAX
  *
  * This file finds the current font size, increases/decreases/resets it
  * as specified, and stores it in the $USER->fontsize session variable.
  * If requested via AJAX, it also returns the font size as a JSON
  * string or suiable error code. If not, it redirects the user back to
- * where they came from.                                               (2)
+ * where they came from.
  *
- * @package   block_accessibility                                      (3)
+ * @package   block_accessibility
  * @author      Mark Johnson <mark.johnson@tauntons.ac.uk>
  * @copyright   2010 Tauntons College, UK
- * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later (5)
+ * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later 
  */
 require_once('../../config.php');
 require_once($CFG->dirroot . '/blocks/accessibility/lib.php');

@@ -17,13 +17,19 @@
 /**
  * Defines upgrades for Accessibility Block
  *
- * @package   block_accessibility                                      (4)
- * @copyright Copyright 2009 onwards Taunton's College                   (5)
- * @author Mark Johnson <mark.johnson@tauntons.ac.uk>                  (6)
- * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later (7)
+ * @package   block_accessibility
+ * @copyright Copyright 2009 onwards Taunton's College
+ * @author Mark Johnson <mark.johnson@tauntons.ac.uk>
+ * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 defined('MOODLE_INTERNAL') || die();
 
+/**
+ * Controls the upgrade script.
+ *
+ * @param integer $oldversion
+ * @return void
+ */
 function xmldb_block_accessibility_upgrade($oldversion = 0) {
 
     global $CFG, $THEME, $DB;
