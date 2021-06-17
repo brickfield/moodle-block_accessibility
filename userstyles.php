@@ -15,18 +15,18 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Sets per-user styles (all the CSS declarations are here)            (1)
+ * Sets per-user styles (all the CSS declarations are here)
  *
  * This file is the cornerstone of the block - when the page loads, it
  * checks if the user has a custom settings for the font size and colour
  * scheme (either in the session or the database) and creates a stylesheet
- * to override the standard styles with this setting.                  (2)
+ * to override the standard styles with this setting.
  *
- * @see block_accessibility.php                                        (3)
- * @package   block_accessibility                                      (4)
- * @copyright Copyright 2009 onwards Taunton's College                   (5)
- * @author Mark Johnson <mark.johnson@tauntons.ac.uk>                  (6)
- * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later (7)
+ * @see block_accessibility.php
+ * @package   block_accessibility
+ * @copyright Copyright 2009 onwards Taunton's College
+ * @author Mark Johnson <mark.johnson@tauntons.ac.uk>
+ * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later 
  */
 
 require_once('../../config.php');

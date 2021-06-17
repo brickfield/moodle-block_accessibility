@@ -13,6 +13,8 @@
 //
 // You should have received a copy of the GNU General Public License
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
+
+
 defined('MOODLE_INTERNAL') || die();
 $defaults = array(
     // The fg1 and bg1 would be reset/default colour - do not define it.

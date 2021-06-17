@@ -15,20 +15,20 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Sets the session variable for custom colour schemes                  (1)
+ * Sets the session variable for custom colour schemes
  *
  * This page accepts the required colour scheme as an argument, and
  * sets a session variable accordingly. If the colour scheme is 1 (the
  * theme default) the variable is unset.
  * If the page is being requested via AJAX, we just return HTTP 200, or
  * 400 if the parameter was invalid. If requesting normally, we redirect
- * to reset the saved setting, or to the page we came from as required. (2)
+ * to reset the saved setting, or to the page we came from as required.
  *
- * @package   block_accessibility                                      (3)
- * @copyright Copyright &copy; 2009 Taunton's College                   (4)
- * @author  Mark Johnson                                               (5)
- * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later (6)
- * @param int scheme - The number of the colour scheme, 1-4             (7)
+ * @package   block_accessibility
+ * @copyright Copyright &copy; 2009 Taunton's College
+ * @author  Mark Johnson
+ * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ * @param int scheme - The number of the colour scheme, 1-4
  */
 
 require_once('../../config.php');

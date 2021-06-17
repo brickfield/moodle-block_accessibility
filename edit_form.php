@@ -14,15 +14,42 @@
 // You should have received a copy of the GNU General Public License
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
+/**
+ * External class for declaring webservices.
+ *
+ * @package    block_accessibility
+ * @copyright  2020 onward Brickfield Education Labs Ltd, https://www.brickfield.ie
+ * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ */
 class block_accessibility_edit_form extends block_edit_form {
 
+    /**
+     * Defines the autosave configuration.
+     */
     const CNF_AUTOSAVE = 'config_autosave';
+    /**
+     * Defines the ATBar configuration
+     */
     const CNF_ATBAR = 'config_showATbar';
+    /**
+     * Defines the foreground configuration.
+     */
     const CNF_FG = 'config_fg';
+    /**
+     * Defines the background configuration.
+     */
     const CNF_BG = 'config_bg';
-
+    /**
+     * Regex for colour codes.
+     */
     const RE_COLOUR = '/^#[a-f0-9]{6}$/i';
 
+    /**
+     * Sets the definitions for the display.
+     *
+     * @param object $mform
+     * @return void
+     */
     protected function specific_definition($mform) {
 
         // Load default colours.

@@ -17,7 +17,7 @@
 /**
  * Capability definitions for the course_menu block
  *
- * @package    block
+ * @package    block_accessibility
  * @subpackage course_accessibility
  * @copyright  2013 onwards Paul Vaughan
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
