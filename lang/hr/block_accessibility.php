@@ -48,10 +48,10 @@ $string['col2text'] = 'Smanjeni kontrast 1';
 $string['col3text'] = 'Smanjeni kontrast 2';
 $string['col4text'] = 'Visoki kontrast';
 
-/*	Configuration form - please help us translate it on GitHub 
-	------------------------------------------------------------
-*/
-/* not implemented
+/*  Configuration form - please help us translate it on GitHub
+    ------------------------------------------------------------
+
+ Not implemented
 $string['config_autosave'] = 'Auto save'; // label
 $string['config_autosave_checkbox'] = 'Save user settings automatically (button "save" will disappear)'; // checkbox label
 $string['config_autosave_help'] = 'Font size and colour schemes settings are automatically saved to the session as long as user is logged in to the system. However, session settings will be cleared once the user log off. The user can keep chosen settings throughout the sessions using the "save" button in the block. Enabling Auto-save option will remove the "save" button and automatically save settings for the user. This might lead to slightly higher impact to the system performance, which is why this option is disabled by default.'; // help block

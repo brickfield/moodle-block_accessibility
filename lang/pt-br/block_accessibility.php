@@ -16,12 +16,12 @@
 
 
 /**
- * English Lang Strings                                                
+ * English Lang Strings
  *
- * @author  Fernando Souza                                             
+ * @author  Fernando Souza
  * @author  Willian Mano
- * @copyright Fernando Souza 2013, Willian Mano 2016                   
- * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later 
+ * @copyright Fernando Souza 2013, Willian Mano 2016
+ * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 defined('MOODLE_INTERNAL') || die();
 
@@ -49,12 +49,12 @@ $string['col2text'] = 'Contraste Baixado 1';
 $string['col3text'] = 'Contraste Baixado 2';
 $string['col4text'] = 'Contraste Alto';
 
-/*	Configuration form - please help us translate it on GitHub
-	------------------------------------------------------------
+/*  Configuration form - please help us translate it on GitHub
+    ------------------------------------------------------------
 */
-$string['config_autosave'] = 'Salvar automaticamente'; // label
-$string['config_autosave_checkbox'] = 'Salvar configurações do usuário automaticamente(botão "salvar" desaparecerá)'; // checkbox label
-$string['config_autosave_help'] = 'Configurações de Tamanho da fonte e Esquema de cores são salvas automaticamente na sessão enquanto o usuário estiver logado no sistema. No entanto, configurações de sessão serão apagadas quando o usuário sair do sistema. O usuário pode manter as configurações escolhidas ao logo das sessões usando o botão "Salvar" no bloco. Habilitando a opção "Salvar automaticamente" o botão "Salvar" será removido e as configurações do usuário serão automaticamente salvas. Isto pode impactar na performance do sistema, por isso esta opção é desabilitada por padrão.'; // help block
+$string['config_autosave'] = 'Salvar automaticamente'; // Label.
+$string['config_autosave_checkbox'] = 'Salvar configurações do usuário automaticamente(botão "salvar" desaparecerá)'; // Checkbox label.
+$string['config_autosave_help'] = 'Configurações de Tamanho da fonte e Esquema de cores são salvas automaticamente na sessão enquanto o usuário estiver logado no sistema. No entanto, configurações de sessão serão apagadas quando o usuário sair do sistema. O usuário pode manter as configurações escolhidas ao logo das sessões usando o botão "Salvar" no bloco. Habilitando a opção "Salvar automaticamente" o botão "Salvar" será removido e as configurações do usuário serão automaticamente salvas. Isto pode impactar na performance do sistema, por isso esta opção é desabilitada por padrão.'; // Help block.
 $string['config_showATbar'] = 'ATbar';
 $string['config_showATbar_checkbox'] = 'Permitir a barra ATbar junto com o bloco Acessibilidade';
 $string['config_showATbar_help'] = 'O bloco Acessibilidade també é integrado com a barra ATbar da Universidade de Southampton ECS <a href="http://www.atbar.org">http://www.atbar.org</a>.';

@@ -123,9 +123,12 @@ body.jsdisabled #block_accessibility_launchtoolbar {
     left:5em;
     background: url('[[pix:block_accessibility|loader]]') !important;
     display:none;
-
 }
 
+#sbar{
+    top:50px !important;
+    z-index: 1100 !important; /* one less than profile menu */
+}
 /* Fix dictionary/text to speech/styles pop-up to allow scrolling and make responsive */
 #at-facebox{
 width: 100% !important;
