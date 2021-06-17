@@ -92,6 +92,10 @@ jobs:
       - name: codechecker
         if: ${{ always() }}
         run: moodle-plugin-ci codechecker
+        
+      - name: Moodle PHPDoc Checker
+        if: ${{ always() }}
+        run: moodle-plugin-ci phpdoc
 
       - name: validate
         if: ${{ always() }}
