@@ -2,7 +2,7 @@ body.jsdisabled #block_accessibility_launchtoolbar {
     display: none;
 }
 
-.block_accessibility{
+.block_accessibility {
     position: relative; /* for loader.gif to position absolute */
 
     /*disable selection*/
@@ -21,13 +21,18 @@ body.jsdisabled #block_accessibility_launchtoolbar {
     border: 1px solid #ccc;
     border-radius: 3px;
     text-align: center;
-    background: -moz-linear-gradient(top, rgba(254,255,232,0) 0%, rgba(214,219,191,0.3) 100%) !important; /* FF3.6+ */
-    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(254,255,232,0)), color-stop(100%,rgba(214,219,191,0.3))) !important; /* Chrome,Safari4+ */
-    background: -webkit-linear-gradient(top, rgba(254,255,232,0) 0%,rgba(214,219,191,0.3) 100%) !important; /* Chrome10+,Safari5.1+ */
-    background: -o-linear-gradient(top, rgba(254,255,232,0) 0%,rgba(214,219,191,0.3) 100%) !important; /* Opera11.10+ */
-    background: -ms-linear-gradient(top, rgba(254,255,232,0) 0%,rgba(214,219,191,0.3) 100%) !important; /* IE10+ */
-    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#00feffe8', endColorstr='#4dd6dbbf',GradientType=0 ) !important; /* IE6-9 */
-    background: linear-gradient(top, rgba(254,255,232,0) 0%,rgba(214,219,191,0.3) 100%) !important; /* W3C */
+    background: -moz-linear-gradient(top, rgba(254, 255, 232, 0) 0%, rgba(214, 219, 191, 0.3) 100%) !important; /* FF3.6+ */
+    background:
+            -webkit-gradient(linear, left top, left bottom, color-stop(0%, rgba(254, 255, 232, 0)),
+            color-stop(100%, rgba(214, 219, 191, 0.3))) !important; /* Chrome,Safari4+ */
+    background:
+            -webkit-linear-gradient(top, rgba(254, 255, 232, 0) 0%,
+            rgba(214, 219, 191, 0.3) 100%) !important; /* Chrome10+,Safari5.1+ */
+    background: -o-linear-gradient(top, rgba(254, 255, 232, 0) 0%, rgba(214, 219, 191, 0.3) 100%) !important; /* Opera11.10+ */
+    background: -ms-linear-gradient(top, rgba(254, 255, 232, 0) 0%, rgba(214, 219, 191, 0.3) 100%) !important; /* IE10+ */
+    filter: progid:dximagetransform.microsoft.gradient(startColorstr='#00feffe8', endColorstr='#4dd6dbbf', GradientType=0)
+    !important; /* IE6-9 */
+    background: linear-gradient(top, rgba(254, 255, 232, 0) 0%, rgba(214, 219, 191, 0.3) 100%) !important; /* W3C */
 
     /*disable selection*/
     -webkit-touch-callout: none;
@@ -39,13 +44,18 @@ body.jsdisabled #block_accessibility_launchtoolbar {
 }
 
 #accessibility_controls .access-button:hover {
-    background: -moz-linear-gradient(top, rgba(254,255,232,0) 0%, rgba(214,219,191,0.5) 50%) !important; /* FF3.6+ */
-    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(254,255,232,0)), color-stop(50%,rgba(214,219,191,0.5))) !important; /* Chrome,Safari4+ */
-    background: -webkit-linear-gradient(top, rgba(254,255,232,0) 0%,rgba(214,219,191,0.5) 50%) !important; /* Chrome10+,Safari5.1+ */
-    background: -o-linear-gradient(top, rgba(254,255,232,0) 0%,rgba(214,219,191,0.5) 50%) !important; /* Opera11.10+ */
-    background: -ms-linear-gradient(top, rgba(254,255,232,0) 0%,rgba(214,219,191,0.5) 50%) !important; /* IE10+ */
-    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#00feffe8', endColorstr='#80d6dbbf',GradientType=0 ) !important; /* IE6-9 */
-    background: linear-gradient(top, rgba(254,255,232,0) 0%,rgba(214,219,191,0.5) 50%) !important; /* W3C */
+    background: -moz-linear-gradient(top, rgba(254, 255, 232, 0) 0%, rgba(214, 219, 191, 0.5) 50%) !important; /* FF3.6+ */
+    background:
+            -webkit-gradient(linear, left top, left bottom, color-stop(0%, rgba(254, 255, 232, 0)),
+            color-stop(50%, rgba(214, 219, 191, 0.5))) !important; /* Chrome,Safari4+ */
+    background:
+    -webkit-linear-gradient(top, rgba(254, 255, 232, 0) 0%, rgba(214, 219, 191, 0.5) 50%)
+    !important; /* Chrome10+,Safari5.1+ */
+    background: -o-linear-gradient(top, rgba(254, 255, 232, 0) 0%, rgba(214, 219, 191, 0.5) 50%) !important; /* Opera11.10+ */
+    background: -ms-linear-gradient(top, rgba(254, 255, 232, 0) 0%, rgba(214, 219, 191, 0.5) 50%) !important; /* IE10+ */
+    filter: progid:dximagetransform.microsoft.gradient(startColorstr='#00feffe8', endColorstr='#80d6dbbf', GradientType=0)
+            !important; /* IE6-9 */
+    background: linear-gradient(top, rgba(254, 255, 232, 0) 0%, rgba(214, 219, 191, 0.5) 50%) !important; /* W3C */
 }
 
 .access-button a#block_accessibility_save {
@@ -63,8 +73,8 @@ body.jsdisabled #block_accessibility_launchtoolbar {
 }
 
 #accessibility_controls .access-button .disabled {
-    opacity:0.3;
-    cursor:not-allowed;;
+    opacity: 0.3;
+    cursor: not-allowed;
 }
 
 #accessibility_controls .access-button a {
@@ -76,18 +86,15 @@ body.jsdisabled #block_accessibility_launchtoolbar {
     min-width: 1.5em;
 }
 
-#accessibility_controls .access-button a:hover {
-}
-
-
-#accessibility_controls .access-button:active, #accessibility_controls .access-button:focus {
-    border: 1px solid #F24602
+#accessibility_controls .access-button:active,
+#accessibility_controls .access-button:focus {
+    border: 1px solid #f24602;
 }
 
 #accessibility_controls .access-button img {
     vertical-align: middle;
 }
--
+
 #accessibility_controls input {
     margin: 0 .2em;
 }
@@ -100,53 +107,56 @@ body.jsdisabled #block_accessibility_launchtoolbar {
 
 /* ATBar styles */
 #toolbar-launch {
-	position: absolute;
-	padding: 0;
-	top: -3px;
-	left: 50%;
+    position: absolute;
+    padding: 0;
+    top: -3px;
+    left: 50%;
 }
 
 #toolbar-launch img {
-	padding: 0;
-	opacity: 0.6;
+    padding: 0;
+    opacity: 0.6;
 }
 
-.atbar-always{
+.atbar-always {
     display: inline-block;
 }
 
-#loader-icon{
+#loader-icon {
     position: absolute;
     width: 54px;
     height: 55px;
     top: 42%;
-    left:5em;
+    left: 5em;
     background: url('[[pix:block_accessibility|loader]]') !important;
-    display:none;
+    display: none;
+}
 
+#sbar {
+    top: 50px !important;
+    z-index: 1100 !important; /* one less than profile menu */
 }
 
 /* Fix dictionary/text to speech/styles pop-up to allow scrolling and make responsive */
-#at-facebox{
-width: 100% !important;
-position: fixed !important;
-bottom: 0px !important;
-right: auto !important;
-left: 0px !important;
-top: auto !important;
+#at-facebox {
+    width: 100% !important;
+    position: fixed !important;
+    bottom: 0 !important;
+    right: auto !important;
+    left: 0 !important;
+    top: auto !important;
 }
-.at-fb-tb-body{
-width: 96vw !important;
+.at-fb-tb-body {
+    width: 96vw !important;
 }
-div.at-fb-content div{
-height: 30vh !important;
-} 
-.at-fb-footer{
-width: 40px !important;
-float: right !important;
-position: absolute !important;
-top: 10px !important;
-right: 0px !important;
-border-top: 0px solid transparent !important;
+div.at-fb-content div {
+    height: 30vh !important;
 }
-
+.at-fb-footer {
+    width: 40px !important;
+    float: right !important;
+    position: absolute !important;
+    top: 10px !important;
+    right: 0 !important;
+    border-top: 0 solid transparent !important;
+}

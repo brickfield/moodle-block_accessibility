@@ -17,27 +17,31 @@
 /**
  * Defines upgrades for Accessibility Block
  *
- * @package   block_accessibility                                      (4)
- * @copyright Copyright 2009 onwards Taunton's College                   (5)
- * @author Mark Johnson <mark.johnson@tauntons.ac.uk>                  (6)
- * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later (7)
+ * @package   block_accessibility
+ * @copyright Copyright 2009 onwards Taunton's College
+ * @author Mark Johnson <mark.johnson@tauntons.ac.uk>
+ * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 defined('MOODLE_INTERNAL') || die();
 
+/**
+ * Controls the upgrade script.
+ *
+ * @param integer $oldversion
+ * @return bool
+ */
 function xmldb_block_accessibility_upgrade($oldversion = 0) {
 
     global $CFG, $THEME, $DB;
 
     $dbman = $DB->get_manager();
 
-    $result = true;
-
     // And upgrade begins here. For each one, you'll need one
     // block of code similar to the next one. Please, delete
     // this comment lines once this file start handling proper
     // upgrade code.
 
-    if ($result && $oldversion < 2009071000) {
+    if ($oldversion < 2009071000) {
 
         // Changing type of field fontsize on table accessibility to number.
         $table = new XMLDBTable('accessibility');
@@ -57,7 +61,7 @@ function xmldb_block_accessibility_upgrade($oldversion = 0) {
         upgrade_block_savepoint(true, 2009071000, 'accessibility');
     }
 
-    if ($result && $oldversion < 2009082500) {
+    if ($oldversion < 2009082500) {
 
         // Define field colourscheme to be added to accessibility.
         $table = new xmldb_table('accessibility');
@@ -125,6 +129,6 @@ function xmldb_block_accessibility_upgrade($oldversion = 0) {
         upgrade_block_savepoint(true, 2011122000, 'accessibility');
     }
 
-    return $result;
+    return true;
 
 }

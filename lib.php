@@ -15,17 +15,17 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Defines 2 functions used in the block                               (1)
+ * Defines 2 functions used in the block
  *
- * 2 functions are defined here. {@link accessibility_getsize()} which
+ * 2 functions are defined here. accessibility_getsize() which
  * converts the current textsize between px and %, and
- * {@link accessibility_is_ajax()} which finds out if we're responding
- * to an AJAX request.                                                 (2)
+ * accessibility_is_ajax() which finds out if we're responding
+ * to an AJAX request.
  *
- * @package   block_accessibility                                      (3)
- * @copyright Copyright 2009 onwards Taunton's College                   (4)
- * @author  Mark Johnson <mark.johnson@tauntons.ac.uk>                 (5)
- * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later (6)
+ * @package   block_accessibility
+ * @copyright Copyright 2009 onwards Taunton's College
+ * @author  Mark Johnson <mark.johnson@tauntons.ac.uk>
+ * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
 /**
@@ -39,8 +39,6 @@
  * @return number the converted size
  */
 
-defined('MOODLE_INTERNAL') || die();
-
 // Block constants.
 // ! this definitions might cause conflicts to other Moodle plugins if there is used the same name.
 define('DEFAULT_FONTSIZE', 100); // In %.
@@ -52,6 +50,12 @@ define('MIN_PX_FONTSIZE', 10); // In px.
 define('DEFAULT_SHOWATBAR', true);
 define('DEFAULT_AUTOSAVE', false);
 
+/**
+ * Compares the size in px against the size as %.
+ *
+ * @param int $size
+ * @return mixed
+ */
 function accessibility_getsize($size) {
 
     // Define the array of sizes in px against sizes as %

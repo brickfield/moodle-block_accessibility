@@ -15,10 +15,11 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * German translation                                                 (1)
+ * German translation
  *
- * @author  Joachim Vogelgesang                                        (2)
- * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later (3)
+ * @author  Joachim Vogelgesang
+ * @copyright &copy; Taunton's College 2009
+ * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 defined('MOODLE_INTERNAL') || die();
 

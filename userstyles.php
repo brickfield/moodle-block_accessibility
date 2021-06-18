@@ -15,22 +15,22 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Sets per-user styles (all the CSS declarations are here)            (1)
+ * Sets per-user styles (all the CSS declarations are here)
  *
  * This file is the cornerstone of the block - when the page loads, it
  * checks if the user has a custom settings for the font size and colour
  * scheme (either in the session or the database) and creates a stylesheet
- * to override the standard styles with this setting.                  (2)
+ * to override the standard styles with this setting.
  *
- * @see block_accessibility.php                                        (3)
- * @package   block_accessibility                                      (4)
- * @copyright Copyright 2009 onwards Taunton's College                   (5)
- * @author Mark Johnson <mark.johnson@tauntons.ac.uk>                  (6)
- * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later (7)
+ * @see block_accessibility.php
+ * @package   block_accessibility
+ * @copyright Copyright 2009 onwards Taunton's College
+ * @author Mark Johnson <mark.johnson@tauntons.ac.uk>
+ * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
 require_once('../../config.php');
-
+require_login();
 // Including config.php overwrites header content-type in moodle 2.8.
 header('Content-Type: text/css', true);
 header("X-Content-Type-Options: nosniff"); // For IE.
@@ -77,24 +77,24 @@ if (!empty($USER->colourscheme)) {
 if (!empty($fontsize)) {
     echo '
 
-	#page { /* block elements */
+	#page-wrapper { /* block elements */
 		font-size: ' . $fontsize . '% !important;
 		line-height:1.5; /*WCAG 2.0*/
 	}
 
-	#page *{
+	#page-wrapper *{
 		line-height: inherit !important;
 		font-size: inherit !important;
 	}
 
 
 	/* issue #74 - default h* sizes from Moodle CSS */
-	#page #page-header h1, #page #region-main h1{font-size:' . (0.32 * $fontsize) . 'px !important}
-	#page #page-header h2, #page #region-main h2{font-size:' . (0.28 * $fontsize) . 'px !important}
-	#page #page-header h3, #page #region-main h3{font-size:' . (0.24 * $fontsize) . 'px !important}
-	#page #page-header h4, #page #region-main h4{font-size:' . (0.20 * $fontsize) . 'px !important}
-	#page #page-header h5, #page #region-main h5{font-size:' . (0.16 * $fontsize) . 'px !important}
-	#page #page-header h6, #page #region-main h6{font-size:' . (0.12 * $fontsize) . 'px !important}
+	#page-wrapper #page-header h1, #page-wrapper #region-main h1{font-size:' . (0.32 * $fontsize) . 'px !important}
+	#page-wrapper #page-header h2, #page-wrapper #region-main h2{font-size:' . (0.28 * $fontsize) . 'px !important}
+	#page-wrapper #page-header h3, #page-wrapper #region-main h3{font-size:' . (0.24 * $fontsize) . 'px !important}
+	#page-wrapper #page-header h4, #page-wrapper #region-main h4{font-size:' . (0.20 * $fontsize) . 'px !important}
+	#page-wrapper #page-header h5, #page-wrapper #region-main h5{font-size:' . (0.16 * $fontsize) . 'px !important}
+	#page-wrapper #page-header h6, #page-wrapper #region-main h6{font-size:' . (0.12 * $fontsize) . 'px !important}
 	';
 }
 

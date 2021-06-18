@@ -15,19 +15,19 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Interacts with the database to save/reset font size settings        (1)
+ * Interacts with the database to save/reset font size settings
  *
  * This file handles all the blocks database interaction. If saving,
  * it will check if the current user already has a saved setting, and
  * create/update it as appropriate. If resetting, it will delete the
  * user's setting from the database. If responding to AJAX, it responds
  * with suitable HTTP error codes. Otherwise, it sets a message to
- * display, and redirects the user back to where they came from.       (2)
+ * display, and redirects the user back to where they came from.
  *
- * @package   block_accessibility                                      (3)
- * @copyright 2009 &copy; Taunton's College                            (4)
+ * @package   block_accessibility
+ * @copyright 2009 &copy; Taunton's College
  * @author Mark Johnson <mark.johnson@taunton.ac.uk>
- * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later (5)
+ * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
 require_once('../../config.php');
