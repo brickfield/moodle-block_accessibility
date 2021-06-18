@@ -26,7 +26,7 @@
  * @package   block_accessibility
  * @copyright Copyright 2009 onwards Taunton's College
  * @author Mark Johnson <mark.johnson@tauntons.ac.uk>
- * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later 
+ * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
 require_once('../../config.php');

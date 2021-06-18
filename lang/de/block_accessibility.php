@@ -19,7 +19,7 @@
  *
  * @author  Joachim Vogelgesang
  * @copyright &copy; Taunton's College 2009
- * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later 
+ * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 defined('MOODLE_INTERNAL') || die();
 

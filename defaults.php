@@ -14,6 +14,14 @@
 // You should have received a copy of the GNU General Public License
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
+/**
+ * Declares the default settings of the page.
+ *
+ * @package   block_accessibility
+ * @copyright Copyright &copy; 2009 Taunton's College
+ * @author    Mark Johnson
+ * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ */
 
 defined('MOODLE_INTERNAL') || die();
 $defaults = array(

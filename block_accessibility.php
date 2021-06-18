@@ -31,10 +31,25 @@ require_once($CFG->dirroot . '/blocks/accessibility/lib.php');
  */
 class block_accessibility extends block_base {
 
+    /**
+     * URL of the JavaScript file.
+     */
     const JS_URL = '/blocks/accessibility/module.js';
+    /**
+     * URL of the CSS declaration file.
+     */
     const CSS_URL = '/blocks/accessibility/userstyles.php';
+    /**
+     * URL of the fontsize file.
+     */
     const FONTSIZE_URL = '/blocks/accessibility/changesize.php';
+    /**
+     * URL of the colour change file.
+     */
     const COLOUR_URL = '/blocks/accessibility/changecolour.php';
+    /**
+     * URL of the database file.
+     */
     const DB_URL = '/blocks/accessibility/database.php';
 
     /**

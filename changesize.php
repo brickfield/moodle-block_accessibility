@@ -26,7 +26,7 @@
  * @package   block_accessibility
  * @author      Mark Johnson <mark.johnson@tauntons.ac.uk>
  * @copyright   2010 Tauntons College, UK
- * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later 
+ * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 require_once('../../config.php');
 require_once($CFG->dirroot . '/blocks/accessibility/lib.php');
@@ -108,7 +108,7 @@ switch ($op) {
         if (accessibility_is_ajax()) {
             header('HTTP/1.0 400 Bad Request');
         } else {
-            print_error('invalidop', 'block_accessibility');
+            throw new moodle_exception('invalidop', 'block_accessibility');
         }
         exit();
 }
