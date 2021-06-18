@@ -23,11 +23,11 @@ body.jsdisabled #block_accessibility_launchtoolbar {
     text-align: center;
     background: -moz-linear-gradient(top, rgba(254, 255, 232, 0) 0%, rgba(214, 219, 191, 0.3) 100%) !important; /* FF3.6+ */
     background:
-    -webkit-gradient(linear, left top, left bottom, color-stop(0%, rgba(254, 255, 232, 0)),
-    color-stop(100%, rgba(214, 219, 191, 0.3))) !important; /* Chrome,Safari4+ */
+            -webkit-gradient(linear, left top, left bottom, color-stop(0%, rgba(254, 255, 232, 0)),
+            color-stop(100%, rgba(214, 219, 191, 0.3))) !important; /* Chrome,Safari4+ */
     background:
-    -webkit-linear-gradient(top, rgba(254, 255, 232, 0) 0%,
-    rgba(214, 219, 191, 0.3) 100%) !important; /* Chrome10+,Safari5.1+ */
+            -webkit-linear-gradient(top, rgba(254, 255, 232, 0) 0%,
+            rgba(214, 219, 191, 0.3) 100%) !important; /* Chrome10+,Safari5.1+ */
     background: -o-linear-gradient(top, rgba(254, 255, 232, 0) 0%, rgba(214, 219, 191, 0.3) 100%) !important; /* Opera11.10+ */
     background: -ms-linear-gradient(top, rgba(254, 255, 232, 0) 0%, rgba(214, 219, 191, 0.3) 100%) !important; /* IE10+ */
     filter: progid:dximagetransform.microsoft.gradient(startColorstr='#00feffe8', endColorstr='#4dd6dbbf', GradientType=0)
@@ -46,14 +46,14 @@ body.jsdisabled #block_accessibility_launchtoolbar {
 #accessibility_controls .access-button:hover {
     background: -moz-linear-gradient(top, rgba(254, 255, 232, 0) 0%, rgba(214, 219, 191, 0.5) 50%) !important; /* FF3.6+ */
     background:
-    -webkit-gradient(linear, left top, left bottom, color-stop(0%, rgba(254, 255, 232, 0)),
-    color-stop(50%, rgba(214, 219, 191, 0.5))) !important; /* Chrome,Safari4+ */
+            -webkit-gradient(linear, left top, left bottom, color-stop(0%, rgba(254, 255, 232, 0)),
+            color-stop(50%, rgba(214, 219, 191, 0.5))) !important; /* Chrome,Safari4+ */
     background:
     -webkit-linear-gradient(top, rgba(254, 255, 232, 0) 0%, rgba(214, 219, 191, 0.5) 50%)
     !important; /* Chrome10+,Safari5.1+ */
     background: -o-linear-gradient(top, rgba(254, 255, 232, 0) 0%, rgba(214, 219, 191, 0.5) 50%) !important; /* Opera11.10+ */
     background: -ms-linear-gradient(top, rgba(254, 255, 232, 0) 0%, rgba(214, 219, 191, 0.5) 50%) !important; /* IE10+ */
-    filter: progid:dximagetransform.microsoft.gradient(startColorstr='#00feffe8', endColorstr='#80d6dbbf',GradientType=0)
+    filter: progid:dximagetransform.microsoft.gradient(startColorstr='#00feffe8', endColorstr='#80d6dbbf', GradientType=0)
             !important; /* IE6-9 */
     background: linear-gradient(top, rgba(254, 255, 232, 0) 0%, rgba(214, 219, 191, 0.5) 50%) !important; /* W3C */
 }
