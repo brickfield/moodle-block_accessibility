@@ -23,16 +23,17 @@
  * to override the standard styles with this setting.
  *
  * @package   block_accessibility
- * @copyright Copyright 2009 onwards Taunton's College
- * @author Mark Johnson
+ * @copyright 2021 Brickfield Education Labs <https://www.brickfield.ie/>
+ * @author    Jay Churchward <jay@brickfieldlabs.ie>
+ * @author    Mark Johnson
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
 defined('MOODLE_INTERNAL') || die();
 
 $plugin->component = 'block_accessibility';
-$plugin->release  = '1.4 (Build - 2021061600)';
-$plugin->version = 2020101901;
-$plugin->requires = 2011120500;
+$plugin->version = 2021052400;
+$plugin->requires = 2020061500; // Moodle 3.9 and up.
+$plugin->release  = '1.39.01 (Build - 2021071301)';
 $plugin->cron = 3600;
 $plugin->maturity = MATURITY_STABLE;
