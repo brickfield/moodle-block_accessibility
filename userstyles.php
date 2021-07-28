@@ -30,15 +30,12 @@
  */
 
 require_once('../../config.php');
-require_login();
+require_login(null, true, null, true, true);
 // Including config.php overwrites header content-type in moodle 2.8.
 header('Content-Type: text/css', true);
 header("X-Content-Type-Options: nosniff"); // For IE.
 header('Cache-Control: no-cache');
 
-if (!isloggedin()) {
-    die();
-}
 
 // Get block instance config data outside of it's class
 // https://moodle.org/mod/forum/discuss.php?d=129799
