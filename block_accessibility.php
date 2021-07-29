@@ -78,7 +78,7 @@ class block_accessibility extends block_base {
 
             // Link default/saved settings to a page.
             // Each block instance has it's own configuration form, so we need instance id.
-            $cssurl = self::CSS_URL . '?instance_id=' . $instanceid;
+            $cssurl = new moodle_url(self::CSS_URL, ["instance_id" => $instanceid]);
             $this->page->requires->css($cssurl);
         }
     }
