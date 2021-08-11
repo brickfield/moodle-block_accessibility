@@ -41,7 +41,7 @@ M.block_accessibility = {
 
 		this.Y = Y;
 		this.instance_id = instance_id;
-		
+
 		this.sheetnode = Y.one('link[href="'+M.cfg.wwwroot+
 			'/blocks/accessibility/userstyles.php?instance_id='+instance_id+'"]');
 		//this.stylesheet = Y.StyleSheet(this.sheetnode);
@@ -49,7 +49,7 @@ M.block_accessibility = {
 		// Set default font size
 		//this.log('Initial size: '+Y.one('body').getStyle('fontSize'));
 		//this.defaultsize = M.block_accessibility.get_current_fontsize('body'); // this is disabled because it gives false results...
-		this.defaultsize = M.block_accessibility.DEFAULT_FONTSIZE; 
+		this.defaultsize = M.block_accessibility.DEFAULT_FONTSIZE;
 
 		// Attach the click handler
 		Y.all('#block_accessibility_textresize a').on('click', function(e) {
@@ -81,7 +81,7 @@ M.block_accessibility = {
 					M.block_accessibility.atbar_autoload('off');
 				}
 			});
-			
+
 			// Create Bookmarklet-style link using code from ATbar site
 			// http://access.ecs.soton.ac.uk/StudyBar/versions
 			Y.one('#block_accessibility_launchtoolbar').on('click', function() {
@@ -214,14 +214,8 @@ M.block_accessibility = {
 					method: 'get',
 					on: {
 						success: function(id, o) {
-							
-							// if redirected to login page, or some other error...
-							if (!(o.response === undefined) && o.response.length > 0) {
-								alert(M.util.get_string('jsnotloggedin', 'block_accessibility')+': '+o.status+' '+o.statusText);
-							}
-
 							// now that we updated user setting to the server, load updated stylesheet
-							M.block_accessibility.reload_stylesheet();  
+							M.block_accessibility.reload_stylesheet();
 							var new_fontsize =  M.block_accessibility.get_current_fontsize(M.block_accessibility.MAIN_SELECTOR);
 							M.block_accessibility.log('Increasing size to '+new_fontsize);
 
@@ -238,7 +232,7 @@ M.block_accessibility = {
 							}
 							M.block_accessibility.toggle_textsizer('dec', 'on');
 							M.block_accessibility.toggle_textsizer('save', 'on');
-							
+
 						},
 						failure: function(o) {
 							alert(M.util.get_string('jsnosize', 'block_accessibility')+': '+o.status+' '+o.statusText);
@@ -255,12 +249,6 @@ M.block_accessibility = {
 					method: 'get',
 					on: {
 						success: function(id, o) {
-
-							// if redirected to login page, or some other error...
-							if (!(o.response === undefined) && o.response.length > 0) {
-								alert(M.util.get_string('jsnotloggedin', 'block_accessibility')+': '+o.status+' '+o.statusText);
-							}
-
 							// now that we updated user setting to the server, load updated stylesheet
 							M.block_accessibility.reload_stylesheet();
 							var new_fontsize =  M.block_accessibility.get_current_fontsize(M.block_accessibility.MAIN_SELECTOR);
@@ -276,10 +264,10 @@ M.block_accessibility = {
 							}
 							if (new_fontsize <= min_fontsize) {
 								M.block_accessibility.toggle_textsizer('dec', 'off');
-							} 
+							}
 							M.block_accessibility.toggle_textsizer('inc', 'on');
 							M.block_accessibility.toggle_textsizer('save', 'on');
-							
+
 						},
 						failure: function(id, o) {
 							alert(M.util.get_string('jsnosize', 'block_accessibility')+': '+o.status+' '+o.statusText);
@@ -296,17 +284,11 @@ M.block_accessibility = {
 					method: 'get',
 					on: {
 						success: function(id, o) {
-
-							// if redirected to login page, or some other error...
-							if (!(o.response === undefined) && o.response.length > 0) {
-								alert(M.util.get_string('jsnotloggedin', 'block_accessibility')+': '+o.status+' '+o.statusText);
-							}
-
 							// now that we updated user setting to the server, load updated stylesheet
 							M.block_accessibility.reload_stylesheet();
 							var new_fontsize =  M.block_accessibility.get_current_fontsize(M.block_accessibility.MAIN_SELECTOR);
 							M.block_accessibility.log('Resetting size to '+new_fontsize);
-  
+
 							// Disable/enable buttons as necessary
 							var min_fontsize = M.block_accessibility.MIN_PX_FONTSIZE;
 							var max_fontsize = M.block_accessibility.MAX_PX_FONTSIZE;
@@ -318,7 +300,7 @@ M.block_accessibility = {
 							}
 							M.block_accessibility.toggle_textsizer('save', 'off');
 							//M.block_accessibility.resetsize();
-							
+
 						},
 						failure: function(id, o) {
 							alert(M.util.get_string('jsnosize', 'block_accessibility')+': '+o.status+' '+o.statusText);
@@ -358,12 +340,7 @@ M.block_accessibility = {
 			method: 'get',
 			on: {
 				success: function (id, o) {
-					// if redirected to login page, or some other error...
-					if (!(o.response === undefined) && o.response.length > 0) {
-						alert(M.util.get_string('jsnotloggedin', 'block_accessibility')+': '+o.status+' '+o.statusText);
-					}
-					
-					M.block_accessibility.reload_stylesheet(); 
+					M.block_accessibility.reload_stylesheet();
 					if(scheme == 1){
 						M.block_accessibility.toggle_textsizer('save', 'off'); // reset
 						M.block_accessibility.toggle_textsizer('colour1', 'off');
@@ -371,7 +348,7 @@ M.block_accessibility = {
 					else{
 						M.block_accessibility.toggle_textsizer('save', 'on');
 						M.block_accessibility.toggle_textsizer('colour1', 'on');
-					} 
+					}
 				},
 				failure: function(id, o) {
 					alert(get_string('jsnocolour', 'block_accessibility')+': '+o.status+' '+o.statusText);
@@ -455,10 +432,10 @@ M.block_accessibility = {
 			'/blocks/accessibility/userstyles.php?instance_id='+
 			M.block_accessibility.instance_id+
 			'&v='+cache_prevention_salt
-		
+
 		if (document.createStyleSheet) // only for IE < 11 and IE > 8
 		{
-			/* 
+			/*
 				here we use href attribute change which makes some delay while reloading stylesheet
 
 				1. one another idea would be to load stylesheet using this.Y.io(.. and create <style> element
@@ -468,10 +445,10 @@ M.block_accessibility = {
 				2. initial idea was the same as for non-IE browsers but somehow doesn't work:
 				oldStylesheet.remove(true);
 				newStylesheet = document.createStyleSheet(cssURL);
-				// also keep in mind that createStyleSheet can create up to 31 stylesheets	
-				// http://msdn.microsoft.com/en-us/library/ie/ms531194(v=vs.85).aspx			
+				// also keep in mind that createStyleSheet can create up to 31 stylesheets
+				// http://msdn.microsoft.com/en-us/library/ie/ms531194(v=vs.85).aspx
 			*/
-			
+
 			oldStylesheet.set('href', cssURL);
 		}
 		else
@@ -481,7 +458,7 @@ M.block_accessibility = {
 			// Why wouldn't we just set the href attribute insted of creating another stylesheet node? Because before the new stylesheet is loaded and while old one is deleted, the page will lose all the styles and all the elements get unstyled for a some time (poor user experience)
 
 			newStylesheet = oldStylesheet.cloneNode(true);
-			newStylesheet.set('href', cssURL); 
+			newStylesheet.set('href', cssURL);
 			this.Y.one('head').append(newStylesheet);
 			// remove old stylesheet
 			newStylesheet.getDOMNode().onload = function(){
@@ -518,7 +495,7 @@ M.block_accessibility = {
 	show_loading: function(){
 		this.transactionsCount++;
 		Y.one('#loader-icon').setStyle('display', 'block');
-		Y.one('#accessibility_controls').setStyle('opacity', '0.2');	
+		Y.one('#accessibility_controls').setStyle('opacity', '0.2');
 	},
 	hide_loading: function(){
 		if(this.transactionsCount < 0) this.transactionsCount--;
@@ -526,7 +503,7 @@ M.block_accessibility = {
 
 		if(this.transactionsCount == 0){
 			Y.one('#loader-icon').setStyle('display', 'none');
-			Y.one('#accessibility_controls').setStyle('opacity', '1');	
+			Y.one('#accessibility_controls').setStyle('opacity', '1');
 		}
 	},
 }

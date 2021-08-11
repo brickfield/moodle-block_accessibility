@@ -4,6 +4,7 @@ _NOTE - This release will work on Moodle 3.9, Moodle 3.10, and Moodle 3.11._
 
 ##### 1.39.02 (Build - 2021080501)
 Bug fixes:
+
 * Page will no longer redirect to the CSS page on login.
 
 ##### 1.39.01 (Build - 2021071301)

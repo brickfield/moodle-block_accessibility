@@ -127,3 +127,23 @@ function safe_redirect_url($redirect) {
     }
     return $redirecturl;
 }
+
+/**
+ * To use by Ajax PHP scripts. Ensures that execeptions thrown by the site policy requirements don't abort the scripts. This allows
+ * font changes to be used by non logged in users and users that have not yet agreed to the policy.
+ */
+function block_accessibility_require_login() {
+    try {
+        // We expect an exception here if the user didn't agree to the site policy yet, but we will only get the exception if
+        // redirecting is not allowed (fifth parameter set to true). This should be fine as this function is called by a block, and
+        // page will have already called require_login and redirected to the site policy page.
+        // This catch is for the site policy page only.
+        require_login(null, true, null, true, true);
+    } catch (Exception $e) {
+        // We are expecting only a sitepolicynotagreed exception. Swallow it, and throw all others.
+        if (!($e instanceof moodle_exception) or $e->errorcode != 'sitepolicynotagreed') {
+            // In case we receive a different exception, throw it.
+            throw $e;
+        }
+    }
+}

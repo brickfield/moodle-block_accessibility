@@ -30,7 +30,11 @@
  */
 
 require_once('../../config.php');
-require_login(null, true, null, true, true);
+require_once($CFG->dirroot . '/blocks/accessibility/lib.php');
+
+// Special function to catch exceptions from site policies.
+block_accessibility_require_login();
+
 // Including config.php overwrites header content-type in moodle 2.8.
 header('Content-Type: text/css', true);
 header("X-Content-Type-Options: nosniff"); // For IE.
