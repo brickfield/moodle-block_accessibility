@@ -42,8 +42,9 @@ $scheme = optional_param('scheme', false, PARAM_BOOL);
 $atbar = optional_param('atbar', false, PARAM_BOOL);
 
 if (!accessibility_is_ajax()) {
-    $redirect = optional_param('redirect', $CFG->wwwroot, PARAM_TEXT);
-    $redirecturl = safe_redirect_url($redirect);
+    // If the 'redirect' argument passed in isn't local, set it to the root.
+    $redirect = optional_param('redirect', $CFG->wwwroot, PARAM_LOCALURL) ?: $CFG->wwwroot;
+    $redirecturl = new moodle_url($redirect);
 }
 
 switch ($op) {

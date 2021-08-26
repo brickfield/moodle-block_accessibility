@@ -108,27 +108,6 @@ function accessibility_is_ajax() {
 }
 
 /**
- * Prevent redirecting to external URLs and redirect to the Moodle wwwroot if one is passed
- *
- * @param string $redirect
- * @return string Safe URL to redirect to
- */
-function safe_redirect_url($redirect) {
-    global $CFG;
-    $redirecturl = new moodle_url($redirect);
-
-    if (preg_match('/^(http(s)?:)?\/\//', $redirecturl)) {
-        $urltest = preg_replace('/^http(s)?:/', '', $redirecturl);
-        $roottest = preg_replace('/^http(s)?:/', '', $CFG->wwwroot);
-
-        if (!preg_match('/^' . preg_quote($roottest, '/') . '/', $urltest)) {
-            $redirecturl = $CFG->wwwroot;
-        }
-    }
-    return $redirecturl;
-}
-
-/**
  * To use by Ajax PHP scripts. Ensures that execeptions thrown by the site policy requirements don't abort the scripts. This allows
  * font changes to be used by non logged in users and users that have not yet agreed to the policy.
  */

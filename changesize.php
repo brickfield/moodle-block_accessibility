@@ -98,13 +98,10 @@ switch ($op) {
                 'userid' => $USER->id
         );
         if (!accessibility_is_ajax()) {
-            $redirect = required_param('redirect', PARAM_TEXT);
-            $urlparams['redirect'] = safe_redirect_url($redirect);
+            // If the 'redirect' argument passed in isn't local, set it to the root.
+            $urlparams['redirect'] = required_param('redirect', PARAM_LOCALURL) ?: $CFG->wwwroot;
         }
-
-        $redirecturl = new moodle_url('/blocks/accessibility/database.php', $urlparams);
-        redirect($redirecturl);
-
+        redirect(new moodle_url('/blocks/accessibility/database.php', $urlparams));
         break;
     default:
         if (accessibility_is_ajax()) {
@@ -121,7 +118,7 @@ $USER->fontsize = $new; // If we've just increased or decreased, save the new si
 if (!accessibility_is_ajax()) {
     // Otherwise, redirect the user
     // if action is not achieved through ajax, redirect back to page is required.
-    $redirect = optional_param('redirect', $CFG->wwwroot, PARAM_TEXT);
-    $redirecturl = new moodle_url($redirect);
-    redirect($redirecturl);
+    // If the 'redirect' argument passed in isn't local, set it to the root.
+    $redirect = optional_param('redirect', $CFG->wwwroot, PARAM_LOCALURL) ?: $CFG->wwwroot;
+    redirect(new moodle_url($redirect));
 }
