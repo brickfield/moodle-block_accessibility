@@ -32,7 +32,9 @@
 
 require_once('../../config.php');
 require_once($CFG->dirroot . '/blocks/accessibility/lib.php');
-require_login();
+
+// Special function to catch exceptions from site policies.
+block_accessibility_require_login();
 
 $op = required_param('op', PARAM_TEXT);
 $size = optional_param('size', false, PARAM_BOOL);
@@ -40,7 +42,7 @@ $scheme = optional_param('scheme', false, PARAM_BOOL);
 $atbar = optional_param('atbar', false, PARAM_BOOL);
 
 if (!accessibility_is_ajax()) {
-    $redirect = required_param('redirect', PARAM_TEXT);
+    $redirect = optional_param('redirect', $CFG->wwwroot, PARAM_TEXT);
     $redirecturl = safe_redirect_url($redirect);
 }
 

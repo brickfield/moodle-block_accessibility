@@ -33,7 +33,9 @@
 
 require_once('../../config.php');
 require_once($CFG->dirroot . '/blocks/accessibility/lib.php');
-require_login();
+
+// Special function to catch exceptions from site policies.
+block_accessibility_require_login();
 
 $scheme = required_param('scheme', PARAM_INT);
 
@@ -68,7 +70,7 @@ switch ($scheme) {
 }
 
 if (!accessibility_is_ajax()) {
-    $redirect = required_param('redirect', PARAM_TEXT);
+    $redirect = optional_param('redirect', $CFG->wwwroot, PARAM_TEXT);
     $redirecturl = new moodle_url($redirect);
     redirect($redirecturl);
 }

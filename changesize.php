@@ -30,7 +30,9 @@
  */
 require_once('../../config.php');
 require_once($CFG->dirroot . '/blocks/accessibility/lib.php');
-require_login();
+
+// Special function to catch exceptions from site policies.
+block_accessibility_require_login();
 
 // If the user hasn't already changed the size, we need to find a default/referent so we know where we're
 // increasing/decreasing from.
@@ -119,7 +121,7 @@ $USER->fontsize = $new; // If we've just increased or decreased, save the new si
 if (!accessibility_is_ajax()) {
     // Otherwise, redirect the user
     // if action is not achieved through ajax, redirect back to page is required.
-    $redirect = required_param('redirect', PARAM_TEXT);
+    $redirect = optional_param('redirect', $CFG->wwwroot, PARAM_TEXT);
     $redirecturl = new moodle_url($redirect);
     redirect($redirecturl);
 }
