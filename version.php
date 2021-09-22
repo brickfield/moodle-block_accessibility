@@ -32,8 +32,8 @@
 defined('MOODLE_INTERNAL') || die();
 
 $plugin->component = 'block_accessibility';
-$plugin->version = 2021052401;
+$plugin->version = 2021092200;
 $plugin->requires = 2020061500; // Moodle 3.9 and up.
-$plugin->release  = '1.39.02 (Build - 2021080501)';
+$plugin->release  = '1.4 (Build - 2021092200)';
 $plugin->cron = 3600;
 $plugin->maturity = MATURITY_STABLE;
