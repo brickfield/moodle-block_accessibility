@@ -13,7 +13,7 @@ M.block_accessibility = {
 	MIN_FONTSIZE: 77,
 
 	// only in JS-mode, because .getStyle('fontSize') will return computed style in px
-	DAFAULT_PX_FONTSIZE: 13,
+	DEFAULT_PX_FONTSIZE: 13,
 	MAX_PX_FONTSIZE: 26,
 	MIN_PX_FONTSIZE: 10+1, // +1 because of unknown error...YUI for 77% returns style of 11px
 

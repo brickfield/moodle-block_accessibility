@@ -58,6 +58,7 @@ define('DEFAULT_AUTOSAVE', false);
  */
 function accessibility_getsize($size) {
 
+debugging($size);
     // Define the array of sizes in px against sizes as %
     // make sure to maintain defined constants above in the script
     // http://yuilibrary.com/yui/docs/cssfonts/.

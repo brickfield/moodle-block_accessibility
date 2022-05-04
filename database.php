@@ -33,6 +33,8 @@
 require_once('../../config.php');
 require_once($CFG->dirroot . '/blocks/accessibility/lib.php');
 
+$DB->set_debug(true);
+
 // Special function to catch exceptions from site policies.
 block_accessibility_require_login();
 

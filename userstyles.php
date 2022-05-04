@@ -63,6 +63,9 @@ if (!empty($USER->fontsize)) {
         $fontsize = $options->fontsize;
     }
 }
+debugging('fontsize = '.$fontsize);
+$fontsize = $options->fontsize;
+debugging('fontsize = '.$fontsize);
 
 // Check for colourscheme user setting.
 if (!empty($USER->colourscheme)) {
