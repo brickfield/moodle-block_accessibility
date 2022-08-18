@@ -143,11 +143,11 @@ class block_accessibility extends block_base {
                 'id' => "block_accessibility_dec",
                 'href' => $sizeurl->out(false, array('op' => 'dec'))
         );
-        $saveattrs = array(
-                'title' => get_string('save', 'block_accessibility'),
-                'id' => "block_accessibility_save",
-                'href' => $dburl->out(false)
-        );
+        // $saveattrs = array(
+        //         'title' => get_string('save', 'block_accessibility'),
+        //         'id' => "block_accessibility_save",
+        //         'href' => $dburl->out(false)
+        // );
 
         // Initialization of reset button.
         $resetattrs = array(
@@ -227,9 +227,9 @@ class block_accessibility extends block_base {
         $content .= html_writer::tag('a', $strchar . '+', $incattrs);
         $content .= html_writer::end_tag('li');
 
-        $content .= html_writer::start_tag('li', array('class' => 'access-button'));
-        $content .= html_writer::tag('a', '&nbsp;', $saveattrs);
-        $content .= html_writer::end_tag('li');
+        // $content .= html_writer::start_tag('li', array('class' => 'access-button'));
+        // $content .= html_writer::tag('a', '&nbsp;', $saveattrs);
+        // $content .= html_writer::end_tag('li');
 
         $content .= html_writer::end_tag('ul');
 

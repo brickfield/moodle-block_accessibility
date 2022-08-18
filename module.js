@@ -13,7 +13,7 @@ M.block_accessibility = {
 	MIN_FONTSIZE: 77,
 
 	// only in JS-mode, because .getStyle('fontSize') will return computed style in px
-	DAFAULT_PX_FONTSIZE: 13,
+	DEFAULT_PX_FONTSIZE: 13,
 	MAX_PX_FONTSIZE: 26,
 	MIN_PX_FONTSIZE: 10+1, // +1 because of unknown error...YUI for 77% returns style of 11px
 
@@ -227,12 +227,12 @@ M.block_accessibility = {
 							} else {
 								M.block_accessibility.toggle_textsizer('reset', 'on');
 							}
-							if (new_fontsize >= max_fontsize) {
+							if (Math.round(new_fontsize) >= max_fontsize) {
 								M.block_accessibility.toggle_textsizer('inc', 'off');
 							}
 							M.block_accessibility.toggle_textsizer('dec', 'on');
-							M.block_accessibility.toggle_textsizer('save', 'on');
-
+							// M.block_accessibility.toggle_textsizer('save', 'on');
+							M.block_accessibility.savesize();
 						},
 						failure: function(o) {
 							alert(M.util.get_string('jsnosize', 'block_accessibility')+': '+o.status+' '+o.statusText);
@@ -262,12 +262,12 @@ M.block_accessibility = {
 							} else {
 								M.block_accessibility.toggle_textsizer('reset', 'on');
 							}
-							if (new_fontsize <= min_fontsize) {
+							if (Math.round(new_fontsize) <= min_fontsize) {
 								M.block_accessibility.toggle_textsizer('dec', 'off');
 							}
 							M.block_accessibility.toggle_textsizer('inc', 'on');
-							M.block_accessibility.toggle_textsizer('save', 'on');
-
+							// M.block_accessibility.toggle_textsizer('save', 'on');
+							M.block_accessibility.savesize();
 						},
 						failure: function(id, o) {
 							alert(M.util.get_string('jsnosize', 'block_accessibility')+': '+o.status+' '+o.statusText);
@@ -293,12 +293,10 @@ M.block_accessibility = {
 							var min_fontsize = M.block_accessibility.MIN_PX_FONTSIZE;
 							var max_fontsize = M.block_accessibility.MAX_PX_FONTSIZE;
 							M.block_accessibility.toggle_textsizer('reset', 'off');
-							if(new_fontsize <= min_fontsize) {
-								M.block_accessibility.toggle_textsizer('dec', 'on');
-							} else if (new_fontsize >= max_fontsize){
-								M.block_accessibility.toggle_textsizer('inc', 'on');
-							}
-							M.block_accessibility.toggle_textsizer('save', 'off');
+							M.block_accessibility.toggle_textsizer('dec', 'on');
+							M.block_accessibility.toggle_textsizer('inc', 'on');
+
+							// M.block_accessibility.toggle_textsizer('save', 'off');
 							//M.block_accessibility.resetsize();
 
 						},
@@ -310,10 +308,10 @@ M.block_accessibility = {
 				   }
 				});
 				break;
-			case "block_accessibility_save":
-				//this.log('Saving Size');
-				M.block_accessibility.savesize();
-				break;
+			// case "block_accessibility_save":
+			// 	//this.log('Saving Size');
+			// 	M.block_accessibility.savesize();
+			// 	break;
 		}
 	},
 
@@ -342,11 +340,11 @@ M.block_accessibility = {
 				success: function (id, o) {
 					M.block_accessibility.reload_stylesheet();
 					if(scheme == 1){
-						M.block_accessibility.toggle_textsizer('save', 'off'); // reset
+						// M.block_accessibility.toggle_textsizer('save', 'off'); // reset
 						M.block_accessibility.toggle_textsizer('colour1', 'off');
 					}
 					else{
-						M.block_accessibility.toggle_textsizer('save', 'on');
+						// M.block_accessibility.toggle_textsizer('save', 'on');
 						M.block_accessibility.toggle_textsizer('colour1', 'on');
 					}
 				},
