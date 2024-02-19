@@ -1,4 +1,4 @@
-Accessibility Block for Moodle
+Accessibility Block for Moodle.
 
 Provides options for changing text size and colour scheme. Settings can be saved to persist between sessions. Colour settings can
 be defined at the block instance level (Block instance configuration).
